@@ -1,0 +1,23 @@
+# Alejandro Cuba Ruiz
+
+> Principal Front-End Engineer, Google Developer Expert in Angular, and ng-Champion based in Miami Beach, FL.
+
+## About
+This is the personal website and portfolio of Alejandro Cuba Ruiz.
+
+- **Role**: Principal Front-End Engineer, Google Developer Expert (GDE) in Angular, ng-Champion, and host of the Angularidades podcast.
+- **Location**: Miami Beach, FL, USA
+- **Specialties**: Front-End Web Engineering, HTML5, CSS, JavaScript, Angular.
+- **Handles**: @alejandrocuba, @alejandrocubaruiz, @zorphdark
+
+## Links
+- [Personal Website](https://alejandrocuba.com)
+- [LinkedIn](https://www.linkedin.com/in/alejandrocuba)
+- [GitHub](https://github.com/alejandrocuba)
+- [Bluesky](https://bsky.app/profile/alejandrocuba.com)
+- [X / Twitter](https://twitter.com/zorphdark)
+- [Google Developer Profile](https://developers.google.com/profile/u/alejandrocubaruiz)
+- [Medium Blog](https://medium.com/@alejandrocuba)
+- [Angularidades Podcast (YouTube)](https://www.youtube.com/@angularidades)
+- [Instagram Photoblog](https://www.instagram.com/alejandrocubaruiz/)
+- [Sci-Fi Blog (Spanish)](https://www.zorphdark.com/)
