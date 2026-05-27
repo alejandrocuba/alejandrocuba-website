@@ -2,13 +2,35 @@
 
 Personal website for Alejandro Cuba Ruiz with links to his social media and projects.
 
-## 🚀 Technologies
+<p align="center">
+  <a href="https://github.com/alejandrocuba/alejandrocuba-website/actions/workflows/firebase-hosting-merge.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/alejandrocuba/alejandrocuba-website/firebase-hosting-merge.yml?branch=main&style=for-the-badge&logo=firebase&label=Firebase%20Hosting" alt="Firebase Hosting Status" />
+  </a>
+  <a href="https://github.com/alejandrocuba/alejandrocuba-website/actions/workflows/firebase-hosting-pull-request.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/alejandrocuba/alejandrocuba-website/firebase-hosting-pull-request.yml?style=for-the-badge&logo=github&label=PR%20Build" alt="PR Build Status" />
+  </a>
+  <a href="https://github.com/alejandrocuba/alejandrocuba-website/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/alejandrocuba/alejandrocuba-website?style=for-the-badge&color=blue" alt="License" />
+  </a>
+  <a href="https://github.com/alejandrocuba/alejandrocuba-website/commits/main">
+    <img src="https://img.shields.io/github/last-commit/alejandrocuba/alejandrocuba-website?style=for-the-badge" alt="Last Commit" />
+  </a>
+</p>
 
-- **[Vite](https://vite.dev/)**
-- **[Pug](https://pugjs.org/) ([HTML / Data powered by Vituum](https://vituum.dev/))**
-- **[CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)**
-- **[Firebase Hosting](https://firebase.google.com/docs/hosting)**
-- **[pnpm](https://pnpm.io/)**
+<p align="center">
+  <a href="https://vite.dev/">
+    <img src="https://img.shields.io/badge/Vite-v8-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  </a>
+  <a href="https://pugjs.org/">
+    <img src="https://img.shields.io/badge/Pug-v3-A65F4A?style=for-the-badge&logo=pug&logoColor=white" alt="Pug" />
+  </a>
+  <a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5">
+    <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+  </a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">
+    <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+  </a>
+</p>
 
 ## 📁 Project Structure
 
