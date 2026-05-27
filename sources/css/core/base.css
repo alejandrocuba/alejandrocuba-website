@@ -16,7 +16,7 @@ main {
 }
 
 .portrait {
-  margin: 60px auto -14px;
+  margin: 40px auto -14px;
   background: url("/assets/images/coding.webp") top center no-repeat;
   height: 210px;
   transition: all ease-out var(--loading-transition-time);
@@ -60,7 +60,10 @@ main:focus {
 
 /* prevents animation/transition flickering on page load */
 body.is-loading {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation: none !important;
     transition: none !important;
   }
