@@ -1,0 +1,64 @@
+/* Modern CSS Reset aligned with best practices */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reset typography and default styles for interactive elements */
+a,
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  line-height: inherit;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  background: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+a,
+button {
+  cursor: pointer;
+  transition: color 0.25s, background 0.25s, opacity 0.25s;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  border: 0;
+  vertical-align: middle;
+}
+
+/* Reset margins for headings and blocks */
+h1, h2, h3, h4, h5, h6, p, ul, ol, figure {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  list-style: none;
+}
