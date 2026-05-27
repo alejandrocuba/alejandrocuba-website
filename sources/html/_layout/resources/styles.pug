@@ -1,15 +1,16 @@
 include ../setup/path
 link(rel='preconnect', href='https://fonts.googleapis.com')
 link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin)
-link(rel='preconnect', href='https://cdnjs.cloudflare.com')
-
--
-  var styles = [
-    'https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap',
-    'https://cdnjs.cloudflare.com/ajax/libs/godlike.css/3.0.0/godlike.min.css', // reset
-    path.css + "styles.css"
-  ]
 
 block styles
-  for href in styles
-    link(rel='stylesheet', href=href)
+  //- Load Google Fonts asynchronously to prevent render-blocking
+  link(rel='preload', as='style', href='https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap')
+  link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap', media='print', onload="this.media='all'")
+  noscript
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap')
+
+  //- Preload critical LCP above-the-fold image
+  link(rel='preload', href=path.images + 'coding.webp', as='image', fetchpriority='high')
+
+  //- Main compiled styles (including reset godlike.css)
+  link(rel='stylesheet', href=path.css + "styles.css")

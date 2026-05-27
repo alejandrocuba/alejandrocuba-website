@@ -6,7 +6,12 @@ import vituum from 'vituum';
 export default defineConfig({
   root: resolve(__dirname, 'sources/html'),
   plugins: [
-    vituum(),
+    vituum({
+      pages: {
+        dir: './',
+        root: './'
+      }
+    }),
     pug(),
   ],
   publicDir: resolve(__dirname, 'public'),
