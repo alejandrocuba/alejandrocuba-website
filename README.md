@@ -9,9 +9,6 @@ Personal website for Alejandro Cuba Ruiz with links to his social media and proj
   <a href="https://github.com/alejandrocuba/alejandrocuba-website/actions/workflows/firebase-hosting-pull-request.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/alejandrocuba/alejandrocuba-website/firebase-hosting-pull-request.yml?style=for-the-badge&logo=github&label=PR%20Build" alt="PR Build Status" />
   </a>
-  <a href="https://github.com/alejandrocuba/alejandrocuba-website/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/alejandrocuba/alejandrocuba-website?style=for-the-badge&color=blue" alt="License" />
-  </a>
   <a href="https://github.com/alejandrocuba/alejandrocuba-website/commits/main">
     <img src="https://img.shields.io/github/last-commit/alejandrocuba/alejandrocuba-website?style=for-the-badge" alt="Last Commit" />
   </a>
