@@ -2,17 +2,10 @@ include ../setup/path
 
 -
   var scripts = [
-    path.js + "vendor/prism.min.js"
+    path.js + "analytics.js",
+    path.js + "prism.min.js"
   ]
 
 block scripts
-  //- Google tag
-  script(async, src="https://www.googletagmanager.com/gtag/js?id=G-XJEFKVEFGM")
-  script.
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XJEFKVEFGM');
-
   for href in scripts
     script(src=href type="module")
