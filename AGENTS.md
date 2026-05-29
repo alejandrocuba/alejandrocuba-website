@@ -10,7 +10,7 @@
 - **Design System**: See [DESIGN-SYSTEM.md](DESIGN-SYSTEM.md).
 
 ## 1. Web Quality Checklist
-- **SEO**: Update `public/sitemap.xml` `<lastmod>`. Point `public/robots.txt` to sitemap. Update `sources/html/_layout/resources/metadata.pug` (OG/Twitter, unique `<title>`). Enforce exactly one `<h1>` per page.
+- **SEO**: Update `public/sitemap.xml` `<lastmod>` every time there's a change in the codebase. Point `public/robots.txt` to sitemap. Update `sources/html/_layout/resources/metadata.pug` (OG/Twitter, unique `<title>`). Enforce exactly one `<h1>` per page.
 - **A11y**: Maintain skip-link in `base.pug`. Enforce `alt`/`aria-label` on all images (including background divs). Use correct `lang` attributes (e.g., `lang="es"`).
 - **Performance**: Use `preconnect` hints in `styles.pug`. Append `&display=swap` to Google Fonts. Use optimized WebP images.
 - **Security**: Maintain headers in `firebase.json` (CSP, X-Frame-Options). Update CSP for new external scripts.
