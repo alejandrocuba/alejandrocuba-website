@@ -4,13 +4,13 @@ link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin)
 
 block styles
   //- Load Google Fonts asynchronously to prevent render-blocking
-  link(rel='preload', as='style', href='https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap')
-  link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap', media='print', onload="this.media='all'")
+  link(rel='preload', as='style', href='https://fonts.googleapis.com/css2?family=Roboto:wght@400&family=Roboto+Mono:wght@400&display=swap')
+  link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Roboto:wght@400&family=Roboto+Mono:wght@400&display=swap', media='print', onload="this.media='all'")
   noscript
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Roboto:wght@400&family=Roboto+Mono:wght@400&display=swap')
 
   //- Preload critical LCP above-the-fold image
-  link(rel='preload', href=path.images + 'coding.webp', as='image', type='image/webp', fetchpriority='high')
+  link(rel='preload', href=path.images + 'coding.webp', as='image', fetchpriority='high')
 
   //- Main compiled styles (including reset godlike.css)
   link(rel='stylesheet', href=path.css + "styles.css")
