@@ -1,3 +1,9 @@
+# Design System Specification
+
+> [!IMPORTANT]
+> This document inherits and extends the global design and accessibility standards defined in the central [Core Design Specification (DESIGN-SYSTEM.core.md)](DESIGN-SYSTEM.core.md).
+> It serves as the **single source of truth** for all visual tokens, custom components, and animation settings specific to this UI. **Strict adherence is mandatory.**
+
 # Design System
 
 This document outlines the visual, styling, and layout standards for this project. It defines design tokens, responsive breakpoints, typography, and component-specific styling specifications.
