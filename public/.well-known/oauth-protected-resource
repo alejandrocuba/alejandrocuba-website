@@ -1,0 +1,12 @@
+{
+  "resource": "https://alejandrocuba.com",
+  "authorization_servers": [
+    "https://alejandrocuba.com"
+  ],
+  "scopes_supported": [
+    "read"
+  ],
+  "bearer_methods_supported": [
+    "header"
+  ]
+}

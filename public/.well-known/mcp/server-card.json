@@ -1,0 +1,19 @@
+{
+  "serverInfo": {
+    "name": "alejandrocuba-portfolio",
+    "version": "1.0.0"
+  },
+  "endpoint": "https://alejandrocuba.com/mcp",
+  "capabilities": {
+    "tools": {
+      "listChanged": false
+    },
+    "resources": {
+      "subscribe": false,
+      "listChanged": false
+    },
+    "prompts": {
+      "listChanged": false
+    }
+  }
+}
