@@ -6,12 +6,13 @@
   "response_types_supported": ["code"],
   "grant_types_supported": ["authorization_code", "client_credentials"],
   "agent_auth": {
-    "skill": "https://alejandrocuba.com/.well-known/agent-skills/portfolio-info/SKILL.md",
+    "skill": "https://alejandrocuba.com/auth.md",
     "register_uri": "https://alejandrocuba.com/agent/register",
     "identity_types_supported": ["anonymous"],
     "anonymous": {
       "credential_types_supported": ["bearer"]
     },
-    "claim_uri": "https://alejandrocuba.com/agent/claim"
+    "claim_uri": "https://alejandrocuba.com/agent/claim",
+    "revocation_uri": "https://alejandrocuba.com/agent/revoke"
   }
 }
