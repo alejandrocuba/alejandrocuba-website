@@ -1,7 +1,7 @@
 .console {
-  font-family: "Roboto Mono", sans-serif;
+  font-family: "Roboto Mono", monospace;
   font-size: 1em;
-  transition: all ease-out var(--loading-transition-time);
+  transition: opacity ease-out var(--loading-transition-time), transform ease-out var(--loading-transition-time);
   transform-origin: 50% 50%;
 
   .is-loading & {
@@ -13,6 +13,11 @@
     max-width: 640px;
     margin: 0 auto 60px;
   }
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  font-family: "Roboto Mono", monospace;
 }
 
 pre[class*=language-] {
@@ -30,6 +35,7 @@ pre[class*=language-] {
 
   code {
     white-space: pre-wrap;
+    font-family: inherit;
   }
 
   main & {

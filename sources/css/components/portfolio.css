@@ -1,7 +1,7 @@
 .portfolio {
   display: flex;
   flex-wrap: wrap;
-  transition: all ease-out var(--loading-transition-time);
+  transition: opacity ease-out var(--loading-transition-time), transform ease-out var(--loading-transition-time);
 
   .is-loading & {
     opacity: 0;
@@ -24,7 +24,7 @@
       content: "";
       background-color: transparent;
       z-index: 1;
-      transition: all ease-out .20s;
+      transition: background-color ease-out .20s;
     }
 
     &:hover::before {
