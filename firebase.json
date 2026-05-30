@@ -14,6 +14,113 @@
     ],
     "headers": [
       {
+        "source": "/",
+        "headers": [
+          {
+            "key": "Link",
+            "value": "</.well-known/api-catalog>; rel=\"api-catalog\", </auth.md>; rel=\"describedby\""
+          },
+          {
+            "key": "Vary",
+            "value": "Accept"
+          }
+        ]
+      },
+      {
+        "source": "/index.html",
+        "headers": [
+          {
+            "key": "Link",
+            "value": "</.well-known/api-catalog>; rel=\"api-catalog\", </auth.md>; rel=\"describedby\""
+          },
+          {
+            "key": "Vary",
+            "value": "Accept"
+          }
+        ]
+      },
+      {
+        "source": "/.well-known/api-catalog",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/linkset+json; profile=\"https://www.rfc-editor.org/info/rfc9727\""
+          }
+        ]
+      },
+      {
+        "source": "/.well-known/openid-configuration",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      },
+      {
+        "source": "/.well-known/oauth-authorization-server",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      },
+      {
+        "source": "/.well-known/oauth-protected-resource",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      },
+      {
+        "source": "/.well-known/mcp/server-card.json",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      },
+      {
+        "source": "/.well-known/agent-skills/index.json",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      },
+      {
+        "source": "/.well-known/jwks.json",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      },
+      {
+        "source": "/auth.md",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "text/markdown; charset=utf-8"
+          }
+        ]
+      },
+      {
+        "source": "/.well-known/agent-skills/portfolio-info/SKILL.md",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "text/markdown; charset=utf-8"
+          }
+        ]
+      },
+      {
         "source": "**",
         "headers": [
           {
@@ -75,6 +182,10 @@
           {
             "key": "Cache-Control",
             "value": "no-cache, no-store, must-revalidate"
+          },
+          {
+            "key": "Vary",
+            "value": "Accept"
           }
         ]
       }

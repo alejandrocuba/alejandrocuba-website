@@ -1,0 +1,19 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://alejandrocuba.com/",
+      "service-doc": [
+        {
+          "href": "https://alejandrocuba.com/llms.txt",
+          "type": "text/plain"
+        }
+      ],
+      "service-desc": [
+        {
+          "href": "https://alejandrocuba.com/.well-known/api-catalog",
+          "type": "application/linkset+json"
+        }
+      ]
+    }
+  ]
+}

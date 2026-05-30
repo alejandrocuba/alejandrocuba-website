@@ -1,4 +1,8 @@
 import Prism from 'prismjs';
+import loadLanguages from 'prismjs/components/index.js';
+
+// Load required languages
+loadLanguages(['pug']);
 
 // Setup Jade alias
 if (Prism.languages.pug && !Prism.languages.jade) {
