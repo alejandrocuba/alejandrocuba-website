@@ -3,35 +3,37 @@
   p#consoledescription.sr-only Code snippet showing an HTML template written in Pug format to describe Alejandro's bio and link to other websites
 
   //- Visible Pug code for sighted users
-  pre(aria-hidden="true"): code(class=`language-jade`).
-    doctype html
-    html(lang='en')
-      head
-        title Alejandro Cuba Ruiz
-        - var metadata = {
-            description: "Principal Front-End Engineer, Google Developer Expert in Angular, ng-Champion, Sci-Fi Writer",
-            location: "Miami Beach, FL",
-          }
-        for content, name in metadata
-          meta(name=name, content=content)
+  pre(aria-hidden="true" class="language-jade")
+    code(class=`language-jade`)
+      :highlight-jade
+        doctype html
+        html(lang='en')
+          head
+            title Alejandro Cuba Ruiz
+            - var metadata = {
+                description: "Principal Front-End Engineer, Google Developer Expert in Angular, ng-Champion, Sci-Fi Writer",
+                location: "Miami Beach, FL",
+              }
+            for content, name in metadata
+              meta(name=name, content=content)
 
-      body
-        main
-          ul.content
-            li#blog https://medium.com/@alejandrocuba
-            li#gde https://developers.google.com/profile/u/alejandrocubaruiz
-            li#code https://github.com/alejandrocuba
-            li#photoblog https://www.instagram.com/alejandrocubaruiz/
-            li#scifi(lang='es') https://www.zorphdark.com/
-            li#podcast(lang='es') https://www.youtube.com/@angularidades
+          body
+            main
+              ul.content
+                li#blog https://medium.com/@alejandrocuba
+                li#gde https://developers.google.com/profile/u/alejandrocubaruiz
+                li#code https://github.com/alejandrocuba
+                li#photoblog https://www.instagram.com/alejandrocubaruiz/
+                li#scifi(lang='es') https://www.zorphdark.com/
+                li#podcast(lang='es') https://www.youtube.com/@angularidades
 
-          ul.social
-            li https://linkedin.com/in/alejandrocuba
-            li https://bsky.app/profile/alejandrocuba.com
+              ul.social
+                li https://linkedin.com/in/alejandrocuba
+                li https://bsky.app/profile/alejandrocuba.com
 
-          section.portfolio
-            for work, index in creativeworks
-              +creativework(work, index)
+              section.portfolio
+                for work, index in creativeworks
+                  +creativework(work, index)
 
   .sr-only
     p The head section of the Pug template includes a title and metadata variables describing Alejandro as a Principal Front-End Engineer, GDE in Angular, member of the ng-Champions program at ng-conf, co-organizer of the global Angular Community Meetup, host of the Angularidades podcast, and his location as Miami Beach, Florida.

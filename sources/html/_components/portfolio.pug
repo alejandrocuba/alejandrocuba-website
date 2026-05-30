@@ -7,12 +7,12 @@ mixin creativework(w, i)
     img.thumb(src=path.images + "portfolio/" + w.thumb, loading="lazy", width="640", height="427", alt=w.title)
     .modal(id=`creativework-${i}`)
       .console.module-fade
-        pre: code(class=`language-javascript`)
-          ="{\n"
-          for index, i in Object.keys(w.data)
-            -let comma = (i < (Object.keys(w.data).length-1)) ? "," : "";
-            =`\t${index}: "${w.data[index]}"${comma}\n`
-          ="}"
+        -
+          let codeStr = "{\n" + Object.keys(w.data).map((key, idx) => {
+            let comma = (idx < Object.keys(w.data).length - 1) ? "," : "";
+            return `\t${key}: "${w.data[key]}"${comma}`;
+          }).join("\n") + "\n}";
+        pre(class="language-javascript"): code(class=`language-javascript`)!= highlight(codeStr, 'javascript')
       img.screenshot(src=path.images + "portfolio/" + w.screenshot, loading="lazy", width="860", height="580", alt="Screenshot")
 
 section.portfolio
