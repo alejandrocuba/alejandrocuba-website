@@ -2,7 +2,7 @@
   "name": "alejandrocuba",
   "description": "Alejandro Cuba Ruiz's website",
   "homepage": "http://alejandrocuba.com/",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
