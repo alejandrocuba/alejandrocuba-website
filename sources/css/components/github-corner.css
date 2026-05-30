@@ -5,6 +5,7 @@
   top: 0;
   border: 0;
   right: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
 
   &>svg {
     transition: fill 0.25s ease-in-out;
