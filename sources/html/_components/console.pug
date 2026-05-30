@@ -1,6 +1,6 @@
-.console.module-fade(aria-labelledby="consoledescription")
+section.console.module-fade(aria-labelledby="consoledescription")
   h1.sr-only Alejandro Cuba Ruiz | Principal Front-End Engineer
-  p#consoledescription.sr-only Code snippet showing an HTML template written in Pug format to describe Alejandro's bio and link to other websites
+  p#consoledescription.sr-only(aria-hidden="true") Code snippet showing an HTML template written in Pug format to describe Alejandro's bio and link to other websites
 
   //- Visible Pug code for sighted users
   pre(aria-hidden="true"): code(class=`language-jade`).
@@ -33,27 +33,17 @@
             for work, index in creativeworks
               +creativework(work, index)
 
+  //- TODO: Links are nested in <p> tags instead of <ul>/<li> lists to prevent browser Reader Mode engines from stripping them out as boilerplate navigation lists. Revert in the future to bring back semantic lists.
   .sr-only
     p The head section of the Pug template includes a title and metadata variables describing Alejandro as a Principal Front-End Engineer, GDE in Angular, member of the ng-Champions program at ng-conf, co-organizer of the global Angular Community Meetup, host of the Angularidades podcast, and his location as Miami Beach, Florida.
-    p Links to his online profiles
-    ul
-      li
-        a(href="https://medium.com/@alejandrocuba", aria-label="Read Alejandro's blog on Medium.com") Alejandro's blog on Medium.com
-      li
-        a(href="https://developers.google.com/profile/u/alejandrocubaruiz", aria-label="View Alejandro's Google Developer Expert profile") Alejandro's Google Developer Expert profile
-      li
-        a(href="https://github.com/alejandrocuba", aria-label="Visit Alejandro's GitHub profile") Alejandro's GitHub profile
-      li
-        a(href="https://www.instagram.com/alejandrocubaruiz/", aria-label="Explore Alejandro's Instagram Photoblog") Alejandro's Instagram Photoblog
-      li
-        a(href="https://www.youtube.com/@angularidades", aria-label="Listen to the Angularidades podcast about Angular in Spanish", lang="es") Angularidades podcast in Spanish
-      li 
-        a(href="https://www.zorphdark.com/", aria-label="Browse Alejandro's science fiction blog in Spanish", lang="es") Alejandro's science fiction blog in Spanish
-    p Social media links:
-    ul
-      li
-        a(href="https://twitter.com/zorphdark", aria-label="Connect with Alejandro on X") X
-      li
-        a(href="https://linkedin.com/in/alejandrocuba", aria-label="Connect with Alejandro on LinkedIn") LinkedIn
-      li
-        a(href="https://meetup.com/angularcommunity/", aria-label="Join the Angular Community Meetup") Angular Community Meetup
+    h2 Links to his online profiles
+    p: a(href="https://medium.com/@alejandrocuba") Read Alejandro's blog on Medium.com.
+    p: a(href="https://developers.google.com/profile/u/alejandrocubaruiz") View Alejandro's Google Developer Expert profile.
+    p: a(href="https://github.com/alejandrocuba") Visit Alejandro's GitHub profile.
+    p: a(href="https://www.instagram.com/alejandrocubaruiz/") Explore Alejandro's Instagram Photoblog.
+    p: a(href="https://www.youtube.com/@angularidades", lang="es") Listen to the Angularidades podcast about Angular in Spanish.
+    p: a(href="https://www.zorphdark.com/", lang="es") Browse Alejandro's science fiction blog in Spanish.
+    h2 Social media links
+    p: a(href="https://twitter.com/zorphdark") Connect with Alejandro on X.
+    p: a(href="https://linkedin.com/in/alejandrocuba") Connect with Alejandro on LinkedIn.
+    p: a(href="https://meetup.com/angularcommunity/") Join the Angular Community Meetup.
