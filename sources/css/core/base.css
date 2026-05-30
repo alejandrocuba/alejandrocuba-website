@@ -19,7 +19,7 @@ main {
   margin: 40px auto -14px;
   background: url("/assets/images/coding.webp") top center no-repeat;
   height: 210px;
-  transition: all ease-out var(--loading-transition-time);
+  transition: opacity ease-out var(--loading-transition-time), transform ease-out var(--loading-transition-time);
 
   .is-loading & {
     opacity: 0;
