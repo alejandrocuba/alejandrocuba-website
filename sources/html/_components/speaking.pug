@@ -1,0 +1,112 @@
+include ../_data/speaking
+include ../_data/profile
+
+-
+  var speakingTimeline = Object.entries(
+    speaking.reduce(function(acc, event) {
+      var isoDate = event.date.length === 7 ? event.date + '-01' : event.date;
+      var year, formatted;
+
+      if (typeof Temporal !== 'undefined' && Temporal.PlainDate) {
+        var plainDate = Temporal.PlainDate.from(isoDate);
+        year = String(plainDate.year);
+        formatted = plainDate.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+      } else {
+        var parts = isoDate.split('-');
+        var d = new Date(Date.UTC(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2] || 1, 10)));
+        year = String(d.getUTCFullYear());
+        formatted = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(d);
+      }
+
+      var id = event.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      if (!acc[year]) acc[year] = [];
+      acc[year].push(Object.assign({}, event, {
+        id: id,
+        dateIso: event.date,
+        dateFormatted: formatted
+      }));
+      return acc;
+    }, {})
+  ).sort(function(a, b) {
+    return Number(b[0]) - Number(a[0]);
+  }).map(function(entry) {
+    return { year: entry[0], events: entry[1] };
+  });
+
+section#speaking.site-section(aria-labelledby="speaking-title")
+  .container
+    header.section-header
+      span.section-label Public Speaking & Talks
+      h2#speaking-title.section-title Speaking & Meetup Sessions
+
+    .speaking-timeline-container
+      ol.speaking-timeline(role="list" aria-label="Chronological index of speaking engagements")
+        each group in speakingTimeline
+          li.timeline-year-group
+            .timeline-year-marker(aria-hidden="true")
+              .timeline-node-dot
+            header.timeline-year-header
+              span.timeline-year-badge= group.year
+
+            ol.speaking-grid(role="list")
+              each event in group.events
+                li.card(id=event.id itemscope itemtype="https://schema.org/Event")
+                  meta(
+                    itemprop="eventAttendanceMode"
+                    content=event.format === 'online' ? 'https://schema.org/OnlineEventAttendanceMode' : 'https://schema.org/OfflineEventAttendanceMode'
+                  )
+                  h3.card-title(itemprop="name")
+                    a.card-title-link(
+                      href=event.url
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      itemprop="url"
+                      aria-label=`View session details for ${event.title}`
+                    )= event.title
+
+                  .card-location(itemprop="location" itemscope itemtype=event.format === 'online' ? "https://schema.org/VirtualLocation" : "https://schema.org/Place")
+                    .card-location-text
+                      svg.meta-icon(width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                        path(d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z")
+                        circle(cx="12" cy="10" r="3")
+                      span(itemprop=event.format === 'online' ? "name" : "address")= event.location
+
+                    span.card-format-badge(
+                      class=`format-${event.format || 'in-person'}`
+                      aria-label=`Format: ${event.format === 'online' ? 'Online' : 'In-Person'}`
+                    )
+                      if event.format === 'online'
+                        svg.format-icon(width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                          rect(x="2" y="3" width="20" height="14" rx="2" ry="2")
+                          line(x1="8" y1="21" x2="16" y2="21")
+                          line(x1="12" y1="17" x2="12" y2="21")
+                        span Online
+                      else
+                        svg.format-icon(width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                          path(d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z")
+                          circle(cx="12" cy="10" r="3")
+                        span In-Person
+
+                  .card-meta
+                    .card-meta-left
+                      time(datetime=event.dateIso itemprop="startDate")= event.dateFormatted
+                    .card-meta-right
+                      a.card-link-arrow(
+                        href=event.url
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label=`Visit official event page for ${event.title}`
+                      )
+                        span View Event ↗
+
+    .section-footer-actions
+      a.btn.btn-secondary(
+        href=profile.socials.sessionize
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="View Alejandro Cuba's full speaker profile on Sessionize"
+      )
+        svg.platform-icon(width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true")
+          path(d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.385 17.585l-4.24-2.449a2.3 2.3 0 01-1.145-1.992V8.258l4.24 2.449a2.3 2.3 0 011.145 1.992v4.886zm-6.77 0V12.7a2.3 2.3 0 011.145-1.992l4.24-2.449v4.886a2.3 2.3 0 01-1.145 1.992l-4.24 2.448z")
+        span View all sessions
+        span.arrow-indicator(aria-hidden="true") ↗

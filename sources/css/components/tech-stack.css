@@ -162,7 +162,7 @@
 .tech-stack-footer {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   padding-top: 0.5rem;
 }
 
@@ -185,6 +185,7 @@
 
 /* Forced Colors Mode */
 @media (forced-colors: active) {
+
   .tech-badge-item,
   .tech-card {
     border: 1px solid CanvasText;

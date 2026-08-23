@@ -106,15 +106,25 @@ main:focus {
   flex-wrap: wrap;
 }
 
+.section-footer-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
 /* Button & Link Primitives */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.375rem;
+  padding: 0 1.375rem;
   font-size: 0.9375rem;
   font-weight: 600;
+  line-height: 1;
   border-radius: var(--radius-pill);
   text-decoration: none;
   transition:
@@ -123,7 +133,7 @@ main:focus {
     color var(--transition-fast);
   cursor: pointer;
   box-sizing: border-box;
-  min-height: 44px;
+  height: 44px;
 }
 
 .btn-primary {
@@ -159,6 +169,46 @@ main:focus {
 
 .btn-ghost:hover {
   color: var(--accent-cyan);
+}
+
+.btn-icon {
+  padding: 0;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-group {
+  display: inline-flex;
+  align-items: stretch;
+  height: 44px;
+}
+
+.btn-group .btn {
+  border-radius: 0;
+  height: 100%;
+}
+
+.btn-group .btn:first-child {
+  border-top-left-radius: var(--radius-pill);
+  border-bottom-left-radius: var(--radius-pill);
+}
+
+.btn-group .btn:last-child {
+  border-top-right-radius: var(--radius-pill);
+  border-bottom-right-radius: var(--radius-pill);
+}
+
+.btn-group .btn + .btn {
+  margin-left: -1px;
+}
+
+.btn-group .btn:hover,
+.btn-group .btn:focus-visible {
+  z-index: 1;
 }
 
 /* Accessibility Skip Link */

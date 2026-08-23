@@ -2,20 +2,20 @@ include ../_data/articles
 include ../_data/profile
 
 mixin articleCard(article)
-  article.article-card(itemscope itemtype="http://schema.org/TechArticle")
-    h3.article-title(itemprop="headline")
-      a.article-title-link(href=article.url target="_blank" rel="noopener noreferrer")
+  article.card(itemscope itemtype="http://schema.org/TechArticle")
+    h3.card-title(itemprop="headline")
+      a.card-title-link(href=article.url target="_blank" rel="noopener noreferrer")
         = article.title
 
-    p.article-description(itemprop="description")= article.description
+    p.card-description(itemprop="description")= article.description
 
-    .article-meta
-      .article-meta-left
+    .card-meta
+      .card-meta-left
         time(datetime=article.date itemprop="datePublished")= article.formattedDate
         span.meta-dot(aria-hidden="true") •
-        span.article-read-time= article.readTime
-      .article-meta-right
-        a.article-link-arrow(
+        span= article.readTime
+      .card-meta-right
+        a.card-link-arrow(
           href=article.url
           target="_blank"
           rel="noopener noreferrer"
@@ -25,17 +25,24 @@ mixin articleCard(article)
 
 section#articles.site-section(aria-labelledby="articles-title")
   .container
-    .section-header.section-header-split
-      div
-        span.section-label Technical Publications
-        h2#articles-title.section-title Recent Articles
-      a.btn.btn-secondary(
-        href="https://medium.com/@alejandrocuba/list/frontend-dev-articles-efd1b199a75d"
-        target="_blank"
-        rel="noopener noreferrer"
-      )
-        | View all on Medium.com →
+    header.section-header
+      span.section-label Technical Publications
+      h2#articles-title.section-title Recent Articles
 
     .articles-grid
       each article in articles
         +articleCard(article)
+
+    .section-footer-actions
+      a.btn.btn-secondary(
+        href="https://medium.com/@alejandrocuba/list/frontend-dev-articles-efd1b199a75d"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="View Alejandro Cuba's technical articles on Medium"
+      )
+        svg.platform-icon(width="18" height="18" viewBox="0 0 512 512" fill-rule="evenodd" clip-rule="evenodd" aria-hidden="true")
+          g(fill-rule="nonzero")
+            path(d="M89.825 0h332.35C471.776 0 512 40.224 512 89.825v332.35c0 49.6-40.224 89.825-89.825 89.825H89.825C40.225 512 0 471.775 0 422.175V89.825C0 40.224 40.225 0 89.825 0z")
+            path(fill="#fff" d="M512 352.368v46.5c-2.92.282-5.92.426-9 .426-54.97 0-85.917-45.786-87.252-103.078-.039-2.215-.024-4.416.025-6.602.03-1.363.084-2.722.153-4.076.034-.724.068-1.404.123-2.161.054-.759.108-1.517.173-2.275 1.979-25.296 10.122-47.805 23.562-64.46 8.349-10.339 18.383-18.216 29.761-23.484 9.994-5.031 24.04-7.809 35.49-7.809h.495a97.2 97.2 0 016.47.216v12.793c-2.275-.623-4.71-.958-7.3-1.001-23.157.478-36.957 28.216-38.676 66.647H512v10.831h-47.014l-.015.01c-2.12 37.445 18.375 69.09 47.029 77.523zm-93.943-230.055l.404-.089v-3.126h-82.454l-76.562 179.944-76.561-179.944H94.03v3.126l.398.089c15.05 3.397 22.692 8.463 22.692 26.733v213.89c0 18.27-7.671 23.336-22.721 26.733l-.399.089v3.136h60.285v-3.126l-.399-.089c-15.05-3.397-22.691-8.463-22.691-26.733V161.453l98.351 231.441h5.579l101.216-237.896v213.23c-1.289 14.431-8.861 18.886-22.489 21.963l-.404.094v3.101h105.013v-3.101l-.404-.094c-13.642-3.077-21.396-7.532-22.686-21.963l-.069-219.182h.069c0-18.27 7.641-23.336 22.686-26.733z")
+        span View all articles
+        span.arrow-indicator(aria-hidden="true") ↗

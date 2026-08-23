@@ -1,10 +1,12 @@
 @import 'core/reset.css';
 @import 'setup.css';
 @import 'core/base.css';
+@import 'core/card.css';
 
 @import 'components/hero.css';
 @import 'components/articles.css';
 @import 'components/podcast.css';
+@import 'components/speaking.css';
 @import 'components/mentorship.css';
 @import 'components/contact.css';
 @import 'components/tech-stack.css';
