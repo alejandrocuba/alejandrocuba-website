@@ -64,7 +64,7 @@ main:focus {
 .site-section {
   padding-block: var(--section-spacing);
   position: relative;
-  contain: layout style paint;
+  contain: layout style;
 }
 
 .site-section + .site-section {

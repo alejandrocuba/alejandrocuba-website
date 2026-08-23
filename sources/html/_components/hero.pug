@@ -5,10 +5,6 @@ section.site-section.hero-section(aria-labelledby="hero-title")
   .container
     .hero-grid
       .hero-content
-        .hero-status-pill(role="status")
-          span.status-dot(aria-hidden="true")
-          span= profile.status
-
         .hero-title-group
           span.hero-kicker= profile.role
           h1#hero-title.hero-heading= profile.name
@@ -28,14 +24,11 @@ section.site-section.hero-section(aria-labelledby="hero-title")
 
       .hero-visual
         .ambient-glow(aria-hidden="true")
-        .photo-container
-          img.hero-photo(
-            src=path.images + "coding.webp"
-            alt="Alejandro Cuba Ruiz, Principal Front-End Engineer and Google Developer Expert"
-            width="480"
-            height="560"
-            fetchpriority="high"
-          )
-          .photo-overlay-tag
-            span #[b Alejandro Cuba]
-            span Miami Beach, FL
+        img.hero-photo(
+          src=path.images + "hero-speaker.webp"
+          alt="Alejandro Cuba Ruiz speaking on stage about modern web architecture and rendering"
+          width="1009"
+          height="1024"
+          fetchpriority="high"
+        )
+

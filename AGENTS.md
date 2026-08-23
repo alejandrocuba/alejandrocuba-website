@@ -20,3 +20,5 @@
 - **Paths**: ALWAYS use the `path` object from `sources/html/_layout/setup/path.pug` (e.g., `path.images`). NO hardcoded relative paths.
 - **Build**: Do NOT modify `vite.config.js` if it breaks the "flat" `dist/` structure required for Firebase.
 - **Analytics**: Do NOT alter the GTM ID in `scripts.pug` without explicit authorization.
+- **Browser Subagent**: NEVER execute or launch the `browser_subagent` tool unless the user explicitly instructs to do so.
+
