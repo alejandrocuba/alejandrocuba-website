@@ -8,10 +8,9 @@
 
 .footer-inner {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  text-align: center;
 }
 
 .footer-copy {
@@ -23,12 +22,3 @@
   font-weight: 600;
 }
 
-.back-to-top {
-  color: var(--text-secondary);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-.back-to-top:hover {
-  color: var(--accent-cyan);
-}
