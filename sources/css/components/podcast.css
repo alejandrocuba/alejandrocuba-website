@@ -77,18 +77,6 @@
   box-shadow: 0 4px 24px rgba(234, 118, 0, 0.5);
 }
 
-.video-duration-tag {
-  position: absolute;
-  bottom: 0.875rem;
-  right: 0.875rem;
-  padding: 0.25rem 0.5rem;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
-  color: #fff;
-  font-weight: 600;
-}
-
 /* Right Column Podcast Narrative */
 .podcast-info {
   display: flex;
@@ -265,19 +253,6 @@
 .episode-item:hover .episode-play-icon {
   background: #ff850a;
   box-shadow: 0 4px 18px rgba(234, 118, 0, 0.5);
-}
-
-.episode-duration-pill {
-  position: absolute;
-  bottom: 0.65rem;
-  right: 0.65rem;
-  padding: 0.2rem 0.45rem;
-  background: rgba(0, 0, 0, 0.85);
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #fff;
-  pointer-events: none;
 }
 
 .episode-content {
