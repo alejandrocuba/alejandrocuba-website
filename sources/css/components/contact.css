@@ -1,0 +1,84 @@
+.contact-card {
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 4vw, 3.5rem);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.contact-card .ambient-glow {
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(56, 189, 248, 0.15) 0%,
+    rgba(129, 140, 248, 0.1) 40%,
+    transparent 75%
+  );
+  transform: translateZ(0);
+  pointer-events: none;
+}
+
+.contact-heading {
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0 0 1rem;
+  text-wrap: balance;
+}
+
+.contact-subtext {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  max-width: 48ch;
+  margin: 0 auto 2rem;
+  text-wrap: pretty;
+}
+
+.contact-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.contact-linkedin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.75rem;
+  font-size: 1rem;
+}
+
+.contact-linkedin-btn .platform-icon {
+  flex-shrink: 0;
+  color: #0a66c2;
+}
+
+.social-channels-bar {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.channel-link {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.channel-link:hover {
+  color: var(--accent-cyan);
+}

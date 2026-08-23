@@ -1,0 +1,36 @@
+include ../_data/mentorship
+
+section#mentorship.site-section(aria-labelledby="mentorship-title")
+  .container
+    .mentorship-grid
+      .mentorship-content
+        div
+          span.section-label Mentorship & Leadership
+          h2#mentorship-title.section-title= mentorship.title
+        p.mentorship-narrative= mentorship.description
+
+        .stats-matrix
+          each stat in mentorship.stats
+            .stat-box
+              span.stat-number= stat.number
+              span.stat-label= stat.label
+
+      .adplist-card-wrapper
+        .ambient-glow(aria-hidden="true")
+        .adplist-card
+          .adplist-header
+            span.adplist-badge-pill(role="status")
+              svg(width="14" height="14" viewBox="0 0 24 24" fill="currentColor")
+                polygon(points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2")
+              = mentorship.badge
+            span(style="font-size: 0.8125rem; color: var(--text-muted);") ADPList Verified
+
+          h3.adplist-title Focus & Advisory Areas
+
+          ul.adplist-topics-list
+            each topic in mentorship.topics
+              li.adplist-topic-item= topic
+
+          div(style="margin-top: 0.5rem;")
+            a.btn.btn-secondary(href=mentorship.adplistUrl target="_blank" rel="noopener noreferrer" style="width: 100%;")
+              | Book a Free Session on ADPList →

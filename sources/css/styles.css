@@ -1,12 +1,11 @@
 @import "core/reset.css";
 @import "setup.css";
-
-@import "vendor/prism.css";
-
 @import "core/base.css";
 
-@import "components/console.css";
-@import "components/portfolio.css";
-@import "components/lightcase.css";
+@import "components/hero.css";
+@import "components/articles.css";
+@import "components/podcast.css";
+@import "components/mentorship.css";
+@import "components/contact.css";
 @import "components/footer.css";
 @import "components/github-corner.css";

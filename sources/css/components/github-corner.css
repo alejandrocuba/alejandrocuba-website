@@ -1,19 +1,24 @@
 .github-corner {
-  fill: #555;
-  color: #fff;
   position: absolute;
   top: 0;
-  border: 0;
   right: 0;
+  border: 0;
+  z-index: 100;
+  fill: var(--bg-surface-elevated);
+  color: var(--text-primary);
   clip-path: polygon(0 0, 100% 0, 100% 100%);
-
-  &>svg {
-    transition: fill 0.25s ease-in-out;
-  }
+  transition: fill var(--transition-fast);
 }
 
-.github-corner:hover>svg {
-  fill: var(--orange);
+.github-corner > svg {
+  display: block;
+  fill: inherit;
+  color: inherit;
+  transition: fill var(--transition-fast);
+}
+
+.github-corner:hover > svg {
+  fill: var(--accent-cyan);
 }
 
 .github-corner:hover .octo-arm {
@@ -25,24 +30,21 @@
 }
 
 @keyframes octocat-wave {
-
   0%,
   100% {
     transform: rotate(0);
   }
-
   20%,
   60% {
     transform: rotate(-25deg);
   }
-
   40%,
   80% {
     transform: rotate(10deg);
   }
 }
 
-@media (max-width:500px) {
+@media (max-width: 500px) {
   .github-corner:hover .octo-arm {
     animation: none;
   }

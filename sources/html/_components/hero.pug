@@ -1,0 +1,41 @@
+include ../_layout/setup/path
+include ../_data/profile
+
+section.site-section.hero-section(aria-labelledby="hero-title")
+  .container
+    .hero-grid
+      .hero-content
+        .hero-status-pill(role="status")
+          span.status-dot(aria-hidden="true")
+          span= profile.status
+
+        .hero-title-group
+          span.hero-kicker= profile.role
+          h1#hero-title.hero-heading= profile.name
+
+        .hero-credentials-bar(aria-label="Professional credentials")
+          span.credential-item Google Developer Expert in Angular
+          span.credential-sep(aria-hidden="true") •
+          span.credential-item Speaker
+          span.credential-sep(aria-hidden="true") •
+          span.credential-item ADPList Top Mentor
+
+        p.hero-bio= profile.bio
+
+        .hero-actions
+          a.btn.btn-primary(href="#articles") View Articles
+          a.btn.btn-secondary(href="#mentorship") Book Mentorship
+
+      .hero-visual
+        .ambient-glow(aria-hidden="true")
+        .photo-container
+          img.hero-photo(
+            src=path.images + "coding.webp"
+            alt="Alejandro Cuba Ruiz, Principal Front-End Engineer and Google Developer Expert"
+            width="480"
+            height="560"
+            fetchpriority="high"
+          )
+          .photo-overlay-tag
+            span #[b Alejandro Cuba]
+            span Miami Beach, FL
