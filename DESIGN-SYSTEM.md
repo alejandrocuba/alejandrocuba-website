@@ -4,6 +4,7 @@
 > Inherits [DESIGN-SYSTEM.core.md](DESIGN-SYSTEM.core.md). This defines project-specific visual tokens and component specs.
 
 ## 1. Tokens ([setup.css](file:///Users/zorphdark/dev/alejandrocuba-website/sources/css/setup.css))
+
 - `--gray-dark: #222` (Body background)
 - `--orange: #e49e4c` (Accents, borders, links)
 - `--loading-transition-time: .75s` (Entry transition)
@@ -11,21 +12,27 @@
 - `--medium-viewport: 640px` (Tablet breakpoint)
 
 ## 2. Hardcoded Constants
+
 - **Text**: `#ddd`
 - **Console BG**: `#292929` (Hover: `#2d2d2d`)
-- **Typography**: 
+- **Typography**:
   - Base: `13px` (`1rem`), `"Roboto", sans-serif`
   - Code: `"Roboto Mono", sans-serif`
 
 ## 3. Breakpoints & Layout
+
 Mobile-first layout strategy.
+
 - **Mobile**: `<= 640px` (Default)
 - **Tablet**: `> 640px` and `< 1200px`
 - **Desktop**: `>= 1200px`
 
 ## 4. Components & States
+
+- **Cursor Semantics**: Explicitly declare `cursor: default` on non-clickable cards, chips, badges, and status pills (even when styled with ambient/hover effects) to ensure `cursor: pointer` is reserved exclusively for truly actionable interactive controls (links, buttons).
+- **Hover Interactions**: Zero hover translations (no `translateY`, `translateX`, or `translate` displacement on hover across cards, buttons, badges, or indicators). Rely exclusively on color, background, and border transitions.
 - **Flicker Prevention**: `body.is-loading` disables all animations (`none !important`) during page load.
-- **Console ([console.css](file:///Users/zorphdark/dev/alejandrocuba-website/sources/css/components/console.css))**: 
+- **Console ([console.css](file:///Users/zorphdark/dev/alejandrocuba-website/sources/css/components/console.css))**:
   - Max width `640px`, centered.
   - `pre` blocks: `3px solid var(--orange)` top border, `#292929` bg.
   - Entry Transition: Opacity 0 -> 1, scale `1.05` -> `1`.

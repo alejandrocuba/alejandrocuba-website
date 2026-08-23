@@ -43,7 +43,10 @@ select {
 a,
 button {
   cursor: pointer;
-  transition: color 0.25s, background 0.25s, opacity 0.25s;
+  transition:
+    color 0.25s,
+    background 0.25s,
+    opacity 0.25s;
 }
 
 img {
@@ -54,11 +57,21 @@ img {
 }
 
 /* Reset margins for headings and blocks */
-h1, h2, h3, h4, h5, h6, p, ul, ol, figure {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+figure {
   margin: 0;
   padding: 0;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }

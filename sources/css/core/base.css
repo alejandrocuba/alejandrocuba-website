@@ -24,7 +24,7 @@ body {
 
 /* Subtle Fixed Ambient Background Halo (Zero filter: blur) */
 body::before {
-  content: "";
+  content: '';
   position: fixed;
   top: 0;
   left: 50%;
@@ -117,7 +117,10 @@ main:focus {
   font-weight: 600;
   border-radius: var(--radius-pill);
   text-decoration: none;
-  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
   cursor: pointer;
   box-sizing: border-box;
   min-height: 44px;

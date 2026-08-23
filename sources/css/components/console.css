@@ -1,7 +1,9 @@
 .console {
-  font-family: "Roboto Mono", monospace;
+  font-family: 'Roboto Mono', monospace;
   font-size: 1em;
-  transition: opacity ease-out var(--loading-transition-time), transform ease-out var(--loading-transition-time);
+  transition:
+    opacity ease-out var(--loading-transition-time),
+    transform ease-out var(--loading-transition-time);
   transform-origin: 50% 50%;
 
   .is-loading & {
@@ -15,17 +17,17 @@
   }
 }
 
-code[class*="language-"],
-pre[class*="language-"] {
-  font-family: "Roboto Mono", monospace;
+code[class*='language-'],
+pre[class*='language-'] {
+  font-family: 'Roboto Mono', monospace;
 }
 
-pre[class*=language-] {
+pre[class*='language-'] {
   margin: 0;
   padding: 1em;
   overflow: auto;
   border: none;
-  transition: background-color ease-out .25s;
+  transition: background-color ease-out 0.25s;
   background: #292929;
   cursor: text;
   word-wrap: normal;
@@ -39,7 +41,7 @@ pre[class*=language-] {
   }
 
   main & {
-    margin: 0 20px .5em;
+    margin: 0 20px 0.5em;
     border-radius: 0 0 5px 5px;
   }
 

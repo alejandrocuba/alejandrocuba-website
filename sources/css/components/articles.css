@@ -16,12 +16,15 @@
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   box-sizing: border-box;
-  transition: border-color var(--transition-normal), background-color var(--transition-normal);
+  cursor: default;
+  transition:
+    border-color var(--transition-normal),
+    background-color var(--transition-normal);
 }
 
 /* Zero-Blur Radial Gradient Halo on Card Hover (No translate on hover) */
 .article-card::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: -1px;
   border-radius: var(--radius-md);
@@ -32,7 +35,9 @@
     rgba(56, 189, 248, 0.15) 50%,
     transparent 80%
   );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;

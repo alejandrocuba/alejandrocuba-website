@@ -1,5 +1,5 @@
 #lightcase-overlay {
-  background-image: url("/assets/images/overlay.png");
+  background-image: url('/assets/images/overlay.png');
 }
 #lightcase-info {
   display: none;
