@@ -138,28 +138,28 @@ main:focus {
 
 /* Specific Section Accent & Label Colors */
 .hero-intro {
-  color: #d19e87 !important;
+  color: #7db3b3 !important;
 }
 
 #articles .section-label {
-  color: #c9a473 !important;
+  color: #abb3fb !important;
 }
 
 .podcast-badge {
-  color: #c9a473 !important;
+  color: #d28323 !important;
 }
 
 #speaking .section-label {
-  color: #9d78ff !important;
+  color: #e1d09a !important;
 }
 
 #mentorship .section-label {
-  color: #c9a473 !important;
+  color: #7eb981 !important;
 }
 
 #contact .section-label,
 .contact-content .section-label {
-  color: #d19e87 !important;
+  color: #d1ce87 !important;
 }
 
 .section-title {
