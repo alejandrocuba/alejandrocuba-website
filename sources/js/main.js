@@ -32,5 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Navigation Dropdown Handler (Close on outside click or menuitem click)
+  const navDropdowns = document.querySelectorAll('details.nav-dropdown');
+  if (navDropdowns.length > 0) {
+    document.addEventListener('click', (e) => {
+      navDropdowns.forEach((details) => {
+        if (!details.contains(e.target) || e.target.closest('.dropdown-link')) {
+          details.removeAttribute('open');
+        }
+      });
+    });
+  }
 });
 

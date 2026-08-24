@@ -83,6 +83,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.6rem;
   font-family: var(--font-mono);
   font-size: 0.9375rem;
   font-weight: 600;
@@ -103,9 +104,14 @@
 
 .btn-outline-neon:hover,
 .btn-outline-cyan:hover {
-  background-color: rgba(255, 176, 253, 0.12);
+  background-color: rgba(255, 101, 232, 0.12);
   color: var(--accent-pink);
   border-color: var(--accent-pink);
+}
+
+.btn-outline-neon:hover .arrow-indicator,
+.btn-outline-cyan:hover .arrow-indicator {
+  transform: translate(2px, -2px);
 }
 
 .btn-outline-neon:focus-visible,

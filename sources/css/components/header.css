@@ -30,10 +30,11 @@
   transform: scale(1.05);
 }
 
-.nav-logo-svg {
+.nav-logo-img {
   width: 40px;
   height: 40px;
   display: block;
+  object-fit: contain;
 }
 
 /* Navigation List */
@@ -91,6 +92,119 @@
   text-shadow: 0 0 8px rgba(255, 176, 253, 0.25);
 }
 
+/* Navigation Dropdown Menu (Contributions - Tap-only) */
+.nav-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-dropdown summary::-webkit-details-marker,
+.nav-dropdown summary::marker {
+  display: none;
+}
+
+.nav-dropdown-trigger {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 0.5rem 0.25rem;
+  line-height: 1;
+  list-style: none;
+  user-select: none;
+  transition:
+    color var(--transition-fast),
+    text-shadow var(--transition-fast);
+}
+
+.nav-dropdown-trigger:hover,
+details[open] .nav-dropdown-trigger {
+  color: var(--text-primary);
+}
+
+.dropdown-caret {
+  color: currentColor;
+  width: 8px;
+  height: 6px;
+  flex-shrink: 0;
+  display: inline-block;
+  transition: transform var(--transition-fast);
+}
+
+details[open] .dropdown-caret {
+  transform: rotate(180deg);
+}
+
+/* Floating Menu Panel */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: rgba(22, 27, 34, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  list-style: none;
+  margin: 0;
+  box-shadow:
+    0 0 35px -5px rgba(132, 128, 255, 0.18),
+    0 12px 28px -4px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast),
+    visibility var(--transition-fast);
+  z-index: 100;
+}
+
+details[open] .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Dropdown Menu Items */
+.dropdown-link {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: calc(var(--radius-sm) - 2px);
+  box-sizing: border-box;
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.dropdown-link:hover,
+.dropdown-link:focus-visible,
+.dropdown-link:active {
+  color: #e2e8f0 !important;
+  background-color: rgba(255, 101, 232, 0.12);
+  outline: none;
+}
+
 @media (max-width: 540px) {
   .header-container {
     height: 60px;
@@ -123,19 +237,6 @@
   }
 }
 
-@keyframes nav-link-active {
-  0%, 100% {
-    color: var(--text-secondary);
-    font-weight: 500;
-    text-shadow: none;
-  }
-  18%, 82% {
-    color: var(--accent-pink);
-    font-weight: 600;
-    text-shadow: 0 0 8px rgba(255, 176, 253, 0.25);
-  }
-}
-
 @keyframes nav-link-last-active {
   0% {
     color: var(--text-secondary);
@@ -155,34 +256,6 @@
     animation: nav-link-first-active linear both;
     animation-timeline: --section-about;
     animation-range: entry -100% exit 85%;
-  }
-
-  /* Articles */
-  .nav-link[href="#articles"] {
-    animation: nav-link-active linear both;
-    animation-timeline: --section-articles;
-    animation-range: entry 5% exit 85%;
-  }
-
-  /* Podcast */
-  .nav-link[href="#podcast"] {
-    animation: nav-link-active linear both;
-    animation-timeline: --section-podcast;
-    animation-range: entry 5% exit 85%;
-  }
-
-  /* Speaking */
-  .nav-link[href="#speaking"] {
-    animation: nav-link-active linear both;
-    animation-timeline: --section-speaking;
-    animation-range: entry 5% exit 85%;
-  }
-
-  /* Mentorship */
-  .nav-link[href="#mentorship"] {
-    animation: nav-link-active linear both;
-    animation-timeline: --section-mentorship;
-    animation-range: entry 5% exit 85%;
   }
 
   /* Contact (Bottom section) */
