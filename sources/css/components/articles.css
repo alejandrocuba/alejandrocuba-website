@@ -3,6 +3,10 @@
    Layout rules for articles grid
    ========================================================================== */
 
+#articles .section-label {
+  color: #c9a473;
+}
+
 .articles-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));

@@ -1,46 +1,40 @@
-.contact-card {
-  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 4vw, 3.5rem);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-medium);
-  border-radius: var(--radius-lg);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
-  cursor: default;
+#contact .section-label {
+  color: #d19e87;
 }
 
-.contact-card .ambient-glow {
-  position: absolute;
-  inset: -20%;
-  z-index: -1;
-  background: radial-gradient(
-    ellipse at 50% 50%,
-    rgba(255, 176, 253, 0.15) 0%,
-    rgba(129, 140, 248, 0.1) 40%,
-    transparent 75%
-  );
-  transform: translateZ(0);
-  pointer-events: none;
+.contact-content {
+  padding: 0;
+  background: transparent;
+  border: none;
+  text-align: center;
+  position: relative;
+  max-width: 52rem;
+  margin-inline: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
 }
 
 .contact-heading {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--text-primary);
-  margin: 0 0 1rem;
+  margin: 0.5rem 0 1.25rem;
   text-wrap: balance;
 }
 
 .contact-subtext {
   font-size: 1.125rem;
   color: var(--text-secondary);
-  max-width: 48ch;
-  margin: 0 auto 2rem;
+  max-width: 50ch;
+  margin: 0 auto 2.25rem;
   text-wrap: pretty;
+  line-height: 1.65;
 }
 
 .contact-actions {
@@ -67,14 +61,15 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: clamp(1rem, 2.5vw, 1.75rem);
   margin-top: 2.5rem;
   padding-top: 2rem;
   border-top: 1px solid var(--border-subtle);
 }
 
 .channel-link {
-  font-size: 0.9375rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
   color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
@@ -82,5 +77,5 @@
 }
 
 .channel-link:hover {
-  color: var(--accent-cyan);
+  color: #e2e8f0;
 }

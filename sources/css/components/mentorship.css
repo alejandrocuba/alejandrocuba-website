@@ -1,4 +1,86 @@
+.mentorship-section {
+  position: relative;
+  overflow: visible;
+}
+
+/* Ambient Slow-Moving Aurora Effect */
+.mentorship-aurora {
+  position: absolute;
+  top: 50%;
+  right: -2%;
+  transform: translateY(-50%) translateZ(0);
+  width: clamp(420px, 52vw, 750px);
+  height: clamp(420px, 52vw, 750px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.20;
+  filter: blur(60px);
+  will-change: transform;
+}
+
+.mentorship-aurora-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  animation: mentorship-aurora-drift 24s ease-in-out infinite alternate;
+  transform-origin: 65% 45%;
+}
+
+.aurora-path {
+  animation: mentorship-morph 18s ease-in-out infinite alternate;
+  transform-origin: 60% 40%;
+}
+
+/* Slow, organic floating motion */
+@keyframes mentorship-aurora-drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(-35px, -25px) rotate(5deg) scale(1.08);
+  }
+  66% {
+    transform: translate(25px, 20px) rotate(-4deg) scale(0.95);
+  }
+  100% {
+    transform: translate(-20px, 30px) rotate(3deg) scale(1.05);
+  }
+}
+
+@keyframes mentorship-morph {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08, 0.94) rotate(3deg);
+  }
+  100% {
+    transform: scale(0.94, 1.06) rotate(-2deg);
+  }
+}
+
+@keyframes mentorship-spot-pulse {
+  0% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(0.92);
+  }
+}
+
+#mentorship .section-label {
+  color: #c9a473;
+}
+
 .mentorship-content {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

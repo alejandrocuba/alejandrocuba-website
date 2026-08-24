@@ -136,6 +136,32 @@ main:focus {
   margin-bottom: 0.5rem;
 }
 
+/* Specific Section Accent & Label Colors */
+.hero-intro {
+  color: #d19e87 !important;
+}
+
+#articles .section-label {
+  color: #c9a473 !important;
+}
+
+.podcast-badge {
+  color: #c9a473 !important;
+}
+
+#speaking .section-label {
+  color: #9d78ff !important;
+}
+
+#mentorship .section-label {
+  color: #c9a473 !important;
+}
+
+#contact .section-label,
+.contact-content .section-label {
+  color: #d19e87 !important;
+}
+
 .section-title {
   font-family: var(--font-heading);
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);

@@ -2,21 +2,13 @@ include ../_data/speaking
 include ../_data/profile
 
 -
+  var monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   var speakingTimeline = Object.entries(
     speaking.reduce(function(acc, event) {
-      var isoDate = event.date.length === 7 ? event.date + '-01' : event.date;
-      var year, formatted;
-
-      if (typeof Temporal !== 'undefined' && Temporal.PlainDate) {
-        var plainDate = Temporal.PlainDate.from(isoDate);
-        year = String(plainDate.year);
-        formatted = plainDate.toLocaleString('en-US', { month: 'long', year: 'numeric' });
-      } else {
-        var parts = isoDate.split('-');
-        var d = new Date(Date.UTC(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2] || 1, 10)));
-        year = String(d.getUTCFullYear());
-        formatted = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(d);
-      }
+      var parts = event.date.split('-');
+      var year = parts[0];
+      var monthIdx = parseInt(parts[1], 10) - 1;
+      var formatted = monthsShort[monthIdx] + ', ' + year;
 
       var id = event.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
       if (!acc[year]) acc[year] = [];
@@ -50,19 +42,21 @@ section#speaking.site-section(aria-labelledby="speaking-title")
 
             ol.speaking-grid(role="list")
               each event in group.events
-                li.card(id=event.id itemscope itemtype="https://schema.org/Event")
+                li.card.speaking-card(id=event.id itemscope itemtype="https://schema.org/Event")
                   meta(
                     itemprop="eventAttendanceMode"
                     content=event.format === 'online' ? 'https://schema.org/OnlineEventAttendanceMode' : 'https://schema.org/OfflineEventAttendanceMode'
                   )
-                  h3.card-title(itemprop="name")
-                    a.card-title-link(
-                      href=event.url
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      itemprop="url"
-                      aria-label=`View session details for ${event.title}`
-                    )= event.title
+                  .card-header-row
+                    h3.card-title(itemprop="name")
+                      a.card-title-link(
+                        href=event.url
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        itemprop="url"
+                        aria-label=`View session details for ${event.title}`
+                      )= event.title
+                    time.card-date(datetime=event.dateIso itemprop="startDate")= event.dateFormatted
 
                   .card-location(itemprop="location" itemscope itemtype=event.format === 'online' ? "https://schema.org/VirtualLocation" : "https://schema.org/Place")
                     .card-location-text
@@ -86,18 +80,6 @@ section#speaking.site-section(aria-labelledby="speaking-title")
                           path(d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z")
                           circle(cx="12" cy="10" r="3")
                         span In-Person
-
-                  .card-meta
-                    .card-meta-left
-                      time(datetime=event.dateIso itemprop="startDate")= event.dateFormatted
-                    .card-meta-right
-                      a.card-link-arrow(
-                        href=event.url
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label=`Visit official event page for ${event.title}`
-                      )
-                        span View Event ↗
 
     .section-footer-actions
       a.btn.btn-secondary(

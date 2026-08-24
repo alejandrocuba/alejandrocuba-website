@@ -3,17 +3,20 @@
   grid-template-columns: 0.88fr 1.12fr;
   align-items: center;
   gap: clamp(2.5rem, 5vw, 4.5rem);
+  overflow: visible;
 }
 
-/* Left Column Video Facade (Reduced by 20%) */
+/* Left Column Video Facade (Reduced by 20% with Noticeable Glow) */
 .podcast-preview-container {
   position: relative;
   max-width: 480px;
   width: 100%;
+  overflow: visible;
 }
 
 .video-preview-wrapper {
   position: relative;
+  z-index: 1;
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: var(--radius-lg);
@@ -21,18 +24,29 @@
   border: 1px solid var(--border-medium);
   overflow: hidden;
   box-sizing: border-box;
+  box-shadow:
+    0 0 54px 0px rgba(234, 118, 0, 0.10),
+    0 0 110px 14px rgba(255, 133, 10, 0.05),
+    0 20px 40px -10px rgba(0, 0, 0, 0.6);
 }
 
-/* Zero-Blur Crimson/Rose Ambient Glow */
+/* Warm Orange Ambient Glow (Reduced by 25% more) */
 .podcast-preview-container .ambient-glow {
   position: absolute;
-  inset: -15%;
-  z-index: -1;
-  background: radial-gradient(ellipse at 50% 50%,
-      rgba(251, 113, 133, 0.2) 0%,
-      rgba(129, 140, 248, 0.1) 45%,
-      transparent 80%);
-  transform: translateZ(0);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateZ(0);
+  width: 230%;
+  height: 230%;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(234, 118, 0, 0.11) 0%,
+    rgba(255, 133, 10, 0.07) 38%,
+    rgba(255, 118, 0, 0.015) 62%,
+    transparent 72%
+  );
+  filter: blur(24px);
   pointer-events: none;
 }
 
@@ -84,6 +98,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  padding-left: 40px;
 }
 
 .podcast-header {
@@ -100,7 +115,7 @@
   font-size: clamp(0.875rem, 1.1vw, 0.9375rem);
   font-weight: 500;
   letter-spacing: 0.03em;
-  color: var(--accent-pink);
+  color: #c9a473;
   margin: 0;
   cursor: default;
 }
@@ -150,6 +165,12 @@
   color: var(--text-muted);
 }
 
+.podcast-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
 #podcast .section-footer-actions {
   margin-top: clamp(4.5rem, 7vw, 6rem);
 }
@@ -175,6 +196,10 @@
 @media (max-width: 860px) {
   .podcast-grid {
     grid-template-columns: 1fr;
+  }
+
+  .podcast-info {
+    padding-left: 0;
   }
 }
 
