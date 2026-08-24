@@ -1,26 +1,18 @@
 include ../_layout/setup/path
 include ../_data/profile
 
-section.site-section.hero-section(aria-labelledby="hero-title")
+section#about.site-section.hero-section(aria-labelledby="hero-title")
   .container
     .hero-grid
       .hero-content
         .hero-title-group
-          span.hero-kicker= profile.role
+          p.hero-intro Hi, my name is
           h1#hero-title.hero-heading= profile.name
-
-        .hero-credentials-bar(aria-label="Professional credentials")
-          span.credential-item Google Developer Expert in Angular
-          span.credential-sep(aria-hidden="true") •
-          span.credential-item Speaker
-          span.credential-sep(aria-hidden="true") •
-          span.credential-item ADPList Top Mentor
 
         p.hero-bio= profile.bio
 
         .hero-actions
-          a.btn.btn-primary(href="#articles") View Articles
-          a.btn.btn-secondary(href="#mentorship") Book Mentorship
+          a.btn-outline-cyan(href="#mentorship") Book Mentorship
 
       .hero-visual
         .ambient-glow(aria-hidden="true")

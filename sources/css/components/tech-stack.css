@@ -1,7 +1,6 @@
 .tech-stack-section {
   padding-block: clamp(3rem, 6vw, 5rem);
   background-color: var(--bg-surface-subtle);
-  border-top: 1px solid var(--border-subtle);
 }
 
 .tech-stack-wrapper {
@@ -18,8 +17,9 @@
 }
 
 .tech-stack-heading {
+  font-family: var(--font-heading);
   font-size: clamp(1.375rem, 2.5vw, 1.875rem);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.015em;
   line-height: 1.25;
   color: var(--text-primary);
@@ -171,16 +171,6 @@
   font-weight: 500;
   gap: 0.5rem;
   padding: 0.625rem 1.25rem;
-}
-
-.arrow-indicator {
-  font-size: 0.875rem;
-  color: var(--text-muted);
-  transition: color var(--transition-fast);
-}
-
-.tech-github-btn:hover .arrow-indicator {
-  color: var(--accent-cyan);
 }
 
 /* Forced Colors Mode */

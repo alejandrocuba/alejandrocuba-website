@@ -8,14 +8,14 @@
 
 html,
 body {
-  height: 100%;
   margin: 0;
   padding: 0;
 }
 
 body {
-  min-height: 100%;
-  overflow-x: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: clip;
   word-wrap: break-word;
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;

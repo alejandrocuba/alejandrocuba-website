@@ -63,7 +63,7 @@
   background: radial-gradient(
     ellipse at 50% 50%,
     rgba(52, 211, 153, 0.2) 0%,
-    rgba(56, 189, 248, 0.1) 45%,
+    rgba(255, 176, 253, 0.1) 45%,
     transparent 80%
   );
   transform: translateZ(0);
@@ -105,8 +105,9 @@
 }
 
 .adplist-title {
+  font-family: var(--font-heading);
   font-size: 1.375rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-primary);
   margin: 0;
 }

@@ -3,6 +3,7 @@
 @import 'core/base.css';
 @import 'core/card.css';
 
+@import 'components/header.css';
 @import 'components/hero.css';
 @import 'components/articles.css';
 @import 'components/podcast.css';

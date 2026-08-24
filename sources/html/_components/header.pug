@@ -1,0 +1,24 @@
+include ../_layout/setup/path
+include ../_data/profile
+
+header.site-header
+  .container.header-container
+    a.nav-logo(href="#about" aria-label="Alejandro Cuba - Home")
+      svg.nav-logo-svg(viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true")
+        polygon(points="50 7, 80.5 19.5, 93 50, 80.5 80.5, 50 93, 19.5 80.5, 7 50, 19.5 19.5" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round")
+        path(fill="var(--text-primary)" fill-rule="evenodd" d="M 38 25 H 54 L 70 63 H 75 V 69 H 57 V 63 H 61 L 57 53 H 43 L 39 63 H 43 V 69 H 25 V 63 H 30 L 45 31 H 38 V 25 Z M 50 34 L 55 47 H 45 Z")
+
+    nav.site-nav(aria-label="Main Navigation")
+      ul.nav-list
+        li.nav-item
+          a.nav-link(href="#about") About
+        li.nav-item
+          a.nav-link(href="#articles") Articles
+        li.nav-item
+          a.nav-link(href="#podcast") Podcast
+        li.nav-item
+          a.nav-link(href="#speaking") Speaking
+        li.nav-item
+          a.nav-link(href="#mentorship") Mentorship
+        li.nav-item
+          a.nav-link(href="#contact") Contact

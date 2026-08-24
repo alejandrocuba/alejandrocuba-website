@@ -16,7 +16,7 @@
   z-index: -1;
   background: radial-gradient(
     ellipse at 50% 50%,
-    rgba(56, 189, 248, 0.15) 0%,
+    rgba(255, 176, 253, 0.15) 0%,
     rgba(129, 140, 248, 0.1) 40%,
     transparent 75%
   );
@@ -25,8 +25,9 @@
 }
 
 .contact-heading {
+  font-family: var(--font-heading);
   font-size: clamp(2rem, 4.5vw, 3.25rem);
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--text-primary);

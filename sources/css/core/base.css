@@ -1,9 +1,48 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  scroll-padding-top: calc(72px + 1.5rem);
   color-scheme: dark;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  timeline-scope:
+    --section-about,
+    --section-articles,
+    --section-podcast,
+    --section-speaking,
+    --section-mentorship,
+    --section-contact;
+}
+
+@media (max-width: 540px) {
+  html {
+    scroll-padding-top: calc(60px + 1rem);
+  }
+}
+
+/* Scroll-Driven View Timelines for Pure CSS ScrollSpy */
+#about {
+  view-timeline: --section-about block;
+}
+
+#articles {
+  view-timeline: --section-articles block;
+}
+
+#podcast {
+  view-timeline: --section-podcast block;
+}
+
+#speaking {
+  view-timeline: --section-speaking block;
+}
+
+#mentorship {
+  view-timeline: --section-mentorship block;
+}
+
+#contact {
+  view-timeline: --section-contact block;
 }
 
 body {
@@ -18,7 +57,7 @@ body {
   font-family: var(--font-sans);
   line-height: 1.6;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
   scrollbar-gutter: stable;
 }
 
@@ -34,12 +73,25 @@ body::before {
   height: 600px;
   background: radial-gradient(
     ellipse 60% 450px at 50% -100px,
-    rgba(56, 189, 248, 0.08) 0%,
+    rgba(255, 176, 253, 0.08) 0%,
     rgba(129, 140, 248, 0.04) 40%,
     rgba(13, 15, 18, 0) 80%
   );
   pointer-events: none;
   z-index: 0;
+}
+
+/* Headings Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
 }
 
 main {
@@ -67,10 +119,6 @@ main:focus {
   contain: layout style;
 }
 
-.site-section + .site-section {
-  border-top: 1px solid var(--border-subtle);
-}
-
 /* Section Header Typography */
 .section-header {
   margin-bottom: clamp(2rem, 4vw, 3.5rem);
@@ -80,17 +128,18 @@ main:focus {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: clamp(0.875rem, 1.1vw, 0.9375rem);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--accent-pink);
   margin-bottom: 0.5rem;
 }
 
 .section-title {
+  font-family: var(--font-heading);
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.2;
   color: var(--text-primary);
@@ -115,49 +164,60 @@ main:focus {
   margin-top: clamp(2rem, 4vw, 3rem);
 }
 
-/* Button & Link Primitives */
+/* Button & Link Primitives (Unified Hero Outline CTA Style) */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0 1.375rem;
+  gap: 0.6rem;
+  padding: 0.875rem 1.75rem;
+  font-family: var(--font-mono);
   font-size: 0.9375rem;
   font-weight: 600;
   line-height: 1;
-  border-radius: var(--radius-pill);
+  color: var(--accent-pink);
+  background-color: transparent;
+  border: 1px solid var(--accent-pink);
+  border-radius: var(--radius-sm);
   text-decoration: none;
   transition:
-    background var(--transition-fast),
+    background-color var(--transition-fast),
     border-color var(--transition-fast),
-    color var(--transition-fast);
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
   cursor: pointer;
   box-sizing: border-box;
-  height: 44px;
+  height: 46px;
+}
+
+.btn:hover {
+  background-color: rgba(255, 101, 232, 0.12);
+  color: var(--accent-pink);
+  border-color: var(--accent-pink);
 }
 
 .btn-primary {
-  background: var(--text-primary);
-  color: var(--text-inverse);
-  border: 1px solid var(--text-primary);
+  background-color: transparent;
+  color: var(--accent-pink);
+  border: 1px solid var(--accent-pink);
 }
 
 .btn-primary:hover {
-  background: #f8fafc;
-  color: var(--text-inverse);
-  border-color: #f8fafc;
+  background-color: rgba(255, 101, 232, 0.12);
+  color: var(--accent-pink);
+  border-color: var(--accent-pink);
 }
 
 .btn-secondary {
-  background: var(--bg-surface);
-  color: var(--text-primary);
-  border: 1px solid var(--border-medium);
+  background-color: transparent;
+  color: var(--accent-pink);
+  border: 1px solid var(--accent-pink);
 }
 
 .btn-secondary:hover {
-  background: var(--bg-surface-elevated);
-  border-color: var(--border-highlight);
-  color: #fff;
+  background-color: rgba(255, 101, 232, 0.12);
+  border-color: var(--accent-pink);
+  color: var(--accent-pink);
 }
 
 .btn-ghost {
@@ -168,14 +228,14 @@ main:focus {
 }
 
 .btn-ghost:hover {
-  color: var(--accent-cyan);
+  color: var(--accent-pink);
 }
 
 .btn-icon {
   padding: 0;
-  width: 44px;
-  min-width: 44px;
-  height: 44px;
+  width: 46px;
+  min-width: 46px;
+  height: 46px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -184,7 +244,7 @@ main:focus {
 .btn-group {
   display: inline-flex;
   align-items: stretch;
-  height: 44px;
+  height: 46px;
 }
 
 .btn-group .btn {
@@ -193,13 +253,13 @@ main:focus {
 }
 
 .btn-group .btn:first-child {
-  border-top-left-radius: var(--radius-pill);
-  border-bottom-left-radius: var(--radius-pill);
+  border-top-left-radius: var(--radius-sm);
+  border-bottom-left-radius: var(--radius-sm);
 }
 
 .btn-group .btn:last-child {
-  border-top-right-radius: var(--radius-pill);
-  border-bottom-right-radius: var(--radius-pill);
+  border-top-right-radius: var(--radius-sm);
+  border-bottom-right-radius: var(--radius-sm);
 }
 
 .btn-group .btn + .btn {
@@ -209,6 +269,19 @@ main:focus {
 .btn-group .btn:hover,
 .btn-group .btn:focus-visible {
   z-index: 1;
+}
+
+.arrow-indicator {
+  display: inline-block;
+  font-family: var(--font-mono);
+  color: var(--accent-pink);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: transform var(--transition-fast);
+}
+
+.btn:hover .arrow-indicator {
+  transform: translate(2px, -2px);
 }
 
 /* Accessibility Skip Link */
