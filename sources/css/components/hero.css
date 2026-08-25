@@ -157,6 +157,7 @@
   align-items: center;
   position: relative;
   overflow: visible;
+  transition: opacity var(--transition-normal);
 }
 
 /* Subtle Ambient Glow Behind Photo Matching Hero Accent (#7db3b3) */
@@ -200,13 +201,58 @@
 }
 
 @media (max-width: 860px) {
+  .hero-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: calc(72px + 1.5rem);
+    padding-bottom: 2rem;
+  }
+
   .hero-grid {
-    grid-template-columns: 1fr;
-    text-align: left;
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 540px;
+  }
+
+  .hero-visual {
+    position: absolute;
+    top: 50%;
+    right: -40px;
+    transform: translateY(-50%) translateZ(0);
+    width: 560px;
+    max-width: none;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-visual .ambient-glow {
+    opacity: 0.2;
   }
 
   .hero-photo-wrapper {
-    max-width: 520px;
-    margin-inline: auto;
+    max-width: none;
+    width: 100%;
+    transform: scale(1.15);
+    top: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-visual {
+    right: -70px;
+    width: 560px;
+    opacity: 0.10;
   }
 }
