@@ -6,11 +6,11 @@
 /* Ambient Slow-Moving Aurora Effect */
 .mentorship-aurora {
   position: absolute;
-  top: 50%;
+  top: calc(50% + 40px);
   right: -2%;
   transform: translateY(-50%) translateZ(0);
   width: clamp(420px, 52vw, 750px);
-  height: clamp(420px, 52vw, 750px);
+  height: clamp(500px, 60vw, 830px);
   pointer-events: none;
   z-index: 0;
   opacity: 0.20;

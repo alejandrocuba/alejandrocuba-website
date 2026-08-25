@@ -149,71 +149,80 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrapper = footerDisclosure.querySelector('.footer-metrics-content-wrapper');
 
     if (summary && wrapper) {
-      let shrinkAnimationId = null;
-      let scrollAnimationId = null;
+      let animationId = null;
       let isClosing = false;
+      let isOpening = false;
 
       const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
       const cancelActiveAnimations = () => {
-        if (shrinkAnimationId) {
-          cancelAnimationFrame(shrinkAnimationId);
-          shrinkAnimationId = null;
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
         }
-        if (scrollAnimationId) {
-          cancelAnimationFrame(scrollAnimationId);
-          scrollAnimationId = null;
-        }
-      };
-
-      const scrollToAbsoluteBottom = (duration = 520) => {
-        const startScroll = window.scrollY;
-        const targetScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const distance = targetScroll - startScroll;
-        if (distance <= 2) return;
-
-        const startTime = performance.now();
-
-        const scrollStep = (now) => {
-          const elapsed = now - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = easeOutCubic(progress);
-
-          window.scrollTo({
-            top: startScroll + distance * eased,
-            behavior: 'auto'
-          });
-
-          if (progress < 1) {
-            scrollAnimationId = requestAnimationFrame(scrollStep);
-          } else {
-            // Ensure the exact absolute bottom is set at finish
-            window.scrollTo({
-              top: document.documentElement.scrollHeight - window.innerHeight,
-              behavior: 'auto'
-            });
-            scrollAnimationId = null;
-          }
-        };
-
-        scrollAnimationId = requestAnimationFrame(scrollStep);
       };
 
       const expand = () => {
         isClosing = false;
+        isOpening = true;
         cancelActiveAnimations();
 
+        const startHeight = summary.offsetHeight;
+
+        // Immediately scroll to the bottom of the page upon click
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'instant'
+        });
+
+        // Open details with fixed initial height to prevent layout jump
         footerDisclosure.setAttribute('open', '');
         footerDisclosure.classList.remove('is-closing');
         footerDisclosure.classList.add('is-open');
-        footerDisclosure.style.height = '';
-        footerDisclosure.style.overflow = '';
+        footerDisclosure.style.overflow = 'hidden';
+        footerDisclosure.style.height = `${startHeight}px`;
 
-        // Immediately start smooth scroll to the very bottom of the page (520ms duration)
-        scrollToAbsoluteBottom(520);
+        // Calculate target height
+        const endHeight = summary.offsetHeight + wrapper.offsetHeight;
+        const heightDelta = endHeight - startHeight;
+
+        const startTime = performance.now();
+        const duration = 900;
+
+        const expandStep = (now) => {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = easeOutCubic(progress);
+
+          const currentHeight = startHeight + heightDelta * eased;
+          footerDisclosure.style.height = `${currentHeight}px`;
+
+          // Keep viewport anchored to bottom as height progressively expands
+          window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'instant'
+          });
+
+          if (progress < 1 && isOpening) {
+            animationId = requestAnimationFrame(expandStep);
+          } else if (isOpening) {
+            footerDisclosure.style.height = '';
+            footerDisclosure.style.overflow = '';
+            isOpening = false;
+            animationId = null;
+            // Ensure absolute bottom on completion
+            window.scrollTo({
+              top: document.documentElement.scrollHeight,
+              behavior: 'instant'
+            });
+          }
+        };
+
+        animationId = requestAnimationFrame(expandStep);
       };
 
       const shrink = () => {
+        isOpening = false;
         isClosing = true;
         cancelActiveAnimations();
 
@@ -226,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
         footerDisclosure.style.overflow = 'hidden';
 
         const startTime = performance.now();
-        const duration = 500;
+        const duration = 900;
 
         const shrinkStep = (now) => {
           const elapsed = now - startTime;
@@ -237,18 +246,18 @@ document.addEventListener('DOMContentLoaded', () => {
           footerDisclosure.style.height = `${currentHeight}px`;
 
           if (progress < 1 && isClosing) {
-            shrinkAnimationId = requestAnimationFrame(shrinkStep);
+            animationId = requestAnimationFrame(shrinkStep);
           } else if (isClosing) {
             footerDisclosure.removeAttribute('open');
             footerDisclosure.classList.remove('is-closing');
             footerDisclosure.style.height = '';
             footerDisclosure.style.overflow = '';
             isClosing = false;
-            shrinkAnimationId = null;
+            animationId = null;
           }
         };
 
-        shrinkAnimationId = requestAnimationFrame(shrinkStep);
+        animationId = requestAnimationFrame(shrinkStep);
       };
 
       summary.addEventListener('click', (e) => {

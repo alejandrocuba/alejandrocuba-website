@@ -230,9 +230,9 @@
 }
 
 .podcast-stats-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1rem, 2vw, 1.5rem);
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(2.25rem, 4vw, 3rem);
   margin-top: 0.5rem;
   padding-block: 0.25rem;
   border-block: none;
@@ -270,6 +270,46 @@
 
 #podcast .section-footer-actions {
   margin-top: clamp(4.5rem, 7vw, 6rem);
+}
+
+/* Linked YouTube CTA (Text + Icon unified semantic link) */
+.btn-youtube-combo {
+  padding: 0;
+  gap: 0;
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.btn-combo-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.875rem 1.75rem;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.btn-combo-divider {
+  width: 1px;
+  background-color: rgba(226, 232, 240, 0.4);
+  height: 100%;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast);
+}
+
+.btn-youtube-combo:hover .btn-combo-divider {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.btn-combo-icon {
+  width: 46px;
+  min-width: 46px;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .platform-icon {
