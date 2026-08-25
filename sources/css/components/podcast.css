@@ -214,7 +214,7 @@
 .podcast-heading {
   font-family: var(--font-heading);
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text-primary);
@@ -409,7 +409,7 @@
 .episode-title {
   font-family: var(--font-heading);
   font-size: 0.9375rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.4;
   color: var(--text-primary);
   margin: 0;

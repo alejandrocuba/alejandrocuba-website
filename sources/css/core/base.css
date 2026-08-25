@@ -89,7 +89,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
   line-height: 1.2;
 }
@@ -165,7 +165,7 @@ main:focus {
 .section-title {
   font-family: var(--font-heading);
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.2;
   color: var(--text-primary);
