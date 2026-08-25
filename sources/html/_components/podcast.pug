@@ -76,13 +76,14 @@ section#podcast.site-section.podcast-section(aria-labelledby="podcast-title")
           header.podcast-header
             span.podcast-badge= podcast.tagline
             h2#podcast-title.podcast-heading= podcast.title
-          p.podcast-description= podcast.description
 
           .podcast-stats-row
             each stat in podcast.stats
               .podcast-stat-item
                 span.podcast-stat-num= stat.number
                 span.podcast-stat-label= stat.label
+
+          p.podcast-description= podcast.description
 
           .podcast-actions
             .btn-group(role="group" aria-label="Podcast platforms and episode archive")

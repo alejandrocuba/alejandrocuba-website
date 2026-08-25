@@ -83,6 +83,65 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
+  // ScrollSpy: Update active navigation item based on section in view
+  const sectionIds = ['about', 'articles', 'podcast', 'speaking', 'mentorship', 'contact'];
+  const contributionSectionIds = ['articles', 'podcast', 'speaking', 'mentorship'];
+  const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
+  const navLinks = document.querySelectorAll('.nav-link, .dropdown-link');
+  const contributionsTrigger = document.querySelector('.nav-dropdown-trigger');
+
+  if (sections.length > 0) {
+    const setActiveSection = (sectionId) => {
+      navLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        if (href === `#${sectionId}`) {
+          link.classList.add('is-active');
+          link.setAttribute('aria-current', 'true');
+        } else {
+          link.classList.remove('is-active');
+          link.removeAttribute('aria-current');
+        }
+      });
+
+      if (contributionsTrigger) {
+        if (contributionSectionIds.includes(sectionId)) {
+          contributionsTrigger.classList.add('is-active');
+          contributionsTrigger.setAttribute('aria-current', 'true');
+        } else {
+          contributionsTrigger.classList.remove('is-active');
+          contributionsTrigger.removeAttribute('aria-current');
+        }
+      }
+    };
+
+    const updateActiveNav = () => {
+      const scrollPosition = window.scrollY + 120;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // Bottom of page activates contact
+      if (window.scrollY + windowHeight >= documentHeight - 50) {
+        setActiveSection('contact');
+        return;
+      }
+
+      let currentSectionId = 'about';
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (scrollPosition >= section.offsetTop) {
+          currentSectionId = section.id;
+          break;
+        }
+      }
+
+      setActiveSection(currentSectionId);
+    };
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    window.addEventListener('resize', updateActiveNav, { passive: true });
+    updateActiveNav();
+  }
+
   // Footer Metrics Disclosure: Smooth, seamless and elegant expand & collapse animation
   const footerDisclosure = document.querySelector('.footer-metrics-disclosure');
   if (footerDisclosure) {

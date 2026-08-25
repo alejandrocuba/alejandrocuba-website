@@ -102,13 +102,22 @@
   border-radius: var(--radius-sm);
 }
 
-/* Active Highlighted State (Subtle Glow - No bottom line) */
+/* Active Highlighted State (Accent Color & Bold) */
 .nav-link.is-active,
+.nav-link[aria-current="true"],
 .nav-link[aria-current="location"],
 .nav-link[aria-current="page"] {
   color: var(--accent-cyan);
   font-weight: 600;
   text-shadow: none;
+}
+
+.nav-link.is-active:hover,
+.nav-link[aria-current="true"]:hover,
+.nav-link[aria-current="location"]:hover,
+.nav-link[aria-current="page"]:hover {
+  color: var(--accent-cyan);
+  font-weight: 600;
 }
 
 /* Navigation Dropdown Menu (Contributions - Tap-only) */
@@ -146,6 +155,18 @@
 .nav-dropdown-trigger:hover,
 details[open] .nav-dropdown-trigger {
   color: var(--text-primary);
+}
+
+.nav-dropdown-trigger.is-active,
+.nav-dropdown-trigger[aria-current="true"] {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.nav-dropdown-trigger.is-active:hover,
+details[open] .nav-dropdown-trigger.is-active {
+  color: var(--accent-cyan);
+  font-weight: 600;
 }
 
 .dropdown-caret {
@@ -224,6 +245,11 @@ details[open] .dropdown-menu {
   outline: none;
 }
 
+.dropdown-link.is-active {
+  color: var(--accent-cyan) !important;
+  font-weight: 600;
+}
+
 @media (max-width: 540px) {
   .header-container {
     height: 60px;
@@ -239,48 +265,3 @@ details[open] .dropdown-menu {
   }
 }
 
-/* ==========================================================================
-   Pure CSS Scroll-Driven ScrollSpy Animations (Subtle Glow, No Bottom Line)
-   ========================================================================== */
-
-@keyframes nav-link-first-active {
-  0%, 75% {
-    color: var(--accent-cyan);
-    font-weight: 600;
-    text-shadow: none;
-  }
-  100% {
-    color: var(--text-secondary);
-    font-weight: 500;
-    text-shadow: none;
-  }
-}
-
-@keyframes nav-link-last-active {
-  0% {
-    color: var(--text-secondary);
-    font-weight: 500;
-    text-shadow: none;
-  }
-  25%, 100% {
-    color: var(--accent-cyan);
-    font-weight: 600;
-    text-shadow: none;
-  }
-}
-
-@supports (animation-timeline: --section-about) {
-  /* About (Top section) */
-  .nav-link[href="#about"] {
-    animation: nav-link-first-active linear both;
-    animation-timeline: --section-about;
-    animation-range: entry -100% exit 85%;
-  }
-
-  /* Contact (Bottom section) */
-  .nav-link[href="#contact"] {
-    animation: nav-link-last-active linear both;
-    animation-timeline: --section-contact;
-    animation-range: entry 10% exit 100%;
-  }
-}

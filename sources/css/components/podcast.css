@@ -91,27 +91,35 @@
   z-index: 1;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: var(--radius-lg);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  background: #000000;
+  border: none;
   overflow: hidden;
   box-sizing: border-box;
   box-shadow:
     0 0 54px 0px rgba(234, 118, 0, 0.07),
     0 0 110px 14px rgba(255, 133, 10, 0.035),
     0 20px 40px -10px rgba(0, 0, 0, 0.6);
+  transition: box-shadow var(--transition-normal);
 }
 
-/* Warm Orange Ambient Glow (Reduced by 30%) */
+.podcast-preview-container:hover .video-preview-wrapper {
+  box-shadow:
+    0 0 58px 2px rgba(234, 118, 0, 0.09),
+    0 0 115px 16px rgba(255, 133, 10, 0.045),
+    0 22px 44px -9px rgba(0, 0, 0, 0.65);
+}
+
+/* Warm Orange Ambient Glow */
 .podcast-preview-container .ambient-glow {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) translateZ(0);
-  width: 230%;
-  height: 230%;
+  width: 300%;
+  height: 300%;
   z-index: 0;
-  opacity: 0.7;
+  opacity: 0.63;
   background: radial-gradient(
     ellipse at 50% 50%,
     rgba(234, 118, 0, 0.11) 0%,
@@ -119,8 +127,18 @@
     rgba(255, 118, 0, 0.015) 62%,
     transparent 72%
   );
-  filter: blur(24px);
+  filter: blur(28px);
   pointer-events: none;
+  transition:
+    opacity var(--transition-normal),
+    transform var(--transition-normal),
+    filter var(--transition-normal);
+}
+
+.podcast-preview-container:hover .ambient-glow {
+  opacity: 0.76;
+  transform: translate(-50%, -50%) scale(1.02) translateZ(0);
+  filter: blur(30px);
 }
 
 .video-facade-btn {
@@ -214,7 +232,8 @@
 .podcast-stats-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-top: 0.5rem;
   padding-block: 0.25rem;
   border-block: none;
 }
@@ -227,15 +246,20 @@
 }
 
 .podcast-stat-num {
-  font-size: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: clamp(1.45rem, 2.25vw, 1.8rem);
   font-weight: 700;
-  color: var(--text-primary);
+  color: #d28323;
   line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .podcast-stat-label {
+  font-family: var(--font-mono);
   font-size: 0.8125rem;
-  color: var(--text-muted);
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
 }
 
 .podcast-actions {
@@ -302,7 +326,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   overflow: hidden;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
