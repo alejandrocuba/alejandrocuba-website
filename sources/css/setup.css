@@ -18,11 +18,11 @@
   --text-inverse: #0d0f12;
 
   /* Vibrant Ambient Accents */
-  --accent-pink:  #ff65e8; /* Refined Soft Neon Pink / Orchid */
-  --accent-cyan: #ff65e8; /* Primary neon accent */
+  --accent-pink:  #7db3b3; /* Refined Mineral Sage Teal */
+  --accent-cyan: #7db3b3; /* Primary mineral teal accent */
   --accent-indigo: #8480ff; /* Indigo 400 */
   --accent-emerald: #44f5a0; /* Emerald 400 */
-  --accent-rose: #ff65e8; /* Neon Accent */
+  --accent-rose: #7db3b3; /* Mineral Accent */
   --accent-amber: #fadf68; /* Amber 400 */
 
   /* Typography Scales */

@@ -73,7 +73,7 @@ body::before {
   height: 600px;
   background: radial-gradient(
     ellipse 60% 450px at 50% -100px,
-    rgba(255, 176, 253, 0.08) 0%,
+    rgba(125, 179, 179, 0.08) 0%,
     rgba(129, 140, 248, 0.04) 40%,
     rgba(13, 15, 18, 0) 80%
   );
@@ -187,10 +187,10 @@ main:focus {
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-top: clamp(2rem, 4vw, 3rem);
+  margin-top: clamp(3.5rem, 5.5vw, 4.5rem);
 }
 
-/* Button & Link Primitives (Unified Hero Outline CTA Style) */
+/* Button & Link Primitives (Unified Outline CTA Style - Light Grey) */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -201,9 +201,9 @@ main:focus {
   font-size: 0.9375rem;
   font-weight: 600;
   line-height: 1;
-  color: var(--accent-pink);
+  color: #e2e8f0;
   background-color: transparent;
-  border: 1px solid var(--accent-pink);
+  border: 1px solid rgba(226, 232, 240, 0.4);
   border-radius: var(--radius-sm);
   text-decoration: none;
   transition:
@@ -217,33 +217,41 @@ main:focus {
 }
 
 .btn:hover {
-  background-color: rgba(255, 101, 232, 0.12);
-  color: var(--accent-pink);
-  border-color: var(--accent-pink);
+  background-color: rgba(241, 245, 249, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 16px rgba(241, 245, 249, 0.08);
+}
+
+.btn:focus-visible {
+  outline: 2px solid #e2e8f0;
+  outline-offset: 3px;
 }
 
 .btn-primary {
   background-color: transparent;
-  color: var(--accent-pink);
-  border: 1px solid var(--accent-pink);
+  color: #e2e8f0;
+  border: 1px solid rgba(226, 232, 240, 0.4);
 }
 
 .btn-primary:hover {
-  background-color: rgba(255, 101, 232, 0.12);
-  color: var(--accent-pink);
-  border-color: var(--accent-pink);
+  background-color: rgba(241, 245, 249, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 16px rgba(241, 245, 249, 0.08);
 }
 
 .btn-secondary {
   background-color: transparent;
-  color: var(--accent-pink);
-  border: 1px solid var(--accent-pink);
+  color: #e2e8f0;
+  border: 1px solid rgba(226, 232, 240, 0.4);
 }
 
 .btn-secondary:hover {
-  background-color: rgba(255, 101, 232, 0.12);
-  border-color: var(--accent-pink);
-  color: var(--accent-pink);
+  background-color: rgba(241, 245, 249, 0.08);
+  border-color: rgba(255, 255, 255, 0.8);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(241, 245, 249, 0.08);
 }
 
 .btn-ghost {
@@ -254,7 +262,7 @@ main:focus {
 }
 
 .btn-ghost:hover {
-  color: var(--accent-pink);
+  color: #ffffff;
 }
 
 .btn-icon {
@@ -300,13 +308,16 @@ main:focus {
 .arrow-indicator {
   display: inline-block;
   font-family: var(--font-mono);
-  color: var(--accent-pink);
+  color: #e2e8f0;
   font-size: 0.9375rem;
   font-weight: 500;
-  transition: transform var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    color var(--transition-fast);
 }
 
 .btn:hover .arrow-indicator {
+  color: #ffffff;
   transform: translate(2px, -2px);
 }
 

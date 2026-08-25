@@ -98,7 +98,7 @@
 .mentorship-actions {
   display: flex;
   align-items: center;
-  margin-top: 0.5rem;
+  margin-top: 2rem;
 }
 
 .stats-matrix {
@@ -145,7 +145,7 @@
   background: radial-gradient(
     ellipse at 50% 50%,
     rgba(52, 211, 153, 0.2) 0%,
-    rgba(255, 176, 253, 0.1) 45%,
+    rgba(125, 179, 179, 0.1) 45%,
     transparent 80%
   );
   transform: translateZ(0);

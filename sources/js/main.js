@@ -44,5 +44,180 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // Smart Header: Hide on scroll down, show on scroll up
+  const header = document.querySelector('.site-header');
+  if (header) {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const currentScrollY = window.scrollY;
+            const delta = currentScrollY - lastScrollY;
+
+            if (currentScrollY <= 20) {
+              header.classList.remove('is-hidden', 'is-scrolled');
+            } else {
+              header.classList.add('is-scrolled');
+              if (delta > 8 && currentScrollY > 100) {
+                // Scrolling down - hide header
+                header.classList.add('is-hidden');
+                navDropdowns.forEach((details) => details.removeAttribute('open'));
+              } else if (delta < -6) {
+                // Scrolling up - show header
+                header.classList.remove('is-hidden');
+              }
+            }
+
+            lastScrollY = currentScrollY;
+            ticking = false;
+          });
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+  }
+
+  // Footer Metrics Disclosure: Smooth, seamless and elegant expand & collapse animation
+  const footerDisclosure = document.querySelector('.footer-metrics-disclosure');
+  if (footerDisclosure) {
+    const summary = footerDisclosure.querySelector('.footer-metrics-summary');
+    const wrapper = footerDisclosure.querySelector('.footer-metrics-content-wrapper');
+
+    if (summary && wrapper) {
+      let shrinkAnimationId = null;
+      let scrollAnimationId = null;
+      let isClosing = false;
+
+      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+      const cancelActiveAnimations = () => {
+        if (shrinkAnimationId) {
+          cancelAnimationFrame(shrinkAnimationId);
+          shrinkAnimationId = null;
+        }
+        if (scrollAnimationId) {
+          cancelAnimationFrame(scrollAnimationId);
+          scrollAnimationId = null;
+        }
+      };
+
+      const scrollToAbsoluteBottom = (duration = 520) => {
+        const startScroll = window.scrollY;
+        const targetScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const distance = targetScroll - startScroll;
+        if (distance <= 2) return;
+
+        const startTime = performance.now();
+
+        const scrollStep = (now) => {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = easeOutCubic(progress);
+
+          window.scrollTo({
+            top: startScroll + distance * eased,
+            behavior: 'auto'
+          });
+
+          if (progress < 1) {
+            scrollAnimationId = requestAnimationFrame(scrollStep);
+          } else {
+            // Ensure the exact absolute bottom is set at finish
+            window.scrollTo({
+              top: document.documentElement.scrollHeight - window.innerHeight,
+              behavior: 'auto'
+            });
+            scrollAnimationId = null;
+          }
+        };
+
+        scrollAnimationId = requestAnimationFrame(scrollStep);
+      };
+
+      const expand = () => {
+        isClosing = false;
+        cancelActiveAnimations();
+
+        footerDisclosure.setAttribute('open', '');
+        footerDisclosure.classList.remove('is-closing');
+        footerDisclosure.classList.add('is-open');
+        footerDisclosure.style.height = '';
+        footerDisclosure.style.overflow = '';
+
+        // Immediately start smooth scroll to the very bottom of the page (520ms duration)
+        scrollToAbsoluteBottom(520);
+      };
+
+      const shrink = () => {
+        isClosing = true;
+        cancelActiveAnimations();
+
+        const startHeight = footerDisclosure.offsetHeight;
+        const endHeight = summary.offsetHeight;
+        const heightDelta = startHeight - endHeight;
+
+        footerDisclosure.classList.remove('is-open');
+        footerDisclosure.classList.add('is-closing');
+        footerDisclosure.style.overflow = 'hidden';
+
+        const startTime = performance.now();
+        const duration = 500;
+
+        const shrinkStep = (now) => {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = easeOutCubic(progress);
+
+          const currentHeight = startHeight - heightDelta * eased;
+          footerDisclosure.style.height = `${currentHeight}px`;
+
+          if (progress < 1 && isClosing) {
+            shrinkAnimationId = requestAnimationFrame(shrinkStep);
+          } else if (isClosing) {
+            footerDisclosure.removeAttribute('open');
+            footerDisclosure.classList.remove('is-closing');
+            footerDisclosure.style.height = '';
+            footerDisclosure.style.overflow = '';
+            isClosing = false;
+            shrinkAnimationId = null;
+          }
+        };
+
+        shrinkAnimationId = requestAnimationFrame(shrinkStep);
+      };
+
+      summary.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+          if (footerDisclosure.hasAttribute('open')) {
+            footerDisclosure.removeAttribute('open');
+            footerDisclosure.classList.remove('is-open', 'is-closing');
+          } else {
+            footerDisclosure.setAttribute('open', '');
+            footerDisclosure.classList.add('is-open');
+          }
+          return;
+        }
+
+        if (isClosing || !footerDisclosure.hasAttribute('open')) {
+          expand();
+        } else {
+          shrink();
+        }
+      });
+    }
+  }
 });
+
+
+
 

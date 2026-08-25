@@ -1,6 +1,62 @@
+include ../_data/tech-stack
+
 - var currentYear = new Date().getFullYear()
+
 footer.site-footer
   .container.footer-inner
-    p.footer-copy
-      | © #{currentYear} #[b Alejandro Cuba Ruiz]
+    .footer-colophon
+      details.footer-metrics-disclosure
+        summary.footer-metrics-summary
+          span.disclosure-caret(aria-hidden="true") ▶
+          span.disclosure-text Curious how this site was built and its core vitals? 👀
 
+        .footer-metrics-content-wrapper
+          .footer-metrics-content
+            .footer-credit-box
+              p.footer-credit
+                | Designed &amp; coded in #[a.footer-link(href="https://antigravity.google/" target="_blank" rel="noopener noreferrer") Antigravity] by #[a.footer-link(href="https://www.linkedin.com/in/yolandasantacruz/" target="_blank" rel="noopener noreferrer") Yolanda Santa Cruz] and yours truly. Built with #[a.footer-link(href="https://pugjs.org/" target="_blank" rel="noopener noreferrer") Pug] &amp; #[a.footer-link(href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener noreferrer") Modern CSS3], compiled with #[a.footer-link(href="https://vite.dev/" target="_blank" rel="noopener noreferrer") Vite], and deployed to #[a.footer-link(href="https://firebase.google.com/docs/hosting" target="_blank" rel="noopener noreferrer") Firebase Edge CDN].
+
+            dl.tech-badges-list(aria-label="Website quality and performance metrics")
+              each badge in siteTechStack.badges
+                .tech-badge-item
+                  dt.badge-label
+                    if badge.icon === 'speed'
+                      svg.badge-icon(width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                        polygon(points="13 2 3 14 12 14 11 22 21 10 12 10 13 2")
+                    else if badge.icon === 'a11y'
+                      svg.badge-icon(width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                        circle(cx="12" cy="4" r="2")
+                        path(d="M12 8v6")
+                        path(d="M8 10h8")
+                        path(d="m9 20 3-6 3 6")
+                    else if badge.icon === 'feather'
+                      svg.badge-icon(width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                        path(d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z")
+                        line(x1="16" y1="8" x2="2" y2="22")
+                        line(x1="17.5" y1="15" x2="9" y2="15")
+                    else if badge.icon === 'gemini'
+                      svg.badge-icon(width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true")
+                        path(d="M12 2C12 7.523 7.523 12 2 12c5.523 0 10 4.477 10 10 0-5.523 4.477-10 10-10-5.523 0-10-4.477-10-10z")
+                    span= badge.label
+                  dd.badge-value= badge.value
+
+            .tech-grid
+              each tech in siteTechStack.technologies
+                article.tech-card
+                  .tech-card-top
+                    span.tech-category= tech.category
+                    h3.tech-name= tech.name
+                  p.tech-desc= tech.description
+
+            .tech-stack-footer
+              a.btn.btn-secondary.tech-github-btn(
+                href=siteTechStack.githubUrl
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View website source code repository on GitHub"
+              )
+                span View source code
+                span.arrow-indicator(aria-hidden="true") ↗
+
+      p.footer-copyright
+        | © #{currentYear} Alejandro Cuba Ruiz. All rights reserved.

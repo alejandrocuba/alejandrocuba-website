@@ -70,7 +70,7 @@
   background: var(--accent-cyan);
   box-shadow:
     0 0 0 4px var(--bg-base),
-    0 0 12px rgba(255, 176, 253, 0.7);
+    0 0 12px rgba(125, 179, 179, 0.7);
   transition:
     background-color var(--transition-fast),
     box-shadow var(--transition-fast);
@@ -80,7 +80,7 @@
   background-color: #fff;
   box-shadow:
     0 0 0 4px var(--bg-base),
-    0 0 16px rgba(255, 176, 253, 0.95);
+    0 0 16px rgba(125, 179, 179, 0.95);
 }
 
 /* Year Milestone Header */
@@ -104,7 +104,7 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--accent-cyan);
-  box-shadow: 0 0 16px rgba(255, 176, 253, 0.12);
+  box-shadow: 0 0 16px rgba(125, 179, 179, 0.12);
   cursor: default;
 }
 

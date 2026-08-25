@@ -7,7 +7,7 @@ section#about.site-section.hero-section(aria-labelledby="hero-title")
       defs
         linearGradient#hero-bridge-grad(x1="30%" y1="0%" x2="70%" y2="100%")
           stop(offset="0%" stop-color="#7db3b3")
-          stop(offset="50%" stop-color="#ff65e8")
+          stop(offset="50%" stop-color="#9ec7c7")
           stop(offset="100%" stop-color="#abb3fb")
       path.hero-aurora-path(
         d="M 120 40 C 220 30 320 80 340 180 C 360 280 280 360 380 440 C 460 510 490 560 460 580 C 350 590 180 590 20 580 C 10 480 10 320 20 180 C 30 90 60 45 120 40 Z"
@@ -30,11 +30,25 @@ section#about.site-section.hero-section(aria-labelledby="hero-title")
 
       .hero-visual
         .ambient-glow(aria-hidden="true")
-        img.hero-photo(
-          src=path.images + "hero-speaker.webp"
-          alt="Alejandro Cuba Ruiz speaking on stage about modern web architecture and rendering"
-          width="1009"
-          height="1024"
-          fetchpriority="high"
-        )
+        .hero-photo-wrapper
+          svg.hero-photo-svg(
+            viewBox="0 0 1009 1024"
+            width="1009"
+            height="1024"
+            role="img"
+            aria-label="Alejandro Cuba Ruiz speaking on stage about modern web architecture and rendering"
+          )
+            defs
+              filter#hero-mask-blur(x="-40%" y="-40%" width="180%" height="180%")
+                feGaussianBlur(stdDeviation="75 50")
+              mask#hero-photo-mask
+                rect(width="1009" height="1024" fill="#000")
+                rect(x="145" y="95" width="719" height="834" rx="230" ry="230" fill="#fff" filter="url(#hero-mask-blur)")
+            image(
+              href=path.images + "hero-speaker-hd.webp"
+              width="1009"
+              height="1024"
+              mask="url(#hero-photo-mask)"
+              preserveAspectRatio="xMidYMid slice"
+            )
 

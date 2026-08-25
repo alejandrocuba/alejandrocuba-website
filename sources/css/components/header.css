@@ -1,10 +1,29 @@
 .site-header {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   z-index: 100;
   background: transparent;
-  border-bottom: none;
-  transition: background-color var(--transition-normal);
+  border-bottom: 1px solid transparent;
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.site-header.is-scrolled {
+  background: rgba(13, 15, 18, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.site-header.is-hidden {
+  transform: translateY(-100%);
 }
 
 .header-container {
@@ -26,13 +45,13 @@
 }
 
 .nav-logo:hover {
-  color: #ffc8fe;
+  color: #c0dede;
   transform: scale(1.05);
 }
 
 .nav-logo-img {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   display: block;
   object-fit: contain;
 }
@@ -87,9 +106,9 @@
 .nav-link.is-active,
 .nav-link[aria-current="location"],
 .nav-link[aria-current="page"] {
-  color: var(--accent-pink);
+  color: var(--accent-cyan);
   font-weight: 600;
-  text-shadow: 0 0 8px rgba(255, 176, 253, 0.25);
+  text-shadow: none;
 }
 
 /* Navigation Dropdown Menu (Contributions - Tap-only) */
@@ -201,7 +220,7 @@ details[open] .dropdown-menu {
 .dropdown-link:focus-visible,
 .dropdown-link:active {
   color: #e2e8f0 !important;
-  background-color: rgba(255, 101, 232, 0.12);
+  background-color: rgba(125, 179, 179, 0.12);
   outline: none;
 }
 
@@ -226,9 +245,9 @@ details[open] .dropdown-menu {
 
 @keyframes nav-link-first-active {
   0%, 75% {
-    color: var(--accent-pink);
+    color: var(--accent-cyan);
     font-weight: 600;
-    text-shadow: 0 0 8px rgba(255, 176, 253, 0.25);
+    text-shadow: none;
   }
   100% {
     color: var(--text-secondary);
@@ -244,9 +263,9 @@ details[open] .dropdown-menu {
     text-shadow: none;
   }
   25%, 100% {
-    color: var(--accent-pink);
+    color: var(--accent-cyan);
     font-weight: 600;
-    text-shadow: 0 0 8px rgba(255, 176, 253, 0.25);
+    text-shadow: none;
   }
 }
 

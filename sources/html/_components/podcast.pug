@@ -37,7 +37,19 @@ mixin podcastEpisodeThumb(ep)
           span.meta-dot(aria-hidden="true") •
         time(datetime=ep.date itemprop="uploadDate")= ep.dateFormatted
 
-section#podcast.site-section(aria-labelledby="podcast-title")
+section#podcast.site-section.podcast-section(aria-labelledby="podcast-title")
+  .podcast-bridge-aurora(aria-hidden="true")
+    svg.podcast-aurora-svg(viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg")
+      defs
+        linearGradient#podcast-bridge-grad(x1="70%" y1="0%" x2="30%" y2="100%")
+          stop(offset="0%" stop-color="#d28323")
+          stop(offset="50%" stop-color="#e1d09a")
+          stop(offset="100%" stop-color="#8480ff")
+      path.podcast-aurora-path(
+        d="M 480 40 C 380 30 280 80 260 180 C 240 280 320 360 220 440 C 140 510 110 560 140 580 C 250 590 420 590 580 580 C 590 480 590 320 580 180 C 570 90 540 45 480 40 Z"
+        fill="url(#podcast-bridge-grad)"
+      )
+
   .container
     .podcast-hero
       .podcast-grid

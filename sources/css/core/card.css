@@ -120,9 +120,9 @@
 }
 
 .card-format-badge.format-in-person {
-  color: var(--accent-pink);
-  background: rgba(255, 176, 253, 0.08);
-  border: 1px solid rgba(255, 176, 253, 0.25);
+  color: var(--accent-cyan);
+  background: rgba(125, 179, 179, 0.08);
+  border: 1px solid rgba(125, 179, 179, 0.25);
 }
 
 .card-format-badge.format-online,

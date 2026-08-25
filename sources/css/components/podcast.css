@@ -1,3 +1,75 @@
+.podcast-section {
+  position: relative;
+  overflow: visible;
+}
+
+.podcast-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ambient Bridge Aurora connecting Podcast and Speaking */
+.podcast-bridge-aurora {
+  position: absolute;
+  top: 42%;
+  right: -14%;
+  transform: translateZ(0);
+  width: clamp(750px, 85vw, 1250px);
+  height: clamp(850px, 100vw, 1400px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.075;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+.podcast-aurora-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  animation: podcast-aurora-drift 24s ease-in-out infinite alternate;
+  transform-origin: 65% 55%;
+}
+
+.podcast-aurora-path {
+  animation: podcast-morph 18s ease-in-out infinite alternate;
+  transform-origin: 60% 60%;
+}
+
+@keyframes podcast-aurora-drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(-35px, -25px) rotate(4deg) scale(1.06);
+  }
+  66% {
+    transform: translate(25px, 30px) rotate(-5deg) scale(0.95);
+  }
+  100% {
+    transform: translate(-20px, -20px) rotate(2deg) scale(1.04);
+  }
+}
+
+@keyframes podcast-morph {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06, 0.95) rotate(2deg);
+  }
+  100% {
+    transform: scale(0.95, 1.05) rotate(-3deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .podcast-aurora-svg,
+  .podcast-aurora-path {
+    animation: none;
+  }
+}
+
 .podcast-grid {
   display: grid;
   grid-template-columns: 0.88fr 1.12fr;
@@ -25,12 +97,12 @@
   overflow: hidden;
   box-sizing: border-box;
   box-shadow:
-    0 0 54px 0px rgba(234, 118, 0, 0.10),
-    0 0 110px 14px rgba(255, 133, 10, 0.05),
+    0 0 54px 0px rgba(234, 118, 0, 0.07),
+    0 0 110px 14px rgba(255, 133, 10, 0.035),
     0 20px 40px -10px rgba(0, 0, 0, 0.6);
 }
 
-/* Warm Orange Ambient Glow (Reduced by 25% more) */
+/* Warm Orange Ambient Glow (Reduced by 30%) */
 .podcast-preview-container .ambient-glow {
   position: absolute;
   top: 50%;
@@ -39,6 +111,7 @@
   width: 230%;
   height: 230%;
   z-index: 0;
+  opacity: 0.7;
   background: radial-gradient(
     ellipse at 50% 50%,
     rgba(234, 118, 0, 0.11) 0%,
@@ -168,7 +241,7 @@
 .podcast-actions {
   display: flex;
   align-items: center;
-  margin-top: 0.75rem;
+  margin-top: 2.25rem;
 }
 
 #podcast .section-footer-actions {
