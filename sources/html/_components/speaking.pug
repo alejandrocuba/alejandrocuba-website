@@ -40,38 +40,31 @@ section#speaking.site-section(aria-labelledby="speaking-title")
             header.timeline-year-header
               span.timeline-year-badge= group.year
 
-            ol.speaking-grid(role="list")
+            ul.speaking-grid(role="list")
               each event in group.events
-                li.card.speaking-card(id=event.id itemscope itemtype="https://schema.org/Event")
+                li.speaking-event-item(id=event.id itemscope itemtype="https://schema.org/Event")
                   meta(
                     itemprop="eventAttendanceMode"
                     content=event.format === 'online' ? 'https://schema.org/OnlineEventAttendanceMode' : 'https://schema.org/OfflineEventAttendanceMode'
                   )
-                  .card-header-row
-                    h3.card-title(itemprop="name")
-                      a.card-title-link(
-                        href=event.url
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        itemprop="url"
-                        aria-label=`View session details for ${event.title}`
-                      )= event.title
-                    time.card-date(datetime=event.dateIso itemprop="startDate")= event.dateFormatted
+                  .speaking-event-header
+                    h3.speaking-event-title(itemprop="name")= event.title
+                    time.speaking-event-date(datetime=event.dateIso itemprop="startDate")= event.dateFormatted
 
-                  .card-location(itemprop="location" itemscope itemtype=event.format === 'online' ? "https://schema.org/VirtualLocation" : "https://schema.org/Place")
-                    .card-location-text
+                  .speaking-event-footer
+                    .speaking-event-location(itemprop="location" itemscope itemtype=event.format === 'online' ? "https://schema.org/VirtualLocation" : "https://schema.org/Place")
                       if event.format === 'online'
-                        svg.meta-icon(width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                        svg.speaking-meta-icon.speaking-meta-icon-online(width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
                           circle(cx="12" cy="12" r="10")
                           line(x1="2" y1="12" x2="22" y2="12")
                           path(d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z")
                       else
-                        svg.meta-icon(width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                        svg.speaking-meta-icon(width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
                           path(d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z")
                           circle(cx="12" cy="10" r="3")
                       span(itemprop=event.format === 'online' ? "name" : "address")= event.location
 
-                    span.card-format-badge(
+                    span.speaking-format-badge(
                       class=`format-${event.format || 'in-person'}`
                       aria-label=`Format: ${event.format === 'online' ? 'Online' : 'In-Person'}`
                     )

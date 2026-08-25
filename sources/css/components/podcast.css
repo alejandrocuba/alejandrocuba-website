@@ -204,7 +204,7 @@
 }
 
 .podcast-stat-num {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: clamp(1.45rem, 2.25vw, 1.8rem);
   font-weight: 700;
   color: #d28323;
