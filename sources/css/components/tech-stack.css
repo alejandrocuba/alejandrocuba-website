@@ -106,8 +106,8 @@
 .footer-colophon-duo {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: clamp(2.25rem, 5vw, 3.5rem);
-  max-width: 580px;
+  gap: clamp(2rem, 4vw, 3rem);
+  max-width: 530px;
   margin-inline: auto;
   text-align: left;
 }
