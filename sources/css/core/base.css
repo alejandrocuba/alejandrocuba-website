@@ -73,7 +73,7 @@ body::before {
   height: 600px;
   background: radial-gradient(
     ellipse 60% 450px at 50% -100px,
-    rgba(125, 179, 179, 0.08) 0%,
+    rgba(var(--accent-highlight-rgb), 0.08) 0%,
     rgba(129, 140, 248, 0.04) 40%,
     rgba(13, 15, 18, 0) 80%
   );
@@ -138,7 +138,7 @@ main:focus {
 
 /* Specific Section Accent & Label Colors */
 .hero-intro {
-  color: #7db3b3 !important;
+  color: var(--accent-highlight) !important;
 }
 
 #articles .section-label {
@@ -305,20 +305,33 @@ main:focus {
   z-index: 1;
 }
 
+/* Universal Arrow Indicator & Link Hover Mechanics */
 .arrow-indicator {
   display: inline-block;
   font-family: var(--font-mono);
-  color: #e2e8f0;
-  font-size: 0.9375rem;
+  color: inherit;
+  font-size: 0.875em;
   font-weight: 500;
+  line-height: 1;
+  text-decoration: none !important;
+  transform: translateY(-1px);
   transition:
     transform var(--transition-fast),
     color var(--transition-fast);
+  pointer-events: none;
+}
+
+.btn:hover .arrow-indicator,
+.btn:focus-visible .arrow-indicator,
+a:hover .arrow-indicator,
+a:focus-visible .arrow-indicator,
+button:hover .arrow-indicator,
+button:focus-visible .arrow-indicator {
+  transform: translate(2px, -3px);
 }
 
 .btn:hover .arrow-indicator {
   color: #ffffff;
-  transform: translate(2px, -2px);
 }
 
 /* Accessibility Skip Link */

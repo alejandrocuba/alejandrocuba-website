@@ -1,4 +1,6 @@
 :root {
+  interpolate-size: allow-keywords;
+
   /* Surface & Background Palette (Sophisticated Dark Mode - Not 100% Black) */
   --bg-base: #0d0f12;
   --bg-surface: #13161c;
@@ -18,11 +20,14 @@
   --text-inverse: #0d0f12;
 
   /* Vibrant Ambient Accents */
-  --accent-pink:  #7db3b3; /* Refined Mineral Sage Teal */
-  --accent-cyan: #7db3b3; /* Primary mineral teal accent */
+  --accent-highlight: #3d9e97; /* Primary Mineral Teal Accent & Menu Highlight */
+  --accent-highlight-rgb: 61, 158, 151; /* RGB channels for alpha blending */
+  --accent-highlight-hover: #64c2bb;
+  --accent-cyan: var(--accent-highlight);
+  --accent-pink: var(--accent-highlight);
+  --accent-rose: var(--accent-highlight);
   --accent-indigo: #8480ff; /* Indigo 400 */
   --accent-emerald: #44f5a0; /* Emerald 400 */
-  --accent-rose: #7db3b3; /* Mineral Accent */
   --accent-amber: #fadf68; /* Amber 400 */
 
   /* Typography Scales */

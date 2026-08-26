@@ -10,9 +10,7 @@ mixin articleCard(article)
 
     .card-meta
       .card-meta-left
-        time(datetime=article.date itemprop="datePublished")= article.formattedDate
-        span.meta-dot(aria-hidden="true") •
-        span= article.readTime
+        time.card-date(datetime=article.date itemprop="datePublished")= article.formattedDate
       .card-meta-right
         a.card-link-arrow(
           href=article.url
@@ -20,7 +18,8 @@ mixin articleCard(article)
           rel="noopener noreferrer"
           aria-label=`Read "${article.title}" on Medium`
         )
-          | Read on Medium ↗
+          span Read on Medium
+          span.arrow-indicator(aria-hidden="true") ↗
 
 section#articles.site-section(aria-labelledby="articles-title")
   .container

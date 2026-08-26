@@ -8,7 +8,7 @@
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 1.75rem 1.75rem 2.25rem 1.75rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -21,7 +21,13 @@
     box-shadow var(--transition-normal);
 }
 
-/* Subtle #8480ff Extended Radial Gradient Halo on Card Hover */
+/* Compact Variant for Timeline/Speaking & Horizontal-oriented items */
+.card.card--compact {
+  padding: 1.25rem 1.35rem;
+  gap: 0.85rem;
+}
+
+/* Subtle Extended Radial Gradient Halo on Card Hover */
 .card::before {
   content: '';
   position: absolute;
@@ -57,6 +63,14 @@
   opacity: 1;
 }
 
+/* Card Header (for side-by-side title + date in wide variant) */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
 /* Card Heading & Title Link */
 .card-title {
   font-family: var(--font-heading);
@@ -67,8 +81,14 @@
   margin: 0;
 }
 
+.card--compact .card-title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 .card-title-link {
-  color: #ffffff;
+  color: inherit;
   text-decoration: none;
   transition: color var(--transition-fast);
 }
@@ -76,6 +96,15 @@
 .card-title-link:hover,
 .card:hover .card-title-link {
   color: #ffffff;
+}
+
+/* Card Date */
+.card-date {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* Card Body & Location */
@@ -87,20 +116,24 @@
 }
 
 .card-location {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  color: var(--text-secondary);
-  margin: 0;
-  flex-wrap: wrap;
-}
-
-.card-location-text {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.card-location-icon {
+  flex-shrink: 0;
+  color: var(--accent-pink);
+  opacity: 0.85;
+}
+
+.card-location-icon--online {
+  color: var(--accent-indigo);
+  opacity: 0.95;
 }
 
 /* Card Format Badge (In-Person / Virtual) */
@@ -121,8 +154,8 @@
 
 .card-format-badge.format-in-person {
   color: var(--accent-cyan);
-  background: rgba(125, 179, 179, 0.08);
-  border: 1px solid rgba(125, 179, 179, 0.25);
+  background: rgba(var(--accent-highlight-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-highlight-rgb), 0.25);
 }
 
 .card-format-badge.format-online,
@@ -142,7 +175,7 @@
   cursor: default;
 }
 
-/* Card Delimiter / Metadata Footer */
+/* Card Meta Footer (Borderless & Compact) */
 .card-meta {
   display: flex;
   justify-content: space-between;
@@ -151,25 +184,25 @@
   font-size: 0.8125rem;
   font-weight: 400;
   color: var(--text-muted);
-  padding-top: 1.125rem;
-  border-top: 1px solid var(--border-subtle);
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
   margin-top: auto;
+  min-height: 1.5rem;
 }
 
 .card-meta-left {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
+  gap: 0.6rem;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
+  flex-shrink: 0;
 }
 
 .card-meta-right {
   display: flex;
   align-items: center;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .meta-dot {
@@ -186,6 +219,7 @@
   font-weight: 500;
   font-size: 0.8125rem;
   text-decoration: none;
+  white-space: nowrap;
   opacity: 0;
   transition:
     opacity var(--transition-normal),
@@ -200,6 +234,10 @@
 
 .card-link-arrow:hover {
   color: #fff;
+  text-decoration: none;
+}
+
+.card-link-arrow:hover > span:not(.arrow-indicator) {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -218,4 +256,12 @@
   .card-title {
     font-size: 1.0625rem;
   }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
 }
+
+

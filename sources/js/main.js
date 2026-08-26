@@ -1,291 +1,115 @@
 /**
  * Main application script for alejandrocuba.com
- * Handles progressive enhancements, accessible video facades, and UI interactions.
+ * Progressive enhancements for video facades, smart header, ScrollSpy, and disclosure anchoring.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Remove loading class to enable transitions gracefully
-  document.body.classList.remove('is-loading');
+// Instantiates YouTube video iframe on click
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.video-facade-btn');
+  if (!btn) return;
+  const id = btn.dataset.videoId;
+  if (!id) return;
 
-  // Video Facade Interactive Handler
-  const videoButtons = document.querySelectorAll('.video-facade-btn');
-  videoButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const videoId = button.getAttribute('data-video-id');
-      if (!videoId) return;
-
-      const iframe = document.createElement('iframe');
-      iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`);
-      iframe.setAttribute('title', button.getAttribute('aria-label') || 'YouTube Video');
-      iframe.setAttribute('frameborder', '0');
-      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-      iframe.setAttribute('allowfullscreen', 'true');
-      iframe.style.width = '100%';
-      iframe.style.height = '100%';
-      iframe.style.position = 'absolute';
-      iframe.style.inset = '0';
-
-      const parent = button.parentElement;
-      if (parent) {
-        parent.innerHTML = '';
-        parent.appendChild(iframe);
-      }
-    });
+  const iframe = document.createElement('iframe');
+  Object.assign(iframe, {
+    src: `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`,
+    title: btn.getAttribute('aria-label') || 'YouTube Video',
+    allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+    allowFullscreen: true,
+    style: 'width:100%;height:100%;position:absolute;inset:0;border:0;'
   });
+  btn.parentElement?.replaceChildren(iframe);
+});
 
-  // Navigation Dropdown Handler (Close on outside click or menuitem click)
-  const navDropdowns = document.querySelectorAll('details.nav-dropdown');
-  if (navDropdowns.length > 0) {
-    document.addEventListener('click', (e) => {
-      navDropdowns.forEach((details) => {
-        if (!details.contains(e.target) || e.target.closest('.dropdown-link')) {
-          details.removeAttribute('open');
-        }
-      });
-    });
-  }
-
-  // Smart Header: Hide on scroll down, show on scroll up
-  const header = document.querySelector('.site-header');
-  if (header) {
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            const currentScrollY = window.scrollY;
-            const delta = currentScrollY - lastScrollY;
-
-            if (currentScrollY <= 20) {
-              header.classList.remove('is-hidden', 'is-scrolled');
-            } else {
-              header.classList.add('is-scrolled');
-              if (delta > 8 && currentScrollY > 100) {
-                // Scrolling down - hide header
-                header.classList.add('is-hidden');
-                navDropdowns.forEach((details) => details.removeAttribute('open'));
-              } else if (delta < -6) {
-                // Scrolling up - show header
-                header.classList.remove('is-hidden');
-              }
-            }
-
-            lastScrollY = currentScrollY;
-            ticking = false;
-          });
-          ticking = true;
-        }
-      },
-      { passive: true }
-    );
-  }
-
-  // ScrollSpy: Update active navigation item based on section in view
-  const sectionIds = ['about', 'articles', 'podcast', 'speaking', 'mentorship', 'contact'];
-  const contributionSectionIds = ['articles', 'podcast', 'speaking', 'mentorship'];
-  const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
-  const navLinks = document.querySelectorAll('.nav-link, .dropdown-link');
-  const contributionsTrigger = document.querySelector('.nav-dropdown-trigger');
-
-  if (sections.length > 0) {
-    const setActiveSection = (sectionId) => {
-      navLinks.forEach((link) => {
-        const href = link.getAttribute('href');
-        if (href === `#${sectionId}`) {
-          link.classList.add('is-active');
-          link.setAttribute('aria-current', 'true');
-        } else {
-          link.classList.remove('is-active');
-          link.removeAttribute('aria-current');
-        }
-      });
-
-      if (contributionsTrigger) {
-        if (contributionSectionIds.includes(sectionId)) {
-          contributionsTrigger.classList.add('is-active');
-          contributionsTrigger.setAttribute('aria-current', 'true');
-        } else {
-          contributionsTrigger.classList.remove('is-active');
-          contributionsTrigger.removeAttribute('aria-current');
-        }
-      }
-    };
-
-    const updateActiveNav = () => {
-      const scrollPosition = window.scrollY + 120;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      // Bottom of page activates contact
-      if (window.scrollY + windowHeight >= documentHeight - 50) {
-        setActiveSection('contact');
-        return;
-      }
-
-      let currentSectionId = 'about';
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (scrollPosition >= section.offsetTop) {
-          currentSectionId = section.id;
-          break;
-        }
-      }
-
-      setActiveSection(currentSectionId);
-    };
-
-    window.addEventListener('scroll', updateActiveNav, { passive: true });
-    window.addEventListener('resize', updateActiveNav, { passive: true });
-    updateActiveNav();
-  }
-
-  // Footer Metrics Disclosure: Smooth, seamless and elegant expand & collapse animation
-  const footerDisclosure = document.querySelector('.footer-metrics-disclosure');
-  if (footerDisclosure) {
-    const summary = footerDisclosure.querySelector('.footer-metrics-summary');
-    const wrapper = footerDisclosure.querySelector('.footer-metrics-content-wrapper');
-
-    if (summary && wrapper) {
-      let animationId = null;
-      let isClosing = false;
-      let isOpening = false;
-
-      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-
-      const cancelActiveAnimations = () => {
-        if (animationId) {
-          cancelAnimationFrame(animationId);
-          animationId = null;
-        }
-      };
-
-      const expand = () => {
-        isClosing = false;
-        isOpening = true;
-        cancelActiveAnimations();
-
-        const startHeight = summary.offsetHeight;
-
-        // Immediately scroll to the bottom of the page upon click
-        window.scrollTo({
-          top: document.documentElement.scrollHeight,
-          behavior: 'instant'
-        });
-
-        // Open details with fixed initial height to prevent layout jump
-        footerDisclosure.setAttribute('open', '');
-        footerDisclosure.classList.remove('is-closing');
-        footerDisclosure.classList.add('is-open');
-        footerDisclosure.style.overflow = 'hidden';
-        footerDisclosure.style.height = `${startHeight}px`;
-
-        // Calculate target height
-        const endHeight = summary.offsetHeight + wrapper.offsetHeight;
-        const heightDelta = endHeight - startHeight;
-
-        const startTime = performance.now();
-        const duration = 900;
-
-        const expandStep = (now) => {
-          const elapsed = now - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = easeOutCubic(progress);
-
-          const currentHeight = startHeight + heightDelta * eased;
-          footerDisclosure.style.height = `${currentHeight}px`;
-
-          // Keep viewport anchored to bottom as height progressively expands
-          window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: 'instant'
-          });
-
-          if (progress < 1 && isOpening) {
-            animationId = requestAnimationFrame(expandStep);
-          } else if (isOpening) {
-            footerDisclosure.style.height = '';
-            footerDisclosure.style.overflow = '';
-            isOpening = false;
-            animationId = null;
-            // Ensure absolute bottom on completion
-            window.scrollTo({
-              top: document.documentElement.scrollHeight,
-              behavior: 'instant'
-            });
-          }
-        };
-
-        animationId = requestAnimationFrame(expandStep);
-      };
-
-      const shrink = () => {
-        isOpening = false;
-        isClosing = true;
-        cancelActiveAnimations();
-
-        const startHeight = footerDisclosure.offsetHeight;
-        const endHeight = summary.offsetHeight;
-        const heightDelta = startHeight - endHeight;
-
-        footerDisclosure.classList.remove('is-open');
-        footerDisclosure.classList.add('is-closing');
-        footerDisclosure.style.overflow = 'hidden';
-
-        const startTime = performance.now();
-        const duration = 900;
-
-        const shrinkStep = (now) => {
-          const elapsed = now - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = easeOutCubic(progress);
-
-          const currentHeight = startHeight - heightDelta * eased;
-          footerDisclosure.style.height = `${currentHeight}px`;
-
-          if (progress < 1 && isClosing) {
-            animationId = requestAnimationFrame(shrinkStep);
-          } else if (isClosing) {
-            footerDisclosure.removeAttribute('open');
-            footerDisclosure.classList.remove('is-closing');
-            footerDisclosure.style.height = '';
-            footerDisclosure.style.overflow = '';
-            isClosing = false;
-            animationId = null;
-          }
-        };
-
-        animationId = requestAnimationFrame(shrinkStep);
-      };
-
-      summary.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        if (prefersReducedMotion) {
-          if (footerDisclosure.hasAttribute('open')) {
-            footerDisclosure.removeAttribute('open');
-            footerDisclosure.classList.remove('is-open', 'is-closing');
-          } else {
-            footerDisclosure.setAttribute('open', '');
-            footerDisclosure.classList.add('is-open');
-          }
-          return;
-        }
-
-        if (isClosing || !footerDisclosure.hasAttribute('open')) {
-          expand();
-        } else {
-          shrink();
-        }
-      });
-    }
+// Light-dismiss navigation dropdowns on outside click or dropdown item click
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('details.nav-dropdown') || e.target.closest('.dropdown-link')) {
+    document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => d.removeAttribute('open'));
   }
 });
 
+// Smart Header & ScrollSpy: Strictly highlight one navigation item at a time
+const header = document.querySelector('.site-header');
+const navLinks = document.querySelectorAll('.nav-link, .dropdown-link');
+const contribTrigger = document.querySelector('.nav-dropdown-trigger');
+const sections = ['about', 'articles', 'podcast', 'speaking', 'mentorship', 'contact']
+  .map((id) => document.getElementById(id))
+  .filter(Boolean);
+const contribIds = new Set(['articles', 'podcast', 'speaking', 'mentorship']);
 
+let lastY = window.scrollY;
 
+const updateNavigation = () => {
+  const y = window.scrollY;
+  const delta = y - lastY;
 
+  // Header Visibility
+  if (header) {
+    if (delta > 8 && y > 100) {
+      header.classList.add('is-hidden');
+      document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => d.removeAttribute('open'));
+    } else if (delta < -6 || y <= 20) {
+      header.classList.remove('is-hidden');
+    }
+  }
+
+  // ScrollSpy: Determine the single current active section
+  if (sections.length > 0) {
+    const scrollPos = y + 140;
+    const isBottom = y + window.innerHeight >= document.documentElement.scrollHeight - 60;
+
+    let activeId = 'about';
+
+    if (isBottom) {
+      activeId = 'contact';
+    } else {
+      for (let i = sections.length - 1; i >= 0; i--) {
+        if (scrollPos >= sections[i].offsetTop) {
+          activeId = sections[i].id;
+          break;
+        }
+      }
+    }
+
+    // Strictly highlight only one target link
+    navLinks.forEach((link) => {
+      const isActive = link.getAttribute('href') === `#${activeId}`;
+      link.classList.toggle('is-active', isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'true');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+
+    // Highlight Contributions parent trigger when one of its sub-sections is active
+    if (contribTrigger) {
+      const inContrib = contribIds.has(activeId);
+      contribTrigger.classList.toggle('is-active', inContrib);
+      if (inContrib) {
+        contribTrigger.setAttribute('aria-current', 'true');
+      } else {
+        contribTrigger.removeAttribute('aria-current');
+      }
+    }
+  }
+
+  lastY = y;
+};
+
+window.addEventListener('scroll', updateNavigation, { passive: true });
+window.addEventListener('resize', updateNavigation, { passive: true });
+updateNavigation();
+
+// Smooth scroll to bottom when footer is expanded
+document.querySelector('.footer-metrics-summary')?.addEventListener('click', (e) => {
+  const details = e.currentTarget.closest('details');
+  if (details && !details.open) {
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+      });
+    }, 40);
+  }
+});

@@ -94,7 +94,7 @@
   background: radial-gradient(
     ellipse at 50% 50%,
     rgba(52, 211, 153, 0.2) 0%,
-    rgba(125, 179, 179, 0.1) 45%,
+    rgba(var(--accent-highlight-rgb), 0.1) 45%,
     transparent 80%
   );
   transform: translateZ(0);
