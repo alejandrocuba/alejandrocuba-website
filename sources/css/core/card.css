@@ -169,12 +169,6 @@
   flex-shrink: 0;
 }
 
-.card-tag {
-  color: var(--accent-cyan);
-  font-weight: 500;
-  cursor: default;
-}
-
 /* Card Meta Footer (Borderless & Compact) */
 .card-meta {
   display: flex;

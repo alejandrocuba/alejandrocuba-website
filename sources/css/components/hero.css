@@ -78,16 +78,6 @@
   margin: 0;
 }
 
-.hero-tagline {
-  font-family: var(--font-heading);
-  font-size: clamp(2.25rem, 4.8vw, 3.75rem);
-  font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -0.025em;
-  color: var(--text-secondary);
-  margin: 0;
-}
-
 .hero-bio {
   font-size: clamp(1rem, 1.25vw, 1.125rem);
   line-height: 1.65;

@@ -53,11 +53,6 @@
   font-size: 1rem;
 }
 
-.contact-linkedin-btn .platform-icon {
-  flex-shrink: 0;
-  color: #0a66c2;
-}
-
 .social-channels-bar {
   display: flex;
   justify-content: center;

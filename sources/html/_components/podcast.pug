@@ -30,10 +30,13 @@ section#podcast.site-section.podcast-section(aria-labelledby="podcast-title")
             )
               img.video-thumbnail(
                 src=path.images + featuredEpisode.image
+                srcset=`${path.images}podcast/ep84-480w.webp 480w, ${path.images}podcast/ep84-720w.webp 720w, ${path.images}${featuredEpisode.image} 1280w`
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
                 alt=`YouTube preview for ${featuredEpisode.title}`
                 width="1280"
                 height="720"
                 loading="lazy"
+                decoding="async"
               )
               .play-button-icon(aria-hidden="true")
                 svg(width="26" height="26" viewBox="0 0 24 24" fill="currentColor")
