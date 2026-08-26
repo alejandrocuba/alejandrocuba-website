@@ -10,7 +10,7 @@ mixin articleCard(article)
 
     .card-meta
       .card-meta-left
-        time.card-date(datetime=article.date itemprop="datePublished")= article.formattedDate
+        time.card-date(datetime=article.date itemprop="datePublished")= article.dateFormatted
       .card-meta-right
         a.card-link-arrow(
           href=article.url

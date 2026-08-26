@@ -1,43 +1,10 @@
 include ../_layout/setup/path
 include ../_data/podcast
 
-mixin podcastEpisodeThumb(ep)
-  article.episode-item(id=`episode-${ep.episode}` itemscope itemtype="https://schema.org/VideoObject")
-    .episode-thumbnail-wrapper
-      button.video-facade-btn(
-        type="button"
-        aria-label=`Play episode ${ep.episode}: ${ep.title}`
-        data-video-id=ep.videoId
-      )
-        img.episode-thumbnail-img(
-          src=path.images + ep.image
-          alt=`YouTube thumbnail for Episode ${ep.episode}: ${ep.title}`
-          width="640"
-          height="360"
-          loading="lazy"
-          itemprop="thumbnailUrl"
-        )
-        .episode-play-overlay(aria-hidden="true")
-          .episode-play-icon
-            svg(width="20" height="20" viewBox="0 0 24 24" fill="currentColor")
-              path(d="M8 5.14v13.72a1 1 0 0 0 1.54.84l11.02-6.86a1 1 0 0 0 0-1.68L9.54 4.3a1 1 0 0 0-1.54.84z")
-
-    .episode-content
-      h4.episode-title(itemprop="name")
-        a.episode-title-link(
-          href=ep.url
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label=`Watch Episode ${ep.episode}: ${ep.title} on YouTube`
-        )= ep.title
-
-      .episode-meta
-        if ep.guest
-          span.episode-guest= ep.guest
-          span.meta-dot(aria-hidden="true") •
-        time(datetime=ep.date itemprop="uploadDate")= ep.dateFormatted
+- var featuredEpisode = podcast.episodes[0]
 
 section#podcast.site-section.podcast-section(aria-labelledby="podcast-title")
+
   .podcast-bridge-aurora(aria-hidden="true")
     svg.podcast-aurora-svg(viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg")
       defs
@@ -58,12 +25,12 @@ section#podcast.site-section.podcast-section(aria-labelledby="podcast-title")
           .video-preview-wrapper
             button.video-facade-btn(
               type="button"
-              aria-label=`Play episode preview: ${podcast.featuredEpisodeTitle}`
-              data-video-id=podcast.featuredVideoId
+              aria-label=`Play episode preview: ${featuredEpisode.title}`
+              data-video-id=featuredEpisode.videoId
             )
               img.video-thumbnail(
-                src=path.images + podcast.featuredImage
-                alt=`YouTube preview for Angularidades Episode 83: ${podcast.featuredEpisodeTitle}`
+                src=path.images + featuredEpisode.image
+                alt=`YouTube preview for ${featuredEpisode.title}`
                 width="1280"
                 height="720"
                 loading="lazy"
@@ -74,8 +41,8 @@ section#podcast.site-section.podcast-section(aria-labelledby="podcast-title")
 
         .podcast-info
           header.podcast-header
-            span.podcast-badge= podcast.tagline
-            h2#podcast-title.podcast-heading= podcast.title
+            span.podcast-badge Podcast
+            h2#podcast-title.podcast-heading Angularidades
 
           .podcast-stats-row
             each stat in podcast.stats
@@ -83,7 +50,9 @@ section#podcast.site-section.podcast-section(aria-labelledby="podcast-title")
                 span.podcast-stat-num= stat.number
                 span.podcast-stat-label= stat.label
 
-          p.podcast-description= podcast.description
+
+          p.podcast-description
+            | A technical podcast discussing Angular, frontend engineering, and web architecture in Spanish with English subtitles available on YouTube. In-depth conversations with framework contributors, Google Developer Experts, and engineers across the community.
 
           .podcast-actions
             .btn-group(role="group" aria-label="Podcast platforms and episode archive")
