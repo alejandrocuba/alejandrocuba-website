@@ -20,7 +20,7 @@ footer.site-footer
                   path(d="M4 17v2")
                   path(d="M5 18H3")
                 p.footer-credit
-                  | Designed &amp; engineered in #[a.footer-link(href="https://antigravity.google/" target="_blank" rel="noopener noreferrer") Antigravity] by #[a.footer-link(href="https://www.linkedin.com/in/yolandasantacruz/" target="_blank" rel="noopener noreferrer") Yolanda Santa Cruz] and #[a.footer-link(href="https://www.linkedin.com/in/alejandrocuba/" target="_blank" rel="noopener noreferrer") Alejandro Cuba Ruiz].
+                  | Designed &amp; engineered in #[a.footer-link(href="https://antigravity.google/" target="_blank" rel="noopener noreferrer") Antigravity] by #[a.footer-link(href="https://www.linkedin.com/in/yolandasantacruz/" target="_blank" rel="noopener noreferrer") Yolanda Santa Cruz] and #[a.footer-link(href=profile.socials.linkedin target="_blank" rel="noopener noreferrer") #{profile.name}].
 
               .footer-duo-column
                 svg.footer-duo-icon(width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
@@ -41,4 +41,4 @@ footer.site-footer
                 span.arrow-indicator(aria-hidden="true") ↗
 
       p.footer-copyright
-        | © #{currentYear} Alejandro Cuba Ruiz. All rights reserved.
+        | © #{currentYear} #{profile.name}. All rights reserved.

@@ -2,10 +2,10 @@ include ../_layout/setup/path
 
 header.site-header
   .container.header-container
-    a.nav-logo(href="#about" aria-label="Alejandro Cuba - Home")
+    a.nav-logo(href="#about" aria-label=`${profile.name} - Home`)
       img.nav-logo-img(
         src=path.images + "logo.png"
-        alt="Alejandro Cuba"
+        alt=profile.name
         width="32"
         height="32"
         fetchpriority="high"
