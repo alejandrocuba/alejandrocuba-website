@@ -28,7 +28,7 @@ section#speaking.site-section(aria-labelledby="speaking-title")
   .container
     header.section-header
       span.section-label Public Speaking
-      h2#speaking-title.section-title Conferences &amp; Meetups
+      h2#speaking-title.section-title Conferences, Panels &amp; Meetups
 
     .speaking-timeline-container
       ol.speaking-timeline(role="list" aria-label="Chronological index of speaking engagements")
@@ -37,7 +37,7 @@ section#speaking.site-section(aria-labelledby="speaking-title")
             .timeline-year-marker(aria-hidden="true")
               .timeline-node-dot
             header.timeline-year-header
-              span.timeline-year-badge= group.year
+              h3.timeline-year-badge= group.year
 
             ul.speaking-grid(role="list")
               each event in group.events
@@ -46,8 +46,9 @@ section#speaking.site-section(aria-labelledby="speaking-title")
                     itemprop="eventAttendanceMode"
                     content=event.format === 'online' ? 'https://schema.org/OnlineEventAttendanceMode' : 'https://schema.org/OfflineEventAttendanceMode'
                   )
+                  meta(itemprop="performer" content=profile.name)
                   .card-header
-                    h3.card-title(itemprop="name")
+                    h4.card-title(itemprop="name")
                       if event.url
                         a.card-title-link(href=event.url target="_blank" rel="noopener noreferrer")
                           = event.title
@@ -55,7 +56,7 @@ section#speaking.site-section(aria-labelledby="speaking-title")
                         = event.title
                     time.card-date(datetime=event.dateIso itemprop="startDate")= event.dateFormatted
 
-                  .card-meta
+                  footer.card-meta
                     .card-meta-left
                       .card-location(itemprop="location" itemscope itemtype=event.format === 'online' ? "https://schema.org/VirtualLocation" : "https://schema.org/Place")
                         if event.format === 'online'

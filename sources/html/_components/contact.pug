@@ -1,8 +1,9 @@
 section#contact.site-section(aria-labelledby="contact-title")
   .container
     .contact-content
-      span.section-label Get In Touch
-      h2#contact-title.contact-heading Let's Connect
+      header.contact-header
+        span.section-label Get In Touch
+        h2#contact-title.contact-heading Let's Connect
       p.contact-subtext
         | Open for technical advisory, speaking engagements, design system consulting, and high-impact engineering leadership.
 
@@ -16,10 +17,18 @@ section#contact.site-section(aria-labelledby="contact-title")
           span Connect on LinkedIn
           span.arrow-indicator(aria-hidden="true") ↗
 
-      nav.social-channels-bar(aria-label="Online profiles and social channels")
-        a.channel-link(href=profile.socials.github target="_blank" rel="noopener noreferrer") GitHub
-        a.channel-link(href=profile.socials.medium target="_blank" rel="noopener noreferrer") Medium
-        a.channel-link(href=profile.socials.youtube target="_blank" rel="noopener noreferrer") YouTube
-        a.channel-link(href=profile.socials.sessionize target="_blank" rel="noopener noreferrer") Sessionize
-        a.channel-link(href=profile.socials.adplist target="_blank" rel="noopener noreferrer") ADPList
-        a.channel-link(href=profile.socials.bluesky target="_blank" rel="noopener noreferrer") Bluesky
+      address.contact-channels
+        nav.social-channels-bar(aria-label="Online profiles and social channels")
+          ul.social-channels-list(role="list")
+            li.social-channel-item
+              a.channel-link(href=profile.socials.github target="_blank" rel="noopener noreferrer") GitHub
+            li.social-channel-item
+              a.channel-link(href=profile.socials.medium target="_blank" rel="noopener noreferrer") Medium
+            li.social-channel-item
+              a.channel-link(href=profile.socials.youtube target="_blank" rel="noopener noreferrer") YouTube
+            li.social-channel-item
+              a.channel-link(href=profile.socials.sessionize target="_blank" rel="noopener noreferrer") Sessionize
+            li.social-channel-item
+              a.channel-link(href=profile.socials.adplist target="_blank" rel="noopener noreferrer") ADPList
+            li.social-channel-item
+              a.channel-link(href=profile.socials.bluesky target="_blank" rel="noopener noreferrer") Bluesky

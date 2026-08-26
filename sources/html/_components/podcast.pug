@@ -3,10 +3,14 @@ include ../_data/podcast
 
 - var featuredEpisode = podcast.episodes[0]
 
-section#podcast.site-section.podcast-section(aria-labelledby="podcast-title")
+section#podcast.site-section.podcast-section(
+  aria-labelledby="podcast-title"
+  itemscope
+  itemtype="https://schema.org/PodcastSeries"
+)
 
   .podcast-bridge-aurora(aria-hidden="true")
-    svg.podcast-aurora-svg(viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg")
+    svg.podcast-aurora-svg(viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true")
       defs
         linearGradient#podcast-bridge-grad(x1="70%" y1="0%" x2="30%" y2="100%")
           stop(offset="0%" stop-color="#d28323")
@@ -20,7 +24,13 @@ section#podcast.site-section.podcast-section(aria-labelledby="podcast-title")
   .container
     .podcast-hero
       .podcast-grid
-        .podcast-preview-container
+        .podcast-preview-container(
+          itemprop="episode"
+          itemscope
+          itemtype="https://schema.org/PodcastEpisode"
+        )
+          meta(itemprop="name" content=featuredEpisode.title)
+          meta(itemprop="url" content=`https://www.youtube.com/watch?v=${featuredEpisode.videoId}`)
           .ambient-glow(aria-hidden="true")
           .video-preview-wrapper
             button.video-facade-btn(
@@ -37,57 +47,64 @@ section#podcast.site-section.podcast-section(aria-labelledby="podcast-title")
                 height="720"
                 loading="lazy"
                 decoding="async"
+                itemprop="thumbnailUrl"
               )
               .play-button-icon(aria-hidden="true")
-                svg(width="26" height="26" viewBox="0 0 24 24" fill="currentColor")
+                svg(width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true")
                   path(d="M8 5.14v13.72a1 1 0 0 0 1.54.84l11.02-6.86a1 1 0 0 0 0-1.68L9.54 4.3a1 1 0 0 0-1.54.84z")
 
         .podcast-info
           header.podcast-header
             span.podcast-badge Podcast
-            h2#podcast-title.podcast-heading Angularidades
+            h2#podcast-title.podcast-heading(itemprop="name" lang="es") Angularidades
+            meta(itemprop="inLanguage" content="es")
+            meta(itemprop="webFeed" content=podcast.links.spotify)
+            meta(itemprop="url" content=podcast.links.youtube)
 
-          .podcast-stats-row
+          dl.podcast-stats-row
             each stat in podcast.stats
               .podcast-stat-item
-                span.podcast-stat-num= stat.number
-                span.podcast-stat-label= stat.label
+                dd.podcast-stat-num= stat.number
+                dt.podcast-stat-label= stat.label
 
 
-          p.podcast-description
+          p.podcast-description(itemprop="description")
             | A technical podcast discussing Angular, frontend engineering, and web architecture in Spanish with English subtitles available on YouTube. In-depth conversations with framework contributors, Google Developer Experts, and engineers across the community.
 
           .podcast-actions
-            .btn-group(role="group" aria-label="Podcast platforms and episode archive")
-              a.btn.btn-secondary.btn-youtube-cta(
-                href=podcast.links.youtube
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View all Angularidades episodes on YouTube"
-              )
-                svg.platform-icon.platform-youtube-icon(width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true")
-                  path(d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z")
-                span View all episodes
-                span.arrow-indicator(aria-hidden="true") ↗
+            ul.podcast-platform-list(role="list" aria-label="Podcast platforms and episode archive")
+              li.podcast-platform-item
+                a.btn.btn-secondary.btn-youtube-cta(
+                  href=podcast.links.youtube
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View all Angularidades episodes on YouTube"
+                )
+                  svg.platform-icon.platform-youtube-icon(width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true")
+                    path(d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z")
+                  span View all episodes
+                  span.arrow-indicator(aria-hidden="true") ↗
 
-              a.btn.btn-secondary.btn-icon.platform-spotify(
-                href=podcast.links.spotify
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View episodes on Spotify"
-                title="View episodes on Spotify"
-              )
-                svg.platform-icon(width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true")
-                  path(d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.494 17.306c-.215.352-.676.463-1.028.248-2.857-1.745-6.455-2.14-10.69-1.173-.404.093-.812-.162-.904-.567-.094-.404.162-.812.567-.905 4.636-1.059 8.608-.61 11.808 1.348.352.215.463.676.247 1.047zm1.467-3.26c-.27.44-.847.579-1.287.31-3.27-2.008-8.254-2.59-12.12-1.416-.497.15-1.025-.133-1.176-.63-.15-.497.133-1.024.63-1.176 4.417-1.341 9.907-.69 13.643 1.605.44.27.579.847.31 1.287zm.126-3.41c-3.921-2.328-10.378-2.541-14.11-1.408-.6.182-1.24-.162-1.422-.763-.182-.6.163-1.24.764-1.422 4.29-1.302 11.416-1.054 15.932 1.626.54.321.716 1.027.396 1.567-.321.54-1.027.717-1.56.396z")
+              li.podcast-platform-item
+                a.btn.btn-secondary.btn-icon.platform-spotify(
+                  href=podcast.links.spotify
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View episodes on Spotify"
+                  title="View episodes on Spotify"
+                )
+                  svg.platform-icon(width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true")
+                    path(d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.494 17.306c-.215.352-.676.463-1.028.248-2.857-1.745-6.455-2.14-10.69-1.173-.404.093-.812-.162-.904-.567-.094-.404.162-.812.567-.905 4.636-1.059 8.608-.61 11.808 1.348.352.215.463.676.247 1.047zm1.467-3.26c-.27.44-.847.579-1.287.31-3.27-2.008-8.254-2.59-12.12-1.416-.497.15-1.025-.133-1.176-.63-.15-.497.133-1.024.63-1.176 4.417-1.341 9.907-.69 13.643 1.605.44.27.579.847.31 1.287zm.126-3.41c-3.921-2.328-10.378-2.541-14.11-1.408-.6.182-1.24-.162-1.422-.763-.182-.6.163-1.24.764-1.422 4.29-1.302 11.416-1.054 15.932 1.626.54.321.716 1.027.396 1.567-.321.54-1.027.717-1.56.396z")
 
-              a.btn.btn-secondary.btn-icon.platform-apple(
-                href=podcast.links.apple
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View episodes on Apple Podcasts"
-                title="View episodes on Apple Podcasts"
-              )
-                svg.platform-icon(width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true")
-                  path(d="M12 1.5A10.5 10.5 0 0 0 1.5 12a10.5 10.5 0 0 0 10.5 10.5A10.5 10.5 0 0 0 22.5 12 10.5 10.5 0 0 0 12 1.5zm0 3a7.5 7.5 0 0 1 5.3 12.8l-1.4-1.4a5.5 5.5 0 0 0-7.8 0l-1.4 1.4A7.5 7.5 0 0 1 12 4.5zm0 3.5a4 4 0 0 1 2.8 6.8l-1.4-1.4a2 2 0 0 0-2.8 0l-1.4 1.4A4 4 0 0 1 12 8zm0 2.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-1 5.5h2v4h-2z")
+              li.podcast-platform-item
+                a.btn.btn-secondary.btn-icon.platform-apple(
+                  href=podcast.links.apple
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View episodes on Apple Podcasts"
+                  title="View episodes on Apple Podcasts"
+                )
+                  svg.platform-icon(width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true")
+                    path(d="M12 1.5A10.5 10.5 0 0 0 1.5 12a10.5 10.5 0 0 0 10.5 10.5A10.5 10.5 0 0 0 22.5 12 10.5 10.5 0 0 0 12 1.5zm0 3a7.5 7.5 0 0 1 5.3 12.8l-1.4-1.4a5.5 5.5 0 0 0-7.8 0l-1.4 1.4A7.5 7.5 0 0 1 12 4.5zm0 3.5a4 4 0 0 1 2.8 6.8l-1.4-1.4a2 2 0 0 0-2.8 0l-1.4 1.4A4 4 0 0 1 12 8zm0 2.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-1 5.5h2v4h-2z")
 
 

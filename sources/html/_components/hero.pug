@@ -2,7 +2,7 @@ include ../_layout/setup/path
 
 section#about.site-section.hero-section(aria-labelledby="hero-title")
   .hero-bridge-aurora(aria-hidden="true")
-    svg.hero-aurora-svg(viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg")
+    svg.hero-aurora-svg(viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true")
       defs
         linearGradient#hero-bridge-grad(x1="30%" y1="0%" x2="70%" y2="100%")
           stop(offset="0%" stop-color="#7db3b3")
@@ -29,7 +29,7 @@ section#about.site-section.hero-section(aria-labelledby="hero-title")
 
       .hero-visual
         .ambient-glow(aria-hidden="true")
-        .hero-photo-wrapper
+        figure.hero-photo-wrapper
           svg.hero-photo-svg(
             viewBox="0 0 1009 1024"
             width="1009"

@@ -15,19 +15,19 @@ header.site-header
       ul.nav-list
         li.nav-item
           details.nav-dropdown
-            summary.nav-link.nav-dropdown-trigger(aria-haspopup="true")
+            summary.nav-link.nav-dropdown-trigger
               span Contributions
               svg.dropdown-caret(width="8" height="6" viewBox="0 0 8 6" fill="currentColor" aria-hidden="true")
                 path(d="M0 1L4 5L8 1H0Z")
-            ul.dropdown-menu(role="menu")
-              li(role="none")
-                a.dropdown-link(href="#articles" role="menuitem") Articles
-              li(role="none")
-                a.dropdown-link(href="#podcast" role="menuitem") Podcast
-              li(role="none")
-                a.dropdown-link(href="#speaking" role="menuitem") Speaking
-              li(role="none")
-                a.dropdown-link(href="#mentorship" role="menuitem") Mentorship
+            ul.dropdown-menu
+              li
+                a.dropdown-link(href="#articles") Articles
+              li
+                a.dropdown-link(href="#podcast") Podcast
+              li
+                a.dropdown-link(href="#speaking") Speaking
+              li
+                a.dropdown-link(href="#mentorship") Mentorship
 
         li.nav-item
           a.nav-link(href="#contact") Contact

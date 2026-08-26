@@ -1,14 +1,16 @@
 include ../_data/articles
 
 mixin articleCard(article)
-  article.card(itemscope itemtype="http://schema.org/TechArticle")
+  article.card(itemscope itemtype="https://schema.org/TechArticle")
+    meta(itemprop="author" content=profile.name)
+    link(itemprop="mainEntityOfPage" href=article.url)
     h3.card-title(itemprop="headline")
       a.card-title-link(href=article.url target="_blank" rel="noopener noreferrer")
         = article.title
 
     p.card-description(itemprop="description")= article.description
 
-    .card-meta
+    footer.card-meta
       .card-meta-left
         time.card-date(datetime=article.date itemprop="datePublished")= article.dateFormatted
       .card-meta-right
@@ -24,8 +26,8 @@ mixin articleCard(article)
 section#articles.site-section(aria-labelledby="articles-title")
   .container
     header.section-header
-      span.section-label Recent Articles
-      h2#articles-title.section-title Technical Articles
+      span.section-label Technical Writing
+      h2#articles-title.section-title Recent Articles
 
     .articles-grid
       each article in articles
