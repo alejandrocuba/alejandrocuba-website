@@ -1,13 +1,14 @@
 # Alejandro Cuba Ruiz
 
-> Principal Front-End Engineer, Google Developer Expert in Angular, and ng-Champion based in Miami Beach, FL.
+> Principal Front-End Engineer, Google Developer Expert in Angular, International Speaker, Host of Angularidades, and Top ADPList Mentor based in Miami Beach, FL.
 
 ## About
 This is the personal website and portfolio of Alejandro Cuba Ruiz.
 
-- **Role**: Principal Front-End Engineer, Google Developer Expert (GDE) in Angular, ng-Champion, and host of the Angularidades podcast.
+- **Role**: Principal Front-End Engineer & Google Developer Expert (GDE) in Angular.
 - **Location**: Miami Beach, FL, USA
-- **Specialties**: Front-End Web Engineering, HTML5, CSS, JavaScript, Angular, Web Performance.
+- **Bio**: Connecting global developer communities through conference speaking, meetups, podcasts, technical writing, and active mentorship.
+- **Specialties**: Modern Web Architecture, Angular, Web Performance, Design Systems, JavaScript & TypeScript, Community Leadership.
 - **Handles**: @alejandrocuba, @alejandrocubaruiz, @zorphdark
 
 ## Links
@@ -17,7 +18,10 @@ This is the personal website and portfolio of Alejandro Cuba Ruiz.
 - [Bluesky](https://bsky.app/profile/alejandrocuba.com)
 - [X / Twitter](https://twitter.com/zorphdark)
 - [Google Developer Profile](https://developers.google.com/profile/u/alejandrocubaruiz)
+- [Sessionize (Technical Talks)](https://sessionize.com/alejandrocubaruiz)
+- [ADPList (Mentorship)](https://adplist.org/mentors/alejandro-cuba)
 - [Medium Blog](https://medium.com/@alejandrocuba)
 - [Angularidades Podcast (YouTube)](https://www.youtube.com/@angularidades)
-- [Instagram Photoblog](https://www.instagram.com/alejandrocubaruiz/)
-- [Sci-Fi Blog (Spanish)](https://www.zorphdark.com/)
+- [Spotify (Angularidades Podcast)](https://open.spotify.com/show/0jrfxcnCrD7N9tlA0BGJp5)
+- [Apple Podcasts (Angularidades)](https://podcasts.apple.com/podcast/angularidades/id1653896173)
+
