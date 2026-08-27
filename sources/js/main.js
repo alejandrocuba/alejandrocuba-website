@@ -40,7 +40,7 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Header & ScrollSpy Navigation Controller
+/// Header & ScrollSpy Navigation Controller
 const header = document.querySelector('.site-header');
 const navLinks = document.querySelectorAll('.nav-link, .dropdown-link');
 const contribTrigger = document.querySelector('.nav-dropdown-trigger');
@@ -49,30 +49,78 @@ const sectionElements = ['about', 'articles', 'podcast', 'speaking', 'mentorship
   .filter(Boolean);
 const contribIds = new Set(['articles', 'podcast', 'speaking', 'mentorship']);
 
-let sectionOffsets = [];
-const updateSectionOffsets = () => {
-  sectionOffsets = sectionElements.map((el) => ({
-    id: el.id,
-    top: el.offsetTop
-  }));
+let activeSectionId = 'about';
+const visibleSectionRatios = new Map();
+
+const setActiveNav = (activeId) => {
+  if (!activeId || activeId === activeSectionId) return;
+  activeSectionId = activeId;
+
+  navLinks.forEach((link) => {
+    const isActive = link.getAttribute('href') === `#${activeId}`;
+    if (link.classList.contains('is-active') !== isActive) {
+      link.classList.toggle('is-active', isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'true');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    }
+  });
+
+  if (contribTrigger) {
+    const inContrib = contribIds.has(activeId);
+    if (contribTrigger.classList.contains('is-active') !== inContrib) {
+      contribTrigger.classList.toggle('is-active', inContrib);
+      if (inContrib) {
+        contribTrigger.setAttribute('aria-current', 'true');
+      } else {
+        contribTrigger.removeAttribute('aria-current');
+      }
+    }
+  }
 };
 
+// Zero-Reflow ScrollSpy via IntersectionObserver
+if ('IntersectionObserver' in window && sectionElements.length > 0) {
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          visibleSectionRatios.set(entry.target.id, entry.intersectionRatio);
+        } else {
+          visibleSectionRatios.delete(entry.target.id);
+        }
+      });
+
+      if (visibleSectionRatios.size > 0) {
+        for (const el of sectionElements) {
+          if (visibleSectionRatios.has(el.id)) {
+            setActiveNav(el.id);
+            break;
+          }
+        }
+      }
+    },
+    {
+      rootMargin: '-80px 0px -40% 0px',
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0]
+    }
+  );
+
+  sectionElements.forEach((el) => sectionObserver.observe(el));
+}
+
+// Lightweight Header Visibility on Scroll (0 geometric layout reads)
 let lastY = 0;
 let accumulatedDelta = 0;
 let ticking = false;
 
-const updateNavigation = () => {
-  const scrollHeight = document.documentElement.scrollHeight;
-  const clientHeight = window.innerHeight;
-  const maxScroll = Math.max(0, scrollHeight - clientHeight);
-  const rawY = window.scrollY;
-  const y = Math.min(maxScroll, Math.max(0, rawY));
+const updateHeader = () => {
+  const y = Math.max(0, window.scrollY || 0);
   const delta = y - lastY;
-
   const isAtTop = y <= 20;
-  const isAtBottom = y >= maxScroll - 30;
 
-  // Header Visibility & Scrolled Styling
   if (header) {
     header.classList.toggle('is-scrolled', y > 20);
 
@@ -81,10 +129,7 @@ const updateNavigation = () => {
         header.classList.remove('is-hidden');
       }
       accumulatedDelta = 0;
-    } else if (isAtBottom) {
-      accumulatedDelta = 0;
     } else {
-      // Directional delta accumulation with hysteresis
       if ((delta > 0 && accumulatedDelta < 0) || (delta < 0 && accumulatedDelta > 0)) {
         accumulatedDelta = 0;
       }
@@ -103,75 +148,21 @@ const updateNavigation = () => {
     }
   }
 
-  // Fast ScrollSpy using cached section offsets (0 DOM reads on scroll)
-  if (sectionOffsets.length > 0) {
-    const scrollPos = y + 140;
-    const isBottom = y >= maxScroll - 60;
-
-    let activeId = 'about';
-
-    if (isBottom) {
-      activeId = 'contact';
-    } else {
-      for (let i = sectionOffsets.length - 1; i >= 0; i--) {
-        if (scrollPos >= sectionOffsets[i].top) {
-          activeId = sectionOffsets[i].id;
-          break;
-        }
-      }
-    }
-
-    navLinks.forEach((link) => {
-      const isActive = link.getAttribute('href') === `#${activeId}`;
-      if (link.classList.contains('is-active') !== isActive) {
-        link.classList.toggle('is-active', isActive);
-        if (isActive) {
-          link.setAttribute('aria-current', 'true');
-        } else {
-          link.removeAttribute('aria-current');
-        }
-      }
-    });
-
-    if (contribTrigger) {
-      const inContrib = contribIds.has(activeId);
-      if (contribTrigger.classList.contains('is-active') !== inContrib) {
-        contribTrigger.classList.toggle('is-active', inContrib);
-        if (inContrib) {
-          contribTrigger.setAttribute('aria-current', 'true');
-        } else {
-          contribTrigger.removeAttribute('aria-current');
-        }
-      }
-    }
-  }
-
   lastY = y;
 };
 
 const onScroll = () => {
   if (!ticking) {
     requestAnimationFrame(() => {
-      updateNavigation();
+      updateHeader();
       ticking = false;
     });
     ticking = true;
   }
 };
 
-let resizeTimer = null;
 window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', () => {
-  if (resizeTimer) cancelAnimationFrame(resizeTimer);
-  resizeTimer = requestAnimationFrame(() => {
-    updateSectionOffsets();
-    updateNavigation();
-  });
-}, { passive: true });
-window.addEventListener('load', updateSectionOffsets, { passive: true });
-
-updateSectionOffsets();
-updateNavigation();
+updateHeader();
 
 // Footer Architecture & Metrics Disclosure Accordion
 const footerDisclosure = document.querySelector('.footer-metrics-disclosure');
@@ -245,7 +236,7 @@ if (footerDisclosure) {
           footerDisclosure.style.height = '';
           footerDisclosure.style.overflow = '';
         };
-        anim.oncancel = () => (isClosing = false);
+        anim.oncancel = () => (isExpanding = false);
       }
     });
   }
@@ -282,8 +273,10 @@ if (countriesStat && globeFollower) {
     updatePosition(e);
 
     globeFollower.classList.remove('is-inspecting');
-    void globeFollower.offsetWidth;
-    globeFollower.classList.add('is-inspecting');
+    globeFollower.getAnimations().forEach((anim) => anim.cancel());
+    requestAnimationFrame(() => {
+      globeFollower.classList.add('is-inspecting');
+    });
 
     clearTimeout(tooltipTimeout);
     tooltipTimeout = setTimeout(() => {
