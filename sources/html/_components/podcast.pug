@@ -65,8 +65,9 @@ section#podcast.site-section.podcast-section(
             each stat in podcast.stats
               if stat.label === 'Countries'
                 .podcast-stat-item.podcast-stat-item--countries(tabindex="0" aria-label=`${stat.number} ${stat.label}`)
-                  .podcast-stat-num-container
-                    dd.podcast-stat-num= stat.number
+                  dt.podcast-stat-label= stat.label
+                  dd.podcast-stat-num
+                    span= stat.number
                     .globe-easter-egg(aria-hidden="true")
                       .globe-sphere
                         .globe-continents-track
@@ -124,11 +125,10 @@ section#podcast.site-section.podcast-section(
                           path(d="M 16.5 16.5 L 24 24" stroke="url(#handle-grad)" stroke-width="3" stroke-linecap="round")
                           ellipse(cx="8.5" cy="8" rx="3.5" ry="1.8" fill="white" opacity="0.6" transform="rotate(-30 8.5 8)")
                       .globe-inspect-tooltip.tooltip-bubble(role="status" aria-live="polite") Trying to inspect the world?
-                  dt.podcast-stat-label= stat.label
               else
                 .podcast-stat-item
-                  dd.podcast-stat-num= stat.number
                   dt.podcast-stat-label= stat.label
+                  dd.podcast-stat-num= stat.number
 
           p.podcast-description(itemprop="description")
             | I have the privilege to host Angularidades, a podcast where I sit down with framework contributors, Google Developer Experts, and Spanish-speaking engineers to explore Angular mechanics, frontend architecture, and modern web practices.

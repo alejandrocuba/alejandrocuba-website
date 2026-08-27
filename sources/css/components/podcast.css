@@ -203,14 +203,12 @@
   cursor: default;
 }
 
-.podcast-stat-num-container {
+.podcast-stat-num {
+  order: 1;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
   position: relative;
-}
-
-.podcast-stat-num {
   font-family: var(--font-sans);
   font-size: clamp(1.45rem, 2.25vw, 1.8rem);
   font-weight: 700;
@@ -221,6 +219,7 @@
 }
 
 .podcast-stat-label {
+  order: 2;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 500;
@@ -233,12 +232,6 @@
   position: relative;
   cursor: none;
   outline: none;
-}
-
-.podcast-stat-num-container {
-  display: inline-flex;
-  align-items: center;
-  position: relative;
 }
 
 .globe-easter-egg {
