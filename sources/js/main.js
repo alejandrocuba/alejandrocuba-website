@@ -1,18 +1,15 @@
 /**
  * Main application script for alejandrocuba.com
- * Progressive enhancements for video facades, smart header, ScrollSpy, and disclosure anchoring.
  */
 
-// Instantiates YouTube video iframe on click
+// YouTube Video Facade: Instantiates iframe on click
 document.addEventListener('click', (e) => {
   const btn = e.target.closest('.video-facade-btn');
-  if (!btn) return;
-  const id = btn.dataset.videoId;
-  if (!id) return;
+  if (!btn?.dataset.videoId) return;
 
   const iframe = document.createElement('iframe');
   Object.assign(iframe, {
-    src: `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`,
+    src: `https://www.youtube-nocookie.com/embed/${btn.dataset.videoId}?autoplay=1&rel=0`,
     title: btn.getAttribute('aria-label') || 'YouTube Video',
     allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
     allowFullscreen: true,
@@ -21,10 +18,10 @@ document.addEventListener('click', (e) => {
   btn.parentElement?.replaceChildren(iframe);
 });
 
-// Light-dismiss navigation dropdowns on outside click or dropdown item click
+// Light-dismiss navigation dropdown on outside click or dropdown item click
 document.addEventListener('click', (e) => {
   if (!e.target.closest('details.nav-dropdown') || e.target.closest('.dropdown-link')) {
-    document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => d.removeAttribute('open'));
+    document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => (d.open = false));
   }
 });
 
@@ -47,7 +44,7 @@ const updateNavigation = () => {
   if (header) {
     if (delta > 8 && y > 100) {
       header.classList.add('is-hidden');
-      document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => d.removeAttribute('open'));
+      document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => (d.open = false));
     } else if (delta < -6 || y <= 20) {
       header.classList.remove('is-hidden');
     }
@@ -101,7 +98,7 @@ window.addEventListener('scroll', updateNavigation, { passive: true });
 window.addEventListener('resize', updateNavigation, { passive: true });
 updateNavigation();
 
-// Apple-Grade Smooth Accordion Animation for Footer Disclosure
+// Smooth Accordion Animation for Footer Disclosure
 class SmoothDisclosure {
   constructor(el) {
     this.el = el;
@@ -190,3 +187,44 @@ const footerDisclosure = document.querySelector('.footer-metrics-disclosure');
 if (footerDisclosure) {
   new SmoothDisclosure(footerDisclosure);
 }
+
+// Interactive 3D Earth Globe Follower & Right-Click Easter Egg
+const countriesStat = document.querySelector('.podcast-stat-item--countries');
+const globeFollower = countriesStat?.querySelector('.globe-easter-egg');
+
+if (countriesStat && globeFollower) {
+  let tooltipTimeout;
+
+  const updatePosition = (e) => {
+    const rect = countriesStat.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    globeFollower.style.setProperty('--cursor-x', `${x}px`);
+    globeFollower.style.setProperty('--cursor-y', `${y}px`);
+  };
+
+  countriesStat.addEventListener('pointerenter', updatePosition, { passive: true });
+  countriesStat.addEventListener('pointermove', updatePosition, { passive: true });
+
+  countriesStat.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    updatePosition(e);
+
+    globeFollower.classList.remove('is-inspecting');
+    void globeFollower.offsetWidth;
+    globeFollower.classList.add('is-inspecting');
+
+    clearTimeout(tooltipTimeout);
+    tooltipTimeout = setTimeout(() => {
+      globeFollower.classList.remove('is-inspecting');
+    }, 2400);
+  });
+
+  countriesStat.addEventListener('pointerleave', () => {
+    clearTimeout(tooltipTimeout);
+    globeFollower.classList.remove('is-inspecting');
+  });
+}
+
+
+
