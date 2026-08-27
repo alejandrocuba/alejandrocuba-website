@@ -270,15 +270,20 @@ details[open] .dropdown-menu {
 }
 
 .dropdown-link:hover,
-.dropdown-link:focus-visible,
 .dropdown-link:active {
-  color: #ffffff !important;
+  color: #ffffff;
   background-color: rgba(var(--accent-highlight-rgb), 0.15);
-  outline: none;
+}
+
+.dropdown-link:focus-visible {
+  color: #ffffff;
+  background-color: rgba(var(--accent-highlight-rgb), 0.15);
+  outline: 2px solid var(--accent-highlight);
+  outline-offset: -2px;
 }
 
 .dropdown-link.is-active {
-  color: var(--accent-highlight) !important;
+  color: var(--accent-highlight);
   font-weight: 600;
 }
 

@@ -63,7 +63,7 @@
   font-family: var(--font-mono);
   font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
   font-weight: 500;
-  color: var(--accent-highlight) !important;
+  color: var(--accent-highlight);
   margin: 0;
   letter-spacing: 0.02em;
 }
@@ -92,46 +92,6 @@
   align-items: center;
   gap: 1rem;
   margin-top: 2.25rem;
-}
-
-/* Outlined CTA Button with Refined Light Grey Tone */
-.btn-outline-neon,
-.btn-outline-cyan {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: #e2e8f0;
-  background-color: transparent;
-  border: 1px solid rgba(226, 232, 240, 0.4);
-  border-radius: var(--radius-sm);
-  padding: 1rem 1.75rem;
-  text-decoration: none;
-  line-height: 1;
-  transition:
-    background-color var(--transition-fast),
-    border-color var(--transition-fast),
-    color var(--transition-fast),
-    box-shadow var(--transition-fast);
-  cursor: pointer;
-  box-sizing: border-box;
-}
-
-.btn-outline-neon:hover,
-.btn-outline-cyan:hover {
-  background-color: rgba(241, 245, 249, 0.08);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 16px rgba(241, 245, 249, 0.08);
-}
-
-.btn-outline-neon:focus-visible,
-.btn-outline-cyan:focus-visible {
-  outline: 2px solid #e2e8f0;
-  outline-offset: 3px;
 }
 
 /* Right Column Visual */
