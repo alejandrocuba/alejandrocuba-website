@@ -42,13 +42,20 @@ const updateSectionOffsets = () => {
   }));
 };
 
-let lastY = window.scrollY;
+let lastY = 0;
 let accumulatedDelta = 0;
 let ticking = false;
 
 const updateNavigation = () => {
-  const y = Math.max(0, window.scrollY);
+  const scrollHeight = document.documentElement.scrollHeight;
+  const clientHeight = window.innerHeight;
+  const maxScroll = Math.max(0, scrollHeight - clientHeight);
+  const rawY = window.scrollY;
+  const y = Math.min(maxScroll, Math.max(0, rawY));
   const delta = y - lastY;
+
+  const isAtTop = y <= 20;
+  const isAtBottom = y >= maxScroll - 40;
 
   // Directional delta accumulation with hysteresis
   if ((delta > 0 && accumulatedDelta < 0) || (delta < 0 && accumulatedDelta > 0)) {
@@ -60,12 +67,17 @@ const updateNavigation = () => {
   if (header) {
     header.classList.toggle('is-scrolled', y > 20);
 
-    if (accumulatedDelta > 25 && y > 80) {
+    if (isAtTop || isAtBottom) {
+      if (isAtTop && header.classList.contains('is-hidden')) {
+        header.classList.remove('is-hidden');
+      }
+      accumulatedDelta = 0;
+    } else if (accumulatedDelta > 25 && y > 80) {
       if (!header.classList.contains('is-hidden')) {
         header.classList.add('is-hidden');
         document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => (d.open = false));
       }
-    } else if (accumulatedDelta < -15 || y <= 20) {
+    } else if (accumulatedDelta < -15) {
       if (header.classList.contains('is-hidden')) {
         header.classList.remove('is-hidden');
       }
@@ -75,7 +87,7 @@ const updateNavigation = () => {
   // Fast ScrollSpy using cached section offsets (0 DOM reads on scroll)
   if (sectionOffsets.length > 0) {
     const scrollPos = y + 140;
-    const isBottom = y + window.innerHeight >= document.documentElement.scrollHeight - 60;
+    const isBottom = y >= maxScroll - 60;
 
     let activeId = 'about';
 
@@ -128,10 +140,14 @@ const onScroll = () => {
   }
 };
 
+let resizeTimer = null;
 window.addEventListener('scroll', onScroll, { passive: true });
 window.addEventListener('resize', () => {
-  updateSectionOffsets();
-  onScroll();
+  if (resizeTimer) cancelAnimationFrame(resizeTimer);
+  resizeTimer = requestAnimationFrame(() => {
+    updateSectionOffsets();
+    updateNavigation();
+  });
 }, { passive: true });
 window.addEventListener('load', updateSectionOffsets, { passive: true });
 

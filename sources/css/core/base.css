@@ -19,7 +19,13 @@ body {
   line-height: 1.6;
   position: relative;
   overflow-x: clip;
-  scrollbar-gutter: stable;
+  overscroll-behavior-y: none;
+}
+
+@media (min-width: 769px) {
+  body {
+    scrollbar-gutter: stable;
+  }
 }
 
 /* Subtle Fixed Ambient Background Halo (Zero filter: blur) */
