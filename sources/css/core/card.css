@@ -71,6 +71,22 @@
   gap: 1rem;
 }
 
+.card-heading-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+.card-event {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-highlight);
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+}
+
 /* Card Heading & Title Link */
 .card-title {
   font-family: var(--font-heading);

@@ -7,7 +7,8 @@ include ../_data/speaking
       var parts = event.date.split('-');
       var year = parts[0];
       var monthIdx = parseInt(parts[1], 10) - 1;
-      var formatted = monthsShort[monthIdx] + ', ' + year;
+      var day = parts[2] ? parseInt(parts[2], 10) : null;
+      var formatted = day ? monthsShort[monthIdx] + ' ' + day + ', ' + year : monthsShort[monthIdx] + ', ' + year;
 
       var id = event.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
       if (!acc[year]) acc[year] = [];
@@ -21,7 +22,12 @@ include ../_data/speaking
   ).sort(function(a, b) {
     return Number(b[0]) - Number(a[0]);
   }).map(function(entry) {
-    return { year: entry[0], events: entry[1] };
+    return {
+      year: entry[0],
+      events: entry[1].sort(function(a, b) {
+        return (b.date || '').localeCompare(a.date || '');
+      })
+    };
   });
 
 section#speaking.site-section(aria-labelledby="speaking-title")
@@ -48,12 +54,15 @@ section#speaking.site-section(aria-labelledby="speaking-title")
                   )
                   meta(itemprop="performer" content=profile.name)
                   .card-header
-                    h4.card-title(itemprop="name")
-                      if event.url
-                        a.card-title-link(href=event.url target="_blank" rel="noopener noreferrer")
+                    .card-heading-group
+                      if event.event
+                        span.card-event= event.event
+                      h4.card-title(itemprop="name")
+                        if event.url
+                          a.card-title-link(href=event.url target="_blank" rel="noopener noreferrer")
+                            = event.title
+                        else
                           = event.title
-                      else
-                        = event.title
                     time.card-date(datetime=event.dateIso itemprop="startDate")= event.dateFormatted
 
                   footer.card-meta

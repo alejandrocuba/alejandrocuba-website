@@ -101,15 +101,15 @@ window.addEventListener('scroll', updateNavigation, { passive: true });
 window.addEventListener('resize', updateNavigation, { passive: true });
 updateNavigation();
 
-// Smooth scroll to bottom when footer is expanded
-document.querySelector('.footer-metrics-summary')?.addEventListener('click', (e) => {
-  const details = e.currentTarget.closest('details');
-  if (details && !details.open) {
-    setTimeout(() => {
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
-      });
-    }, 40);
-  }
+// Synchronize scroll to bottom as footer disclosure expands
+document.querySelector('.footer-metrics-disclosure')?.addEventListener('toggle', (e) => {
+  const details = e.target;
+  if (!details.open) return;
+  const start = performance.now();
+  const step = (now) => {
+    if (!details.open) return;
+    window.scrollTo(0, document.documentElement.scrollHeight);
+    if (now - start < 450) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
 });
