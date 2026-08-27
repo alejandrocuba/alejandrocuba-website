@@ -104,9 +104,7 @@
   color: var(--text-secondary);
   text-decoration: none;
   padding: 0.5rem 0.25rem;
-  transition:
-    color var(--transition-fast),
-    text-shadow var(--transition-fast);
+  transition: color var(--transition-fast);
 }
 
 .nav-link:hover {
@@ -127,7 +125,6 @@
 .nav-link[aria-current="page"] {
   color: var(--accent-highlight);
   font-weight: 600;
-  text-shadow: 0 0 10px rgba(var(--accent-highlight-rgb), 0.4);
 }
 
 .nav-link.is-active:hover,
@@ -136,7 +133,6 @@
 .nav-link[aria-current="page"]:hover {
   color: var(--accent-highlight-hover);
   font-weight: 600;
-  text-shadow: 0 0 12px rgba(var(--accent-highlight-rgb), 0.6);
 }
 
 /* Navigation Dropdown Menu (Hover + Focus-within + Details Tap Support) */
@@ -166,9 +162,7 @@
   line-height: 1;
   list-style: none;
   user-select: none;
-  transition:
-    color var(--transition-fast),
-    text-shadow var(--transition-fast);
+  transition: color var(--transition-fast);
 }
 
 .nav-dropdown-trigger:hover,
@@ -182,14 +176,12 @@ details[open] .nav-dropdown-trigger {
 .nav-dropdown-trigger[aria-current="true"] {
   color: var(--accent-highlight);
   font-weight: 600;
-  text-shadow: 0 0 10px rgba(var(--accent-highlight-rgb), 0.4);
 }
 
 .nav-dropdown-trigger.is-active:hover,
 details[open] .nav-dropdown-trigger.is-active {
   color: var(--accent-highlight-hover);
   font-weight: 600;
-  text-shadow: 0 0 12px rgba(var(--accent-highlight-rgb), 0.6);
 }
 
 .dropdown-caret {
@@ -213,7 +205,7 @@ details[open] .dropdown-caret {
   top: calc(100% + 6px);
   left: 50%;
   transform: translateX(-50%) translateY(6px);
-  background: rgba(22, 27, 34, 0.94);
+  background: rgba(22, 27, 34, 0.96);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-medium);
@@ -226,8 +218,8 @@ details[open] .dropdown-caret {
   list-style: none;
   margin: 0;
   box-shadow:
-    0 0 35px -5px rgba(var(--accent-highlight-rgb), 0.2),
-    0 12px 28px -4px rgba(0, 0, 0, 0.55);
+    0 14px 34px -4px rgba(0, 0, 0, 0.75),
+    0 6px 14px -2px rgba(0, 0, 0, 0.45);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -269,8 +261,7 @@ details[open] .dropdown-menu {
   box-sizing: border-box;
   transition:
     color var(--transition-fast),
-    background-color var(--transition-fast),
-    text-shadow var(--transition-fast);
+    background-color var(--transition-fast);
 }
 
 .dropdown-link:hover,
@@ -284,7 +275,6 @@ details[open] .dropdown-menu {
 .dropdown-link.is-active {
   color: var(--accent-highlight) !important;
   font-weight: 600;
-  text-shadow: 0 0 8px rgba(var(--accent-highlight-rgb), 0.35);
 }
 
 @media (max-width: 540px) {

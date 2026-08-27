@@ -101,15 +101,92 @@ window.addEventListener('scroll', updateNavigation, { passive: true });
 window.addEventListener('resize', updateNavigation, { passive: true });
 updateNavigation();
 
-// Synchronize scroll to bottom as footer disclosure expands
-document.querySelector('.footer-metrics-disclosure')?.addEventListener('toggle', (e) => {
-  const details = e.target;
-  if (!details.open) return;
-  const start = performance.now();
-  const step = (now) => {
-    if (!details.open) return;
-    window.scrollTo(0, document.documentElement.scrollHeight);
-    if (now - start < 450) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-});
+// Apple-Grade Smooth Accordion Animation for Footer Disclosure
+class SmoothDisclosure {
+  constructor(el) {
+    this.el = el;
+    this.summary = el.querySelector('summary');
+    this.content = el.querySelector('.footer-metrics-content-wrapper');
+    this.animation = null;
+    this.isClosing = false;
+    this.isExpanding = false;
+
+    if (!this.summary || !this.content) return;
+    this.summary.addEventListener('click', (e) => this.onClick(e));
+  }
+
+  onClick(e) {
+    e.preventDefault();
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.el.open = !this.el.open;
+      return;
+    }
+
+    this.el.style.overflow = 'hidden';
+    if (this.isClosing || !this.el.open) {
+      this.open();
+    } else if (this.isExpanding || this.el.open) {
+      this.shrink();
+    }
+  }
+
+  shrink() {
+    this.isClosing = true;
+    const startHeight = `${this.el.offsetHeight}px`;
+    const endHeight = `${this.summary.offsetHeight}px`;
+
+    if (this.animation) this.animation.cancel();
+
+    this.animation = this.el.animate(
+      { height: [startHeight, endHeight] },
+      { duration: 900, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+    );
+
+    this.animation.onfinish = () => this.onAnimationFinish(false);
+    this.animation.oncancel = () => (this.isClosing = false);
+  }
+
+  open() {
+    this.el.style.height = `${this.el.offsetHeight}px`;
+    this.el.open = true;
+    window.requestAnimationFrame(() => this.expand());
+  }
+
+  expand() {
+    this.isExpanding = true;
+    const startHeight = `${this.el.offsetHeight}px`;
+    const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
+
+    if (this.animation) this.animation.cancel();
+
+    this.animation = this.el.animate(
+      { height: [startHeight, endHeight] },
+      { duration: 1000, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+    );
+
+    const scrollStart = performance.now();
+    const step = (now) => {
+      if (!this.el.open || this.isClosing) return;
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' });
+      if (now - scrollStart < 1050) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+
+    this.animation.onfinish = () => this.onAnimationFinish(true);
+    this.animation.oncancel = () => (this.isExpanding = false);
+  }
+
+  onAnimationFinish(open) {
+    this.el.open = open;
+    this.animation = null;
+    this.isClosing = false;
+    this.isExpanding = false;
+    this.el.style.height = '';
+    this.el.style.overflow = '';
+  }
+}
+
+const footerDisclosure = document.querySelector('.footer-metrics-disclosure');
+if (footerDisclosure) {
+  new SmoothDisclosure(footerDisclosure);
+}

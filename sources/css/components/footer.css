@@ -13,7 +13,7 @@
   width: 100%;
 }
 
-.footer-colophon {
+.footer-technical-info {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,7 +72,7 @@
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
   transition:
-    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1),
     color var(--transition-fast);
 }
 
@@ -80,48 +80,47 @@
   transform: rotate(0deg);
 }
 
-/* Cross-browser CSS Grid smooth expansion */
+/* Fluid Content Transition */
 .footer-metrics-content-wrapper {
   width: 100%;
-  display: grid;
-  grid-template-rows: 0fr;
   opacity: 0;
+  transform: translateY(-10px);
   transition:
-    grid-template-rows 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-    opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .footer-metrics-disclosure[open] .footer-metrics-content-wrapper {
-  grid-template-rows: 1fr;
   opacity: 1;
+  transform: translateY(0);
 }
 
 .footer-metrics-content {
   width: 100%;
-  overflow: hidden;
   padding-top: 3.5rem;
   padding-bottom: 1.5rem;
 }
 
-.footer-colophon-duo {
+/* 4-Item Tech Info Grid (Architecture, Build, Audit, Core Web Vitals) */
+.footer-tech-info-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: clamp(2rem, 4vw, 3rem);
-  max-width: 530px;
+  max-width: 520px;
   margin-inline: auto;
   text-align: left;
 }
 
 @media (max-width: 680px) {
-  .footer-colophon-duo {
+  .footer-tech-info-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
-    max-width: 380px;
+    max-width: 360px;
     text-align: left;
   }
 }
 
-.footer-duo-column {
+.footer-tech-info-item {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -129,14 +128,13 @@
   text-align: left;
 }
 
-.footer-duo-icon {
+.footer-tech-info-icon {
   color: var(--accent-cyan);
   flex-shrink: 0;
   display: block;
 }
 
-.footer-credit,
-.footer-tech-stack-spec {
+.footer-tech-info-text {
   font-size: 0.9375rem;
   line-height: 1.65;
   color: var(--text-secondary);
@@ -160,7 +158,7 @@
   text-decoration-color: var(--accent-cyan);
 }
 
-/* Footer GitHub CTA */
+/* Footer CTA */
 .tech-stack-footer {
   width: 100%;
   display: flex;
