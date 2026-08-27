@@ -1,9 +1,9 @@
 html {
   font-size: 16px;
-  scroll-behavior: smooth;
   color-scheme: dark;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-anchor: none;
 }
 
 body {
@@ -19,7 +19,13 @@ body {
   line-height: 1.6;
   position: relative;
   overflow-x: clip;
-  scrollbar-gutter: stable;
+  overflow-anchor: none;
+}
+
+@media (min-width: 769px) {
+  body {
+    scrollbar-gutter: stable;
+  }
 }
 
 /* Subtle Fixed Ambient Background Halo (Zero filter: blur) */

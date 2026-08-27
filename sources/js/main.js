@@ -2,7 +2,7 @@
  * Main application script for alejandrocuba.com
  */
 
-// Delegated Click Handling: Video Facade & Dropdown Light-Dismiss
+// Delegated Click Handling: Video Facade, Dropdown Light-Dismiss & Smooth Anchors
 document.addEventListener('click', (e) => {
   // YouTube Video Facade
   const videoBtn = e.target.closest('.video-facade-btn');
@@ -19,13 +19,28 @@ document.addEventListener('click', (e) => {
     return;
   }
 
+  // Smooth Anchor Navigation
+  const anchor = e.target.closest('a[href^="#"]');
+  if (anchor) {
+    const targetId = anchor.getAttribute('href');
+    if (targetId && targetId !== '#') {
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        targetEl.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        history.pushState(null, '', targetId);
+      }
+    }
+  }
+
   // Close Navigation Dropdown on outside click or item selection
   if (!e.target.closest('details.nav-dropdown') || e.target.closest('.dropdown-link')) {
     document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => (d.open = false));
   }
 });
 
-// Header & ScrollSpy Navigation Controller
+/// Header & ScrollSpy Navigation Controller
 const header = document.querySelector('.site-header');
 const navLinks = document.querySelectorAll('.nav-link, .dropdown-link');
 const contribTrigger = document.querySelector('.nav-dropdown-trigger');
@@ -34,82 +49,100 @@ const sectionElements = ['about', 'articles', 'podcast', 'speaking', 'mentorship
   .filter(Boolean);
 const contribIds = new Set(['articles', 'podcast', 'speaking', 'mentorship']);
 
-let sectionOffsets = [];
-const updateSectionOffsets = () => {
-  sectionOffsets = sectionElements.map((el) => ({
-    id: el.id,
-    top: el.offsetTop
-  }));
+let activeSectionId = 'about';
+const visibleSectionRatios = new Map();
+
+const setActiveNav = (activeId) => {
+  if (!activeId || activeId === activeSectionId) return;
+  activeSectionId = activeId;
+
+  navLinks.forEach((link) => {
+    const isActive = link.getAttribute('href') === `#${activeId}`;
+    if (link.classList.contains('is-active') !== isActive) {
+      link.classList.toggle('is-active', isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'true');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    }
+  });
+
+  if (contribTrigger) {
+    const inContrib = contribIds.has(activeId);
+    if (contribTrigger.classList.contains('is-active') !== inContrib) {
+      contribTrigger.classList.toggle('is-active', inContrib);
+      if (inContrib) {
+        contribTrigger.setAttribute('aria-current', 'true');
+      } else {
+        contribTrigger.removeAttribute('aria-current');
+      }
+    }
+  }
 };
 
-let lastY = window.scrollY;
+// Zero-Reflow ScrollSpy via IntersectionObserver
+if ('IntersectionObserver' in window && sectionElements.length > 0) {
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          visibleSectionRatios.set(entry.target.id, entry.intersectionRatio);
+        } else {
+          visibleSectionRatios.delete(entry.target.id);
+        }
+      });
+
+      if (visibleSectionRatios.size > 0) {
+        for (const el of sectionElements) {
+          if (visibleSectionRatios.has(el.id)) {
+            setActiveNav(el.id);
+            break;
+          }
+        }
+      }
+    },
+    {
+      rootMargin: '-80px 0px -40% 0px',
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0]
+    }
+  );
+
+  sectionElements.forEach((el) => sectionObserver.observe(el));
+}
+
+// Lightweight Header Visibility on Scroll (0 geometric layout reads)
+let lastY = 0;
 let accumulatedDelta = 0;
 let ticking = false;
 
-const updateNavigation = () => {
-  const y = Math.max(0, window.scrollY);
+const updateHeader = () => {
+  const y = Math.max(0, window.scrollY || 0);
   const delta = y - lastY;
+  const isAtTop = y <= 20;
 
-  // Directional delta accumulation with hysteresis
-  if ((delta > 0 && accumulatedDelta < 0) || (delta < 0 && accumulatedDelta > 0)) {
-    accumulatedDelta = 0;
-  }
-  accumulatedDelta += delta;
-
-  // Header Visibility & Scrolled Styling
   if (header) {
     header.classList.toggle('is-scrolled', y > 20);
 
-    if (accumulatedDelta > 25 && y > 80) {
-      if (!header.classList.contains('is-hidden')) {
-        header.classList.add('is-hidden');
-        document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => (d.open = false));
-      }
-    } else if (accumulatedDelta < -15 || y <= 20) {
+    if (isAtTop) {
       if (header.classList.contains('is-hidden')) {
         header.classList.remove('is-hidden');
       }
-    }
-  }
-
-  // Fast ScrollSpy using cached section offsets (0 DOM reads on scroll)
-  if (sectionOffsets.length > 0) {
-    const scrollPos = y + 140;
-    const isBottom = y + window.innerHeight >= document.documentElement.scrollHeight - 60;
-
-    let activeId = 'about';
-
-    if (isBottom) {
-      activeId = 'contact';
+      accumulatedDelta = 0;
     } else {
-      for (let i = sectionOffsets.length - 1; i >= 0; i--) {
-        if (scrollPos >= sectionOffsets[i].top) {
-          activeId = sectionOffsets[i].id;
-          break;
-        }
+      if ((delta > 0 && accumulatedDelta < 0) || (delta < 0 && accumulatedDelta > 0)) {
+        accumulatedDelta = 0;
       }
-    }
+      accumulatedDelta += delta;
 
-    navLinks.forEach((link) => {
-      const isActive = link.getAttribute('href') === `#${activeId}`;
-      if (link.classList.contains('is-active') !== isActive) {
-        link.classList.toggle('is-active', isActive);
-        if (isActive) {
-          link.setAttribute('aria-current', 'true');
-        } else {
-          link.removeAttribute('aria-current');
+      if (accumulatedDelta > 25 && y > 80) {
+        if (!header.classList.contains('is-hidden')) {
+          header.classList.add('is-hidden');
+          document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => (d.open = false));
         }
-      }
-    });
-
-    if (contribTrigger) {
-      const inContrib = contribIds.has(activeId);
-      if (contribTrigger.classList.contains('is-active') !== inContrib) {
-        contribTrigger.classList.toggle('is-active', inContrib);
-        if (inContrib) {
-          contribTrigger.setAttribute('aria-current', 'true');
-        } else {
-          contribTrigger.removeAttribute('aria-current');
+      } else if (accumulatedDelta < -15) {
+        if (header.classList.contains('is-hidden')) {
+          header.classList.remove('is-hidden');
         }
       }
     }
@@ -121,7 +154,7 @@ const updateNavigation = () => {
 const onScroll = () => {
   if (!ticking) {
     requestAnimationFrame(() => {
-      updateNavigation();
+      updateHeader();
       ticking = false;
     });
     ticking = true;
@@ -129,14 +162,7 @@ const onScroll = () => {
 };
 
 window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', () => {
-  updateSectionOffsets();
-  onScroll();
-}, { passive: true });
-window.addEventListener('load', updateSectionOffsets, { passive: true });
-
-updateSectionOffsets();
-updateNavigation();
+updateHeader();
 
 // Footer Architecture & Metrics Disclosure Accordion
 const footerDisclosure = document.querySelector('.footer-metrics-disclosure');
@@ -210,7 +236,7 @@ if (footerDisclosure) {
           footerDisclosure.style.height = '';
           footerDisclosure.style.overflow = '';
         };
-        anim.oncancel = () => (isClosing = false);
+        anim.oncancel = () => (isExpanding = false);
       }
     });
   }
@@ -247,8 +273,10 @@ if (countriesStat && globeFollower) {
     updatePosition(e);
 
     globeFollower.classList.remove('is-inspecting');
-    void globeFollower.offsetWidth;
-    globeFollower.classList.add('is-inspecting');
+    globeFollower.getAnimations().forEach((anim) => anim.cancel());
+    requestAnimationFrame(() => {
+      globeFollower.classList.add('is-inspecting');
+    });
 
     clearTimeout(tooltipTimeout);
     tooltipTimeout = setTimeout(() => {
