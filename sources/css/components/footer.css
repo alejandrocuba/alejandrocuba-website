@@ -143,6 +143,35 @@
   text-align: left;
 }
 
+.cwv-abbr {
+  text-decoration: none;
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(148, 163, 184, 0.65) 0,
+    rgba(148, 163, 184, 0.65) 2px,
+    transparent 2px,
+    transparent 7px
+  );
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  padding-bottom: 2px;
+  cursor: default;
+  color: inherit;
+  transition: color var(--transition-fast);
+}
+
+.cwv-abbr:hover {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--accent-cyan) 0,
+    var(--accent-cyan) 2px,
+    transparent 2px,
+    transparent 7px
+  );
+  color: var(--text-primary);
+}
+
 .footer-link {
   color: var(--text-secondary);
   text-decoration: underline;

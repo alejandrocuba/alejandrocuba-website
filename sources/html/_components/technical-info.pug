@@ -36,7 +36,7 @@ details.footer-metrics-disclosure
           svg.footer-tech-info-icon(width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
             path(d="M22 12h-4l-3 9L9 3l-3 9H2")
           p.footer-tech-info-text
-            | #[a.footer-link(href="https://web.dev/explore/metrics" target="_blank" rel="noopener noreferrer") Core Web Vitals] measured in this session: &lt;0.8s LCP, 0.000 CLS, and &lt;16ms INP.
+            | Live Core Web Vitals: #[abbr.cwv-abbr(data-tooltip="Largest Contentful Paint (Good: ≤ 2.5s)") #[span#cwv-lcp --] LCP], #[abbr.cwv-abbr(data-tooltip="Cumulative Layout Shift (Good: ≤ 0.10)") #[span#cwv-cls 0.00] CLS], and #[abbr.cwv-abbr(data-tooltip="Interaction to Next Paint (Good: ≤ 200ms)") #[span#cwv-inp &lt;16ms] INP], delivering top-tier performance.
 
       .tech-stack-footer
         a.btn.btn-secondary.tech-github-btn(

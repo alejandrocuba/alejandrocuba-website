@@ -226,5 +226,98 @@ if (countriesStat && globeFollower) {
   });
 }
 
+// Live Core Web Vitals Measurement (LCP, CLS, INP)
+(() => {
+  const lcpEl = document.getElementById('cwv-lcp');
+  const clsEl = document.getElementById('cwv-cls');
+  const inpEl = document.getElementById('cwv-inp');
 
+  if (!lcpEl && !clsEl && !inpEl) return;
 
+  const updateLCP = (val) => {
+    if (lcpEl) {
+      lcpEl.textContent = val < 1000 ? `${(val / 1000).toFixed(2)}s` : `${(val / 1000).toFixed(2)}s`;
+    }
+  };
+
+  let clsValue = 0;
+  const updateCLS = (val) => {
+    if (clsEl) {
+      clsEl.textContent = val.toFixed(2);
+    }
+  };
+
+  let maxInp = 0;
+  const updateINP = (val) => {
+    if (inpEl) {
+      inpEl.textContent = `${Math.max(1, Math.round(val))}ms`;
+    }
+  };
+
+  if ('PerformanceObserver' in window) {
+    // 1. Largest Contentful Paint (LCP)
+    try {
+      const lcpObserver = new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        if (entries.length > 0) {
+          updateLCP(entries[entries.length - 1].startTime);
+        }
+      });
+      lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+    } catch {
+      // Graceful fallback for unsupported entry type
+    }
+
+    // 2. Cumulative Layout Shift (CLS)
+    try {
+      const clsObserver = new PerformanceObserver((entryList) => {
+        for (const entry of entryList.getEntries()) {
+          if (!entry.hadRecentInput) {
+            clsValue += entry.value;
+            updateCLS(clsValue);
+          }
+        }
+      });
+      clsObserver.observe({ type: 'layout-shift', buffered: true });
+    } catch {
+      // Graceful fallback
+    }
+
+    // 3. Interaction to Next Paint (INP)
+    try {
+      const inpObserver = new PerformanceObserver((entryList) => {
+        for (const entry of entryList.getEntries()) {
+          const duration = entry.duration;
+          if (duration > maxInp) {
+            maxInp = duration;
+            updateINP(maxInp);
+          }
+        }
+      });
+      inpObserver.observe({ type: 'event', durationThreshold: 0, buffered: true });
+    } catch {
+      try {
+        const fallbackInp = new PerformanceObserver((entryList) => {
+          for (const entry of entryList.getEntries()) {
+            if (entry.duration > maxInp) {
+              maxInp = entry.duration;
+              updateINP(maxInp);
+            }
+          }
+        });
+        fallbackInp.observe({ type: 'event', durationThreshold: 16, buffered: true });
+      } catch {
+        // Graceful fallback
+      }
+    }
+  }
+
+  // Fallback initial paint timing if LCP observer has not triggered yet
+  window.addEventListener('load', () => {
+    if (lcpEl && lcpEl.textContent === '--' && window.performance) {
+      const paintEntries = performance.getEntriesByType('paint');
+      const fcp = paintEntries.find((e) => e.name === 'first-contentful-paint');
+      if (fcp) updateLCP(fcp.startTime);
+    }
+  });
+})();
