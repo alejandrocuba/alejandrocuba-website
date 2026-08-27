@@ -40,8 +40,10 @@ const updateNavigation = () => {
   const y = window.scrollY;
   const delta = y - lastY;
 
-  // Header Visibility
+  // Header Visibility & Scrolled State
   if (header) {
+    header.classList.toggle('is-scrolled', y > 20);
+
     if (delta > 8 && y > 100) {
       header.classList.add('is-hidden');
       document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => (d.open = false));

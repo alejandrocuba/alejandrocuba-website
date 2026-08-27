@@ -23,7 +23,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Scroll-Driven Header Background & Blur via Pure CSS */
+/* Scroll-Driven Header Background & Blur via Pure CSS (Desktop only) */
 @keyframes header-backdrop {
   to {
     background: rgba(13, 15, 18, 0.88);
@@ -35,10 +35,12 @@
 }
 
 @supports (animation-timeline: scroll()) {
-  .site-header {
-    animation: header-backdrop linear both;
-    animation-timeline: scroll(root);
-    animation-range: 0 24px;
+  @media (min-width: 769px) {
+    .site-header {
+      animation: header-backdrop linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 24px;
+    }
   }
 }
 
@@ -275,6 +277,30 @@ details[open] .dropdown-menu {
 .dropdown-link.is-active {
   color: var(--accent-highlight) !important;
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    background: var(--bg-base);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: 1px solid var(--border-subtle);
+    animation: none;
+  }
+
+  .site-header.is-scrolled {
+    background: var(--bg-base);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: 1px solid var(--border-subtle);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .dropdown-menu {
+    background: var(--bg-surface-elevated);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
 @media (max-width: 540px) {
