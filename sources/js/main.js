@@ -2,58 +2,78 @@
  * Main application script for alejandrocuba.com
  */
 
-// YouTube Video Facade: Instantiates iframe on click
+// Delegated Click Handling: Video Facade & Dropdown Light-Dismiss
 document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.video-facade-btn');
-  if (!btn?.dataset.videoId) return;
+  // YouTube Video Facade
+  const videoBtn = e.target.closest('.video-facade-btn');
+  if (videoBtn?.dataset.videoId) {
+    const iframe = document.createElement('iframe');
+    Object.assign(iframe, {
+      src: `https://www.youtube-nocookie.com/embed/${videoBtn.dataset.videoId}?autoplay=1&rel=0`,
+      title: videoBtn.getAttribute('aria-label') || 'YouTube Video',
+      allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+      allowFullscreen: true,
+      style: 'width:100%;height:100%;position:absolute;inset:0;border:0;'
+    });
+    videoBtn.parentElement?.replaceChildren(iframe);
+    return;
+  }
 
-  const iframe = document.createElement('iframe');
-  Object.assign(iframe, {
-    src: `https://www.youtube-nocookie.com/embed/${btn.dataset.videoId}?autoplay=1&rel=0`,
-    title: btn.getAttribute('aria-label') || 'YouTube Video',
-    allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
-    allowFullscreen: true,
-    style: 'width:100%;height:100%;position:absolute;inset:0;border:0;'
-  });
-  btn.parentElement?.replaceChildren(iframe);
-});
-
-// Light-dismiss navigation dropdown on outside click or dropdown item click
-document.addEventListener('click', (e) => {
+  // Close Navigation Dropdown on outside click or item selection
   if (!e.target.closest('details.nav-dropdown') || e.target.closest('.dropdown-link')) {
     document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => (d.open = false));
   }
 });
 
-// Smart Header & ScrollSpy: Strictly highlight one navigation item at a time
+// Header & ScrollSpy Navigation Controller
 const header = document.querySelector('.site-header');
 const navLinks = document.querySelectorAll('.nav-link, .dropdown-link');
 const contribTrigger = document.querySelector('.nav-dropdown-trigger');
-const sections = ['about', 'articles', 'podcast', 'speaking', 'mentorship', 'contact']
+const sectionElements = ['about', 'articles', 'podcast', 'speaking', 'mentorship', 'contact']
   .map((id) => document.getElementById(id))
   .filter(Boolean);
 const contribIds = new Set(['articles', 'podcast', 'speaking', 'mentorship']);
 
+let sectionOffsets = [];
+const updateSectionOffsets = () => {
+  sectionOffsets = sectionElements.map((el) => ({
+    id: el.id,
+    top: el.offsetTop
+  }));
+};
+
 let lastY = window.scrollY;
+let accumulatedDelta = 0;
+let ticking = false;
 
 const updateNavigation = () => {
-  const y = window.scrollY;
+  const y = Math.max(0, window.scrollY);
   const delta = y - lastY;
 
-  // Header Visibility & Scrolled State
+  // Directional delta accumulation with hysteresis
+  if ((delta > 0 && accumulatedDelta < 0) || (delta < 0 && accumulatedDelta > 0)) {
+    accumulatedDelta = 0;
+  }
+  accumulatedDelta += delta;
+
+  // Header Visibility & Scrolled Styling
   if (header) {
     header.classList.toggle('is-scrolled', y > 20);
 
-    if (delta > 8 && y > 100) {
-      header.classList.add('is-hidden');
-      document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => (d.open = false));
-    } else if (delta < -6 || y <= 20) {
-      header.classList.remove('is-hidden');
+    if (accumulatedDelta > 25 && y > 80) {
+      if (!header.classList.contains('is-hidden')) {
+        header.classList.add('is-hidden');
+        document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => (d.open = false));
+      }
+    } else if (accumulatedDelta < -15 || y <= 20) {
+      if (header.classList.contains('is-hidden')) {
+        header.classList.remove('is-hidden');
+      }
     }
   }
 
-  // ScrollSpy: Determine the single current active section
-  if (sections.length > 0) {
+  // Fast ScrollSpy using cached section offsets (0 DOM reads on scroll)
+  if (sectionOffsets.length > 0) {
     const scrollPos = y + 140;
     const isBottom = y + window.innerHeight >= document.documentElement.scrollHeight - 60;
 
@@ -62,33 +82,35 @@ const updateNavigation = () => {
     if (isBottom) {
       activeId = 'contact';
     } else {
-      for (let i = sections.length - 1; i >= 0; i--) {
-        if (scrollPos >= sections[i].offsetTop) {
-          activeId = sections[i].id;
+      for (let i = sectionOffsets.length - 1; i >= 0; i--) {
+        if (scrollPos >= sectionOffsets[i].top) {
+          activeId = sectionOffsets[i].id;
           break;
         }
       }
     }
 
-    // Strictly highlight only one target link
     navLinks.forEach((link) => {
       const isActive = link.getAttribute('href') === `#${activeId}`;
-      link.classList.toggle('is-active', isActive);
-      if (isActive) {
-        link.setAttribute('aria-current', 'true');
-      } else {
-        link.removeAttribute('aria-current');
+      if (link.classList.contains('is-active') !== isActive) {
+        link.classList.toggle('is-active', isActive);
+        if (isActive) {
+          link.setAttribute('aria-current', 'true');
+        } else {
+          link.removeAttribute('aria-current');
+        }
       }
     });
 
-    // Highlight Contributions parent trigger when one of its sub-sections is active
     if (contribTrigger) {
       const inContrib = contribIds.has(activeId);
-      contribTrigger.classList.toggle('is-active', inContrib);
-      if (inContrib) {
-        contribTrigger.setAttribute('aria-current', 'true');
-      } else {
-        contribTrigger.removeAttribute('aria-current');
+      if (contribTrigger.classList.contains('is-active') !== inContrib) {
+        contribTrigger.classList.toggle('is-active', inContrib);
+        if (inContrib) {
+          contribTrigger.setAttribute('aria-current', 'true');
+        } else {
+          contribTrigger.removeAttribute('aria-current');
+        }
       }
     }
   }
@@ -96,116 +118,128 @@ const updateNavigation = () => {
   lastY = y;
 };
 
-window.addEventListener('scroll', updateNavigation, { passive: true });
-window.addEventListener('resize', updateNavigation, { passive: true });
+const onScroll = () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      updateNavigation();
+      ticking = false;
+    });
+    ticking = true;
+  }
+};
+
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', () => {
+  updateSectionOffsets();
+  onScroll();
+}, { passive: true });
+window.addEventListener('load', updateSectionOffsets, { passive: true });
+
+updateSectionOffsets();
 updateNavigation();
 
-// Smooth Accordion Animation for Footer Disclosure
-class SmoothDisclosure {
-  constructor(el) {
-    this.el = el;
-    this.summary = el.querySelector('summary');
-    this.content = el.querySelector('.footer-metrics-content-wrapper');
-    this.animation = null;
-    this.isClosing = false;
-    this.isExpanding = false;
-
-    if (!this.summary || !this.content) return;
-    this.summary.addEventListener('click', (e) => this.onClick(e));
-  }
-
-  onClick(e) {
-    e.preventDefault();
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      this.el.open = !this.el.open;
-      return;
-    }
-
-    this.el.style.overflow = 'hidden';
-    if (this.isClosing || !this.el.open) {
-      this.open();
-    } else if (this.isExpanding || this.el.open) {
-      this.shrink();
-    }
-  }
-
-  shrink() {
-    this.isClosing = true;
-    const startHeight = `${this.el.offsetHeight}px`;
-    const endHeight = `${this.summary.offsetHeight}px`;
-
-    if (this.animation) this.animation.cancel();
-
-    this.animation = this.el.animate(
-      { height: [startHeight, endHeight] },
-      { duration: 900, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
-    );
-
-    this.animation.onfinish = () => this.onAnimationFinish(false);
-    this.animation.oncancel = () => (this.isClosing = false);
-  }
-
-  open() {
-    this.el.style.height = `${this.el.offsetHeight}px`;
-    this.el.open = true;
-    window.requestAnimationFrame(() => this.expand());
-  }
-
-  expand() {
-    this.isExpanding = true;
-    const startHeight = `${this.el.offsetHeight}px`;
-    const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
-
-    if (this.animation) this.animation.cancel();
-
-    this.animation = this.el.animate(
-      { height: [startHeight, endHeight] },
-      { duration: 1000, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
-    );
-
-    const scrollStart = performance.now();
-    const step = (now) => {
-      if (!this.el.open || this.isClosing) return;
-      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' });
-      if (now - scrollStart < 1050) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-
-    this.animation.onfinish = () => this.onAnimationFinish(true);
-    this.animation.oncancel = () => (this.isExpanding = false);
-  }
-
-  onAnimationFinish(open) {
-    this.el.open = open;
-    this.animation = null;
-    this.isClosing = false;
-    this.isExpanding = false;
-    this.el.style.height = '';
-    this.el.style.overflow = '';
-  }
-}
-
+// Footer Architecture & Metrics Disclosure Accordion
 const footerDisclosure = document.querySelector('.footer-metrics-disclosure');
 if (footerDisclosure) {
-  new SmoothDisclosure(footerDisclosure);
+  const summary = footerDisclosure.querySelector('summary');
+  const content = footerDisclosure.querySelector('.footer-metrics-content-wrapper');
+
+  if (summary && content) {
+    let anim = null;
+    let isClosing = false;
+    let isExpanding = false;
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        footerDisclosure.open = !footerDisclosure.open;
+        return;
+      }
+
+      footerDisclosure.style.overflow = 'hidden';
+
+      if (isClosing || !footerDisclosure.open) {
+        // Expand
+        isExpanding = true;
+        footerDisclosure.style.height = `${footerDisclosure.offsetHeight}px`;
+        footerDisclosure.open = true;
+
+        requestAnimationFrame(() => {
+          const startH = `${footerDisclosure.offsetHeight}px`;
+          const endH = `${summary.offsetHeight + content.offsetHeight}px`;
+          if (anim) anim.cancel();
+
+          anim = footerDisclosure.animate(
+            { height: [startH, endH] },
+            { duration: 800, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+          );
+
+          const scrollStart = performance.now();
+          const step = (now) => {
+            if (!footerDisclosure.open || isClosing) return;
+            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' });
+            if (now - scrollStart < 850) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+
+          anim.onfinish = () => {
+            footerDisclosure.open = true;
+            anim = null;
+            isExpanding = false;
+            footerDisclosure.style.height = '';
+            footerDisclosure.style.overflow = '';
+          };
+          anim.oncancel = () => (isExpanding = false);
+        });
+      } else if (isExpanding || footerDisclosure.open) {
+        // Shrink
+        isClosing = true;
+        const startH = `${footerDisclosure.offsetHeight}px`;
+        const endH = `${summary.offsetHeight}px`;
+        if (anim) anim.cancel();
+
+        anim = footerDisclosure.animate(
+          { height: [startH, endH] },
+          { duration: 700, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+        );
+
+        anim.onfinish = () => {
+          footerDisclosure.open = false;
+          anim = null;
+          isClosing = false;
+          footerDisclosure.style.height = '';
+          footerDisclosure.style.overflow = '';
+        };
+        anim.oncancel = () => (isClosing = false);
+      }
+    });
+  }
 }
 
-// Interactive 3D Earth Globe Follower & Right-Click Easter Egg
+// Interactive 3D Earth Globe Follower & Easter Egg
 const countriesStat = document.querySelector('.podcast-stat-item--countries');
 const globeFollower = countriesStat?.querySelector('.globe-easter-egg');
 
 if (countriesStat && globeFollower) {
-  let tooltipTimeout;
+  let statRect = null;
+  let tooltipTimeout = null;
 
-  const updatePosition = (e) => {
-    const rect = countriesStat.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    globeFollower.style.setProperty('--cursor-x', `${x}px`);
-    globeFollower.style.setProperty('--cursor-y', `${y}px`);
+  const getRect = () => {
+    if (!statRect) statRect = countriesStat.getBoundingClientRect();
+    return statRect;
   };
 
-  countriesStat.addEventListener('pointerenter', updatePosition, { passive: true });
+  const updatePosition = (e) => {
+    const rect = getRect();
+    globeFollower.style.setProperty('--cursor-x', `${e.clientX - rect.left}px`);
+    globeFollower.style.setProperty('--cursor-y', `${e.clientY - rect.top}px`);
+  };
+
+  countriesStat.addEventListener('pointerenter', (e) => {
+    statRect = countriesStat.getBoundingClientRect();
+    updatePosition(e);
+  }, { passive: true });
+
   countriesStat.addEventListener('pointermove', updatePosition, { passive: true });
 
   countriesStat.addEventListener('contextmenu', (e) => {
@@ -224,11 +258,12 @@ if (countriesStat && globeFollower) {
 
   countriesStat.addEventListener('pointerleave', () => {
     clearTimeout(tooltipTimeout);
+    statRect = null;
     globeFollower.classList.remove('is-inspecting');
   });
 }
 
-// Live Core Web Vitals Measurement (LCP, CLS, INP)
+// Live Core Web Vitals Monitoring
 (() => {
   const lcpEl = document.getElementById('cwv-lcp');
   const clsEl = document.getElementById('cwv-cls');
@@ -237,89 +272,65 @@ if (countriesStat && globeFollower) {
   if (!lcpEl && !clsEl && !inpEl) return;
 
   const updateLCP = (val) => {
-    if (lcpEl) {
-      lcpEl.textContent = val < 1000 ? `${(val / 1000).toFixed(2)}s` : `${(val / 1000).toFixed(2)}s`;
-    }
+    if (lcpEl) lcpEl.textContent = `${(val / 1000).toFixed(2)}s`;
   };
 
   let clsValue = 0;
   const updateCLS = (val) => {
-    if (clsEl) {
-      clsEl.textContent = val.toFixed(2);
-    }
+    if (clsEl) clsEl.textContent = val.toFixed(2);
   };
 
   let maxInp = 0;
   const updateINP = (val) => {
-    if (inpEl) {
-      inpEl.textContent = `${Math.max(1, Math.round(val))}ms`;
-    }
+    if (inpEl) inpEl.textContent = `${Math.max(1, Math.round(val))}ms`;
   };
 
   if ('PerformanceObserver' in window) {
-    // 1. Largest Contentful Paint (LCP)
     try {
-      const lcpObserver = new PerformanceObserver((entryList) => {
-        const entries = entryList.getEntries();
-        if (entries.length > 0) {
-          updateLCP(entries[entries.length - 1].startTime);
-        }
-      });
-      lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
-    } catch {
-      // Graceful fallback for unsupported entry type
-    }
+      new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        if (entries.length > 0) updateLCP(entries[entries.length - 1].startTime);
+      }).observe({ type: 'largest-contentful-paint', buffered: true });
+    } catch {}
 
-    // 2. Cumulative Layout Shift (CLS)
     try {
-      const clsObserver = new PerformanceObserver((entryList) => {
-        for (const entry of entryList.getEntries()) {
+      new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
           if (!entry.hadRecentInput) {
             clsValue += entry.value;
             updateCLS(clsValue);
           }
         }
-      });
-      clsObserver.observe({ type: 'layout-shift', buffered: true });
-    } catch {
-      // Graceful fallback
-    }
+      }).observe({ type: 'layout-shift', buffered: true });
+    } catch {}
 
-    // 3. Interaction to Next Paint (INP)
     try {
-      const inpObserver = new PerformanceObserver((entryList) => {
-        for (const entry of entryList.getEntries()) {
-          const duration = entry.duration;
-          if (duration > maxInp) {
-            maxInp = duration;
+      new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (entry.duration > maxInp) {
+            maxInp = entry.duration;
             updateINP(maxInp);
           }
         }
-      });
-      inpObserver.observe({ type: 'event', durationThreshold: 0, buffered: true });
+      }).observe({ type: 'event', durationThreshold: 0, buffered: true });
     } catch {
       try {
-        const fallbackInp = new PerformanceObserver((entryList) => {
-          for (const entry of entryList.getEntries()) {
+        new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
             if (entry.duration > maxInp) {
               maxInp = entry.duration;
               updateINP(maxInp);
             }
           }
-        });
-        fallbackInp.observe({ type: 'event', durationThreshold: 16, buffered: true });
-      } catch {
-        // Graceful fallback
-      }
+        }).observe({ type: 'event', durationThreshold: 16, buffered: true });
+      } catch {}
     }
   }
 
-  // Fallback initial paint timing if LCP observer has not triggered yet
   window.addEventListener('load', () => {
     if (lcpEl && lcpEl.textContent === '--' && window.performance) {
-      const paintEntries = performance.getEntriesByType('paint');
-      const fcp = paintEntries.find((e) => e.name === 'first-contentful-paint');
+      const fcp = performance.getEntriesByType('paint')?.find((e) => e.name === 'first-contentful-paint');
       if (fcp) updateLCP(fcp.startTime);
     }
-  });
+  }, { passive: true });
 })();

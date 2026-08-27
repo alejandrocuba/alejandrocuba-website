@@ -16,8 +16,8 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   overflow-x: clip;
-  word-wrap: break-word;
-  text-rendering: optimizeSpeed;
+  overflow-wrap: break-word;
+  text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -32,7 +32,6 @@ select {
   color: inherit;
   line-height: inherit;
   text-decoration: none;
-  outline: none;
   border: none;
   background: none;
   box-shadow: none;
@@ -45,15 +44,15 @@ button {
   cursor: pointer;
   transition:
     color 0.25s,
-    background 0.25s,
+    background-color 0.25s,
     opacity 0.25s;
 }
 
 img {
   max-width: 100%;
+  height: auto;
   display: block;
   border: 0;
-  vertical-align: middle;
 }
 
 /* Reset margins for headings and blocks */
