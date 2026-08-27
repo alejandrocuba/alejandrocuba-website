@@ -2,7 +2,7 @@
  * Main application script for alejandrocuba.com
  */
 
-// Delegated Click Handling: Video Facade & Dropdown Light-Dismiss
+// Delegated Click Handling: Video Facade, Dropdown Light-Dismiss & Smooth Anchors
 document.addEventListener('click', (e) => {
   // YouTube Video Facade
   const videoBtn = e.target.closest('.video-facade-btn');
@@ -17,6 +17,21 @@ document.addEventListener('click', (e) => {
     });
     videoBtn.parentElement?.replaceChildren(iframe);
     return;
+  }
+
+  // Smooth Anchor Navigation
+  const anchor = e.target.closest('a[href^="#"]');
+  if (anchor) {
+    const targetId = anchor.getAttribute('href');
+    if (targetId && targetId !== '#') {
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        targetEl.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        history.pushState(null, '', targetId);
+      }
+    }
   }
 
   // Close Navigation Dropdown on outside click or item selection
@@ -55,31 +70,35 @@ const updateNavigation = () => {
   const delta = y - lastY;
 
   const isAtTop = y <= 20;
-  const isAtBottom = y >= maxScroll - 40;
-
-  // Directional delta accumulation with hysteresis
-  if ((delta > 0 && accumulatedDelta < 0) || (delta < 0 && accumulatedDelta > 0)) {
-    accumulatedDelta = 0;
-  }
-  accumulatedDelta += delta;
+  const isAtBottom = y >= maxScroll - 30;
 
   // Header Visibility & Scrolled Styling
   if (header) {
     header.classList.toggle('is-scrolled', y > 20);
 
-    if (isAtTop || isAtBottom) {
-      if (isAtTop && header.classList.contains('is-hidden')) {
+    if (isAtTop) {
+      if (header.classList.contains('is-hidden')) {
         header.classList.remove('is-hidden');
       }
       accumulatedDelta = 0;
-    } else if (accumulatedDelta > 25 && y > 80) {
-      if (!header.classList.contains('is-hidden')) {
-        header.classList.add('is-hidden');
-        document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => (d.open = false));
+    } else if (isAtBottom) {
+      accumulatedDelta = 0;
+    } else {
+      // Directional delta accumulation with hysteresis
+      if ((delta > 0 && accumulatedDelta < 0) || (delta < 0 && accumulatedDelta > 0)) {
+        accumulatedDelta = 0;
       }
-    } else if (accumulatedDelta < -15) {
-      if (header.classList.contains('is-hidden')) {
-        header.classList.remove('is-hidden');
+      accumulatedDelta += delta;
+
+      if (accumulatedDelta > 25 && y > 80) {
+        if (!header.classList.contains('is-hidden')) {
+          header.classList.add('is-hidden');
+          document.querySelectorAll('details.nav-dropdown[open]').forEach((d) => (d.open = false));
+        }
+      } else if (accumulatedDelta < -15) {
+        if (header.classList.contains('is-hidden')) {
+          header.classList.remove('is-hidden');
+        }
       }
     }
   }
