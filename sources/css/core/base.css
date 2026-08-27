@@ -1,7 +1,6 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(72px + 1.5rem);
   color-scheme: dark;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -12,12 +11,6 @@ html {
     --section-speaking,
     --section-mentorship,
     --section-contact;
-}
-
-@media (max-width: 540px) {
-  html {
-    scroll-padding-top: calc(60px + 1rem);
-  }
 }
 
 /* Scroll-Driven View Timelines for Pure CSS ScrollSpy */
@@ -117,6 +110,21 @@ main:focus {
   padding-block: var(--section-spacing);
   position: relative;
   contain: layout style;
+  scroll-margin-top: calc(72px + 1.25rem - var(--section-spacing));
+}
+
+#about {
+  scroll-margin-top: 0;
+}
+
+@media (max-width: 540px) {
+  .site-section {
+    scroll-margin-top: calc(60px + 0.75rem - var(--section-spacing));
+  }
+
+  #about {
+    scroll-margin-top: 0;
+  }
 }
 
 /* Section Header Typography */
