@@ -61,19 +61,17 @@
   color: var(--accent-highlight);
   text-decoration: none;
   border-radius: var(--radius-sm);
-  transition: color var(--transition-fast), filter var(--transition-fast), transform var(--transition-fast);
+  transition: color var(--transition-fast);
 }
 
 .nav-logo:hover {
   color: var(--accent-highlight-hover);
-  transform: scale(1.05);
 }
 
-.nav-logo-img {
+.nav-logo-svg {
   width: 32px;
   height: 32px;
   display: block;
-  object-fit: contain;
 }
 
 /* Navigation List */
