@@ -1,0 +1,117 @@
+include ../_data/speaking
+
+-
+  var monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var speakingTimeline = Object.entries(
+    speaking.reduce(function(acc, event) {
+      var parts = event.date.split('-');
+      var year = parts[0];
+      var monthIdx = parseInt(parts[1], 10) - 1;
+      var day = parts[2] ? parseInt(parts[2], 10) : null;
+      var formatted = day ? monthsShort[monthIdx] + ' ' + day + ', ' + year : monthsShort[monthIdx] + ', ' + year;
+
+      var id = event.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      if (!acc[year]) acc[year] = [];
+      acc[year].push(Object.assign({}, event, {
+        id: id,
+        dateIso: event.date,
+        dateFormatted: formatted
+      }));
+      return acc;
+    }, {})
+  ).sort(function(a, b) {
+    return Number(b[0]) - Number(a[0]);
+  }).map(function(entry) {
+    return {
+      year: entry[0],
+      events: entry[1].sort(function(a, b) {
+        return (b.date || '').localeCompare(a.date || '');
+      })
+    };
+  });
+
+section#speaking.site-section(aria-labelledby="speaking-title")
+  .container
+    header.section-header
+      span.section-label Public Speaking
+      h2#speaking-title.section-title Conferences, Panels &amp; Meetups
+
+    .speaking-timeline-container
+      ol.speaking-timeline(role="list" aria-label="Chronological index of speaking engagements")
+        each group in speakingTimeline
+          li.timeline-year-group
+            .timeline-year-marker(aria-hidden="true")
+              .timeline-node-dot
+            header.timeline-year-header
+              h3.timeline-year-badge= group.year
+
+            ul.speaking-grid(role="list")
+              each event in group.events
+                li.card.card--compact(id=event.id itemscope itemtype="https://schema.org/Event")
+                  meta(
+                    itemprop="eventAttendanceMode"
+                    content=event.format === 'online' ? 'https://schema.org/OnlineEventAttendanceMode' : 'https://schema.org/OfflineEventAttendanceMode'
+                  )
+                  meta(itemprop="performer" content=profile.name)
+                  .card-header
+                    .card-heading-group
+                      if event.event
+                        span.card-event= event.event
+                      h4.card-title(itemprop="name")
+                        if event.url
+                          a.card-title-link(href=event.url target="_blank" rel="noopener noreferrer")
+                            = event.title
+                        else
+                          = event.title
+                    time.card-date(datetime=event.dateIso itemprop="startDate")= event.dateFormatted
+
+                  footer.card-meta
+                    .card-meta-left
+                      .card-location(itemprop="location" itemscope itemtype=event.format === 'online' ? "https://schema.org/VirtualLocation" : "https://schema.org/Place")
+                        if event.format === 'online'
+                          svg.card-location-icon.card-location-icon--online(width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                            circle(cx="12" cy="12" r="10")
+                            line(x1="2" y1="12" x2="22" y2="12")
+                            path(d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z")
+                        else
+                          svg.card-location-icon(width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                            path(d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z")
+                            circle(cx="12" cy="10" r="3")
+                        span(itemprop=event.format === 'online' ? "name" : "address")= event.location
+
+                      span.card-format-badge(
+                        class=`format-${event.format || 'in-person'}`
+                        aria-label=`Format: ${event.format === 'online' ? 'Online' : 'In-Person'}`
+                      )
+                        if event.format === 'online'
+                          svg.format-icon(width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                            rect(x="2" y="3" width="20" height="14" rx="2" ry="2")
+                            line(x1="8" y1="21" x2="16" y2="21")
+                            line(x1="12" y1="17" x2="12" y2="21")
+                          span Online
+                        else
+                          svg.format-icon(width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                            path(d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z")
+                            circle(cx="12" cy="10" r="3")
+                          span In-Person
+
+                    .card-meta-right
+                      if event.url
+                        a.card-link-arrow(
+                          href=event.url
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label=`View details for ${event.title}`
+                        )
+                          span View event
+                          span.arrow-indicator(aria-hidden="true") ↗
+
+    .section-footer-actions
+      a.btn.btn-secondary(
+        href=profile.socials.sessionize
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label=`View ${profile.name}'s full speaker profile on Sessionize`
+      )
+        span View all events
+        span.arrow-indicator(aria-hidden="true") ↗

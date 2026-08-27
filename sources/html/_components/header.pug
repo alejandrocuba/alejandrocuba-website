@@ -1,0 +1,29 @@
+include ../_layout/setup/path
+
+header.site-header
+  .container.header-container
+    a.nav-logo(href="#about" aria-label=`${profile.name} - Home`)
+      svg.nav-logo-svg(width="32" height="32" viewBox="0 0 136 136" fill="none" aria-hidden="true")
+        path(d="M126 60.6Q129 68 126 75.4L114.2 103.7Q111.1 111.1 103.7 114.2L75.4 126Q68 129 60.6 126L32.3 114.2Q24.9 111.1 21.8 103.7L10.1 75.4Q7 68 10.1 60.6L21.8 32.3Q24.9 24.9 32.3 21.8L60.6 10.1Q68 7 75.4 10.1L103.7 21.8Q111.1 24.9 114.2 32.3Z" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round")
+        path(fill-rule="evenodd" clip-rule="evenodd" d="M52.5 35.5h18.5l17.5 50h9v6.5H74V85.5h5l-2.5-9H56.5l-2.5 9h4.5V92h-22v-6.5h9l16-43.5h-9V35.5zm14.3 11L59.2 69.5h15z" fill="var(--text-primary, #e1e8f1)")
+
+    nav.site-nav(aria-label="Main Navigation")
+      ul.nav-list
+        li.nav-item
+          details.nav-dropdown
+            summary.nav-link.nav-dropdown-trigger
+              span Contributions
+              svg.dropdown-caret(width="8" height="6" viewBox="0 0 8 6" fill="currentColor" aria-hidden="true")
+                path(d="M0 1L4 5L8 1H0Z")
+            ul.dropdown-menu
+              li
+                a.dropdown-link(href="#articles") Articles
+              li
+                a.dropdown-link(href="#podcast") Podcast
+              li
+                a.dropdown-link(href="#speaking") Speaking
+              li
+                a.dropdown-link(href="#mentorship") Mentorship
+
+        li.nav-item
+          a.nav-link(href="#contact") Contact

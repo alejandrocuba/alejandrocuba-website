@@ -1,3 +1,9 @@
 - var currentYear = new Date().getFullYear()
+
 footer.site-footer
-  p © #{currentYear} #[b Alejandro Cuba Ruiz]
+  .container.footer-inner
+    .footer-technical-info
+      include ./technical-info.pug
+
+      small.footer-copyright
+        | © #{currentYear} #{profile.name}. All rights reserved.

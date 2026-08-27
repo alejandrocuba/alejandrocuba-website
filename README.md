@@ -90,10 +90,16 @@ The build includes a `postbuild` script to ensure the correct entry point name (
 
 ### Previewing the Build
 
-Preview the production build locally:
+Preview the built static files with Vite:
 
 ```bash
 pnpm run preview
+```
+
+Preview with full production simulation (Firebase Hosting emulator with exact headers, CSP, and rewrites):
+
+```bash
+pnpm run preview:prod
 ```
 
 ## 🚀 Deployment

@@ -1,0 +1,44 @@
+include ../_data/articles
+
+mixin articleCard(article)
+  article.card(itemscope itemtype="https://schema.org/TechArticle")
+    meta(itemprop="author" content=profile.name)
+    link(itemprop="mainEntityOfPage" href=article.url)
+    h3.card-title(itemprop="headline")
+      a.card-title-link(href=article.url target="_blank" rel="noopener noreferrer")
+        = article.title
+
+    p.card-description(itemprop="description")= article.description
+
+    footer.card-meta
+      .card-meta-left
+        time.card-date(datetime=article.date itemprop="datePublished")= article.dateFormatted
+      .card-meta-right
+        a.card-link-arrow(
+          href=article.url
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label=`Read "${article.title}" on Medium`
+        )
+          span Read on Medium
+          span.arrow-indicator(aria-hidden="true") ↗
+
+section#articles.site-section(aria-labelledby="articles-title")
+  .container
+    header.section-header
+      span.section-label Technical Writing
+      h2#articles-title.section-title Recent Articles
+
+    .articles-grid
+      each article in articles
+        +articleCard(article)
+
+    .section-footer-actions
+      a.btn.btn-secondary(
+        href="https://medium.com/@alejandrocuba/list/frontend-dev-articles-efd1b199a75d"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label=`View ${profile.name}'s technical articles on Medium`
+      )
+        span View all articles
+        span.arrow-indicator(aria-hidden="true") ↗

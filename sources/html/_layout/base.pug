@@ -1,4 +1,5 @@
 include setup/path
+include ../_data/profile
 
 doctype html
 html(lang='en')
@@ -11,9 +12,9 @@ html(lang='en')
 
   body.is-loading
     a.skip-link(href='#main-content') Skip to content
+    include ../_components/header
     main#main-content(tabindex="-1")
       block content
 
     include ../_components/footer
-    include ../_components/github-corner
     include resources/scripts

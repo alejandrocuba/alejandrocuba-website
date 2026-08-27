@@ -1,0 +1,21 @@
+/* ==========================================================================
+   Articles Section (Technical Publications)
+   Layout rules for articles grid
+   ========================================================================== */
+
+#articles .section-label {
+  color: #abb3fb;
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 1.5rem;
+  container-type: inline-size;
+}
+
+.articles-grid > .card {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}

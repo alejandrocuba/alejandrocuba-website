@@ -1,0 +1,49 @@
+details.footer-metrics-disclosure
+  summary.footer-metrics-summary
+    svg.disclosure-caret(width="8" height="6" viewBox="0 0 8 6" fill="currentColor" aria-hidden="true")
+      path(d="M0 1L4 5L8 1H0Z")
+    span.disclosure-text Curious how this site was built &amp; its performance? 👾
+
+  .footer-metrics-content-wrapper
+    .footer-metrics-content
+      .footer-tech-info-grid
+        .footer-tech-info-item
+          svg.footer-tech-info-icon(width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+            path(d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z")
+            path(d="M20 3v4")
+            path(d="M22 5h-4")
+            path(d="M4 17v2")
+            path(d="M5 18H3")
+          p.footer-tech-info-text
+            | Designed &amp; engineered in #[a.footer-link(href="https://antigravity.google/" target="_blank" rel="noopener noreferrer") Antigravity] by #[a.footer-link(href="https://www.linkedin.com/in/yolandasantacruz/" target="_blank" rel="noopener noreferrer") Yolanda Santa Cruz] and #[a.footer-link(href=profile.socials.linkedin target="_blank" rel="noopener noreferrer") #{profile.name}].
+
+        .footer-tech-info-item
+          svg.footer-tech-info-icon(width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+            path(d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.9a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z")
+            path(d="m22 12.5-8.58 3.9a2 2 0 0 1-1.66 0L2.6 12.5")
+            path(d="m22 17.5-8.58 3.9a2 2 0 0 1-1.66 0L2.6 17.5")
+          p.footer-tech-info-text
+            | Built with #[a.footer-link(href="https://pugjs.org/" target="_blank" rel="noopener noreferrer") Pug], CSS, and &lt;2&nbsp;kB&nbsp;JS, compiled with #[a.footer-link(href="https://vite.dev/" target="_blank" rel="noopener noreferrer") Vite], and deployed to #[a.footer-link(href="https://firebase.google.com/docs/hosting" target="_blank" rel="noopener noreferrer") Firebase Hosting].
+
+        .footer-tech-info-item
+          svg.footer-tech-info-icon(width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+            path(d="m12 14 4-4")
+            path(d="M3.34 19a10 10 0 1 1 17.32 0")
+          p.footer-tech-info-text
+            | Audited with top scores on #[a.footer-link(href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Falejandrocuba.com" target="_blank" rel="noopener noreferrer") PageSpeed Insights] and compliant with agentic protocols.
+
+        .footer-tech-info-item
+          svg.footer-tech-info-icon(width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+            path(d="M22 12h-4l-3 9L9 3l-3 9H2")
+          p.footer-tech-info-text
+            | Live Core Web Vitals: #[abbr.cwv-abbr(data-tooltip="Largest Contentful Paint (Good: ≤ 2.5s)") #[span#cwv-lcp --] LCP], #[abbr.cwv-abbr(data-tooltip="Cumulative Layout Shift (Good: ≤ 0.10)") #[span#cwv-cls 0.00] CLS], and #[abbr.cwv-abbr(data-tooltip="Interaction to Next Paint (Good: ≤ 200ms)") #[span#cwv-inp &lt;16ms] INP], delivering top-tier performance.
+
+      .tech-stack-footer
+        a.btn.btn-secondary.tech-github-btn(
+          href="https://github.com/alejandrocuba/alejandrocuba-website"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View website source code repository on GitHub"
+        )
+          span View source code
+          span.arrow-indicator(aria-hidden="true") ↗

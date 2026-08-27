@@ -1,8 +1,60 @@
 :root {
-  --loading-transition-time: .75s;
-  --gray-dark: #222;
-  --orange: #e49e4c;
+  interpolate-size: allow-keywords;
 
-  --large-viewport: 1200px;
+  /* Surface & Background Palette (Sophisticated Dark Mode - Not 100% Black) */
+  --bg-base: #0d0f12;
+  --bg-surface: #13161c;
+  --bg-surface-elevated: #181c24;
+  --bg-surface-hover: #1f2530;
+  --bg-surface-subtle: #111419;
+
+  /* Border Tokens */
+  --border-subtle: rgba(148, 163, 184, 0.1);
+  --border-medium: rgba(148, 163, 184, 0.18);
+  --border-highlight: rgba(148, 163, 184, 0.32);
+
+  /* Typography Colors (Nuanced light blue-grey shades - No pure #ffffff) */
+  --text-primary: #e2e8f0; /* Slate 200: Primary headings & high-emphasis body */
+  --text-secondary: #94a3b8; /* Slate 400: Body copy & descriptions */
+  --text-muted: #64748b; /* Slate 500: Metadata, dates, secondary labels */
+  --text-inverse: #0d0f12;
+
+  /* Vibrant Ambient Accents */
+  --accent-highlight: #3d9e97; /* Primary Mineral Teal Accent & Menu Highlight */
+  --accent-highlight-rgb: 61, 158, 151; /* RGB channels for alpha blending */
+  --accent-highlight-hover: #64c2bb;
+  --accent-cyan: var(--accent-highlight);
+  --accent-pink: var(--accent-highlight);
+  --accent-rose: var(--accent-highlight);
+  --accent-indigo: #8480ff; /* Indigo 400 */
+  --accent-emerald: #44f5a0; /* Emerald 400 */
+  --accent-amber: #fadf68; /* Amber 400 */
+
+  /* Typography Scales */
+  --font-sans:
+    'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Text', system-ui, sans-serif;
+  --font-heading:
+    'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Text', system-ui, sans-serif;
+  --font-mono: 'Roboto Mono', 'SF Mono', Consolas, monospace;
+
+  /* Spacing & Layout Tokens */
+  --container-max-width: 1180px;
+  --container-gutter: clamp(1rem, 4vw, 2.5rem);
+  --section-spacing: clamp(4.5rem, 9vw, 8rem);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 9999px;
+
+  /* Transitions & Animation Timing */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --loading-transition-time: 0.75s;
+
+  /* Legacy viewport tokens for compatibility */
+  --large-viewport: 1100px;
   --medium-viewport: 640px;
+  --gray-dark: #0d0f12;
+  --orange: #38bdf8;
 }

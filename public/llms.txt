@@ -7,7 +7,7 @@ This is the personal website and portfolio of Alejandro Cuba Ruiz.
 
 - **Role**: Principal Front-End Engineer, Google Developer Expert (GDE) in Angular, ng-Champion, and host of the Angularidades podcast.
 - **Location**: Miami Beach, FL, USA
-- **Specialties**: Front-End Web Engineering, HTML5, CSS, JavaScript, Angular.
+- **Specialties**: Front-End Web Engineering, HTML5, CSS, JavaScript, Angular, Web Performance.
 - **Handles**: @alejandrocuba, @alejandrocubaruiz, @zorphdark
 
 ## Links

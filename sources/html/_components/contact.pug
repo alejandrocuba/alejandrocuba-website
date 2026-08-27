@@ -1,0 +1,34 @@
+section#contact.site-section(aria-labelledby="contact-title")
+  .container
+    .contact-content
+      header.contact-header
+        span.section-label Get In Touch
+        h2#contact-title.contact-heading Let's Connect
+      p.contact-subtext
+        | I'm open for technical advisory, speaking engagements, frontend consulting, and strategic collaboration.
+
+      .contact-actions
+        a.btn.btn-primary.contact-linkedin-btn(
+          href=profile.socials.linkedin
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label=`Connect with ${profile.name} on LinkedIn`
+        )
+          span Connect on LinkedIn
+          span.arrow-indicator(aria-hidden="true") ↗
+
+      address.contact-channels
+        nav.social-channels-bar(aria-label="Online profiles and social channels")
+          ul.social-channels-list(role="list")
+            li.social-channel-item
+              a.channel-link(href=profile.socials.github target="_blank" rel="noopener noreferrer") GitHub
+            li.social-channel-item
+              a.channel-link(href=profile.socials.medium target="_blank" rel="noopener noreferrer") Medium
+            li.social-channel-item
+              a.channel-link(href=profile.socials.youtube target="_blank" rel="noopener noreferrer") YouTube
+            li.social-channel-item
+              a.channel-link(href=profile.socials.sessionize target="_blank" rel="noopener noreferrer") Sessionize
+            li.social-channel-item
+              a.channel-link(href=profile.socials.adplist target="_blank" rel="noopener noreferrer") ADPList
+            li.social-channel-item
+              a.channel-link(href=profile.socials.bluesky target="_blank" rel="noopener noreferrer") Bluesky

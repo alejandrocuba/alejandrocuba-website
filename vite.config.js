@@ -2,11 +2,10 @@ import pug from '@vituum/vite-plugin-pug';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vituum from 'vituum';
-import { highlightCode } from './sources/builder/prism-ssr.js';
 import { inlineCssPlugin } from './sources/builder/inline-css.js';
 
 export default defineConfig({
-  root: resolve(__dirname, 'sources/html'),
+  root: resolve(import.meta.dirname, 'sources/html'),
   plugins: [
     vituum({
       pages: {
@@ -14,29 +13,23 @@ export default defineConfig({
         root: './'
       }
     }),
-    pug({
-      globals: {
-        highlight: highlightCode
-      },
-      filters: {
-        'highlight-jade': (text) => highlightCode(text, 'jade'),
-      }
-    }),
+    pug(),
     inlineCssPlugin(),
   ],
-  publicDir: resolve(__dirname, 'public'),
+  publicDir: resolve(import.meta.dirname, 'public'),
   build: {
-    outDir: resolve(__dirname, 'dist'),
+    outDir: resolve(import.meta.dirname, 'dist'),
     assetsDir: '',
     emptyOutDir: true,
     rollupOptions: {
-      input: resolve(__dirname, 'sources/html/index.pug')
+      input: resolve(import.meta.dirname, 'sources/html/index.pug')
     }
   },
   resolve: {
     alias: {
-      '/sources': resolve(__dirname, 'sources'),
-      '/assets': resolve(__dirname, 'public/assets'),
+      '/sources': resolve(import.meta.dirname, 'sources'),
+      '/assets': resolve(import.meta.dirname, 'public/assets'),
     },
   },
 });
+

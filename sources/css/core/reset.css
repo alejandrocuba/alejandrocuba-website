@@ -8,14 +8,14 @@
 
 html,
 body {
-  height: 100%;
   margin: 0;
   padding: 0;
 }
 
 body {
-  min-height: 100%;
-  overflow-x: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: clip;
   word-wrap: break-word;
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
@@ -43,7 +43,10 @@ select {
 a,
 button {
   cursor: pointer;
-  transition: color 0.25s, background 0.25s, opacity 0.25s;
+  transition:
+    color 0.25s,
+    background 0.25s,
+    opacity 0.25s;
 }
 
 img {
@@ -54,11 +57,24 @@ img {
 }
 
 /* Reset margins for headings and blocks */
-h1, h2, h3, h4, h5, h6, p, ul, ol, figure {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+figure,
+dl,
+dd,
+dt {
   margin: 0;
   padding: 0;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
