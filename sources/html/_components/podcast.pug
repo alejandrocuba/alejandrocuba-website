@@ -64,7 +64,7 @@ section#podcast.site-section.podcast-section(
           dl.podcast-stats-row
             each stat in podcast.stats
               if stat.label === 'Countries'
-                .podcast-stat-item.podcast-stat-item--countries(tabindex="0" aria-label=`${stat.number} ${stat.label}`)
+                .podcast-stat-item.podcast-stat-item--countries
                   dt.podcast-stat-label= stat.label
                   dd.podcast-stat-num
                     span= stat.number
