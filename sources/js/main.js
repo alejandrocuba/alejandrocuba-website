@@ -40,7 +40,7 @@ document.addEventListener('click', (e) => {
   }
 });
 
-/// Header & ScrollSpy Navigation Controller
+// Header & ScrollSpy Navigation Controller
 const header = document.querySelector('.site-header');
 const navLinks = document.querySelectorAll('.nav-link, .dropdown-link');
 const contribTrigger = document.querySelector('.nav-dropdown-trigger');
@@ -111,7 +111,7 @@ if ('IntersectionObserver' in window && sectionElements.length > 0) {
   sectionElements.forEach((el) => sectionObserver.observe(el));
 }
 
-// Lightweight Header Visibility on Scroll (0 geometric layout reads)
+// Lightweight Header Visibility on Scroll
 let lastY = 0;
 let accumulatedDelta = 0;
 let ticking = false;
@@ -184,8 +184,17 @@ if (footerDisclosure) {
 
       footerDisclosure.style.overflow = 'hidden';
 
+      const runAnim = (startH, endH, duration, onComplete, onCancel) => {
+        if (anim) anim.cancel();
+        anim = footerDisclosure.animate(
+          { height: [startH, endH] },
+          { duration, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+        );
+        anim.onfinish = onComplete;
+        anim.oncancel = onCancel;
+      };
+
       if (isClosing || !footerDisclosure.open) {
-        // Expand
         isExpanding = true;
         footerDisclosure.style.height = `${footerDisclosure.offsetHeight}px`;
         footerDisclosure.open = true;
@@ -193,11 +202,21 @@ if (footerDisclosure) {
         requestAnimationFrame(() => {
           const startH = `${footerDisclosure.offsetHeight}px`;
           const endH = `${summary.offsetHeight + content.offsetHeight}px`;
-          if (anim) anim.cancel();
 
-          anim = footerDisclosure.animate(
-            { height: [startH, endH] },
-            { duration: 800, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+          runAnim(
+            startH,
+            endH,
+            800,
+            () => {
+              footerDisclosure.open = true;
+              anim = null;
+              isExpanding = false;
+              footerDisclosure.style.height = '';
+              footerDisclosure.style.overflow = '';
+            },
+            () => {
+              isExpanding = false;
+            }
           );
 
           const scrollStart = performance.now();
@@ -207,36 +226,27 @@ if (footerDisclosure) {
             if (now - scrollStart < 850) requestAnimationFrame(step);
           };
           requestAnimationFrame(step);
-
-          anim.onfinish = () => {
-            footerDisclosure.open = true;
-            anim = null;
-            isExpanding = false;
-            footerDisclosure.style.height = '';
-            footerDisclosure.style.overflow = '';
-          };
-          anim.oncancel = () => (isExpanding = false);
         });
       } else if (isExpanding || footerDisclosure.open) {
-        // Shrink
         isClosing = true;
         const startH = `${footerDisclosure.offsetHeight}px`;
         const endH = `${summary.offsetHeight}px`;
-        if (anim) anim.cancel();
 
-        anim = footerDisclosure.animate(
-          { height: [startH, endH] },
-          { duration: 700, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+        runAnim(
+          startH,
+          endH,
+          700,
+          () => {
+            footerDisclosure.open = false;
+            anim = null;
+            isClosing = false;
+            footerDisclosure.style.height = '';
+            footerDisclosure.style.overflow = '';
+          },
+          () => {
+            isExpanding = false;
+          }
         );
-
-        anim.onfinish = () => {
-          footerDisclosure.open = false;
-          anim = null;
-          isClosing = false;
-          footerDisclosure.style.height = '';
-          footerDisclosure.style.overflow = '';
-        };
-        anim.oncancel = () => (isExpanding = false);
       }
     });
   }
@@ -314,23 +324,24 @@ if (countriesStat && globeFollower) {
   };
 
   if ('PerformanceObserver' in window) {
-    try {
-      new PerformanceObserver((list) => {
-        const entries = list.getEntries();
-        if (entries.length > 0) updateLCP(entries[entries.length - 1].startTime);
-      }).observe({ type: 'largest-contentful-paint', buffered: true });
-    } catch {}
+    const observePerf = (type, opts, cb) => {
+      try {
+        new PerformanceObserver((list) => cb(list.getEntries())).observe({ type, buffered: true, ...opts });
+      } catch {}
+    };
 
-    try {
-      new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          if (!entry.hadRecentInput) {
-            clsValue += entry.value;
-            updateCLS(clsValue);
-          }
+    observePerf('largest-contentful-paint', {}, (entries) => {
+      if (entries.length > 0) updateLCP(entries[entries.length - 1].startTime);
+    });
+
+    observePerf('layout-shift', {}, (entries) => {
+      for (const entry of entries) {
+        if (!entry.hadRecentInput) {
+          clsValue += entry.value;
+          updateCLS(clsValue);
         }
-      }).observe({ type: 'layout-shift', buffered: true });
-    } catch {}
+      }
+    });
 
     try {
       new PerformanceObserver((list) => {
@@ -342,16 +353,14 @@ if (countriesStat && globeFollower) {
         }
       }).observe({ type: 'event', durationThreshold: 0, buffered: true });
     } catch {
-      try {
-        new PerformanceObserver((list) => {
-          for (const entry of list.getEntries()) {
-            if (entry.duration > maxInp) {
-              maxInp = entry.duration;
-              updateINP(maxInp);
-            }
+      observePerf('event', { durationThreshold: 16 }, (entries) => {
+        for (const entry of entries) {
+          if (entry.duration > maxInp) {
+            maxInp = entry.duration;
+            updateINP(maxInp);
           }
-        }).observe({ type: 'event', durationThreshold: 16, buffered: true });
-      } catch {}
+        }
+      });
     }
   }
 
