@@ -15,8 +15,9 @@
 
 /* Single Unified Backbone for the Entire Timeline */
 .speaking-timeline {
+  --timeline-pad: clamp(2.75rem, 5.5vw, 3.75rem);
   list-style: none;
-  padding: 0 0 0 clamp(2.75rem, 5.5vw, 3.75rem);
+  padding: 0 0 0 var(--timeline-pad);
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -30,7 +31,7 @@
   position: absolute;
   left: 15px;
   top: 10px;
-  bottom: 20px;
+  bottom: 0;
   width: 2px;
   background: linear-gradient(
     to bottom,
@@ -52,7 +53,7 @@
 /* Glowing Node on the Continuous Backbone (Aligned at 16px axis) */
 .timeline-year-marker {
   position: absolute;
-  left: calc(-1 * clamp(2.75rem, 5.5vw, 3.75rem) + 6px);
+  left: calc(-1 * var(--timeline-pad) + 6px);
   top: 0.35rem;
   width: 20px;
   height: 20px;
@@ -132,45 +133,14 @@
 
 @media (max-width: 640px) {
   .speaking-timeline {
-    padding-left: 2.25rem;
-  }
-
-  .speaking-timeline::before {
-    left: 12px;
-  }
-
-  .timeline-year-marker {
-    left: calc(-2.25rem + 3px);
-  }
-
-  .timeline-node-dot {
-    width: 12px;
-    height: 12px;
+    --timeline-pad: 2.25rem;
   }
 }
 
 @media (max-width: 480px) {
   .speaking-timeline {
-    padding-left: 1.75rem;
+    --timeline-pad: 2.25rem;
     gap: 2rem;
-  }
-
-  .speaking-timeline::before {
-    left: 8px;
-  }
-
-  .timeline-year-marker {
-    left: calc(-1.75rem - 1px);
-    width: 18px;
-    height: 18px;
-  }
-
-  .timeline-node-dot {
-    width: 10px;
-    height: 10px;
-    box-shadow:
-      0 0 0 3px var(--bg-base),
-      0 0 10px rgba(var(--accent-highlight-rgb), 0.7);
   }
 
   .timeline-year-badge {
