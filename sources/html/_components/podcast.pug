@@ -135,7 +135,7 @@ section#podcast.site-section.podcast-section(
 
           .podcast-actions
             ul.podcast-platform-list(role="list" aria-label="Podcast platforms and episode archive")
-              li.podcast-platform-item
+              li.podcast-platform-item.podcast-platform-item--primary
                 a.btn.btn-secondary.btn-youtube-cta(
                   href=podcast.links.youtube
                   target="_blank"
@@ -147,7 +147,7 @@ section#podcast.site-section.podcast-section(
                   span View all episodes
                   span.arrow-indicator(aria-hidden="true") ↗
 
-              li.podcast-platform-item
+              li.podcast-platform-item.podcast-platform-item--secondary
                 a.btn.btn-secondary.btn-icon.platform-spotify(
                   href=podcast.links.spotify
                   target="_blank"
@@ -158,7 +158,6 @@ section#podcast.site-section.podcast-section(
                   svg.platform-icon(width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true")
                     path(d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.494 17.306c-.215.352-.676.463-1.028.248-2.857-1.745-6.455-2.14-10.69-1.173-.404.093-.812-.162-.904-.567-.094-.404.162-.812.567-.905 4.636-1.059 8.608-.61 11.808 1.348.352.215.463.676.247 1.047zm1.467-3.26c-.27.44-.847.579-1.287.31-3.27-2.008-8.254-2.59-12.12-1.416-.497.15-1.025-.133-1.176-.63-.15-.497.133-1.024.63-1.176 4.417-1.341 9.907-.69 13.643 1.605.44.27.579.847.31 1.287zm.126-3.41c-3.921-2.328-10.378-2.541-14.11-1.408-.6.182-1.24-.162-1.422-.763-.182-.6.163-1.24.764-1.422 4.29-1.302 11.416-1.054 15.932 1.626.54.321.716 1.027.396 1.567-.321.54-1.027.717-1.56.396z")
 
-              li.podcast-platform-item
                 a.btn.btn-secondary.btn-icon.platform-apple(
                   href=podcast.links.apple
                   target="_blank"
