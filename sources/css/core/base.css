@@ -152,7 +152,7 @@ main:focus {
   font-family: var(--font-mono);
   font-size: 0.9375rem;
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.2;
   color: #e2e8f0;
   background-color: transparent;
   border: 1px solid rgba(226, 232, 240, 0.4);
@@ -165,7 +165,7 @@ main:focus {
     box-shadow var(--transition-fast);
   cursor: pointer;
   box-sizing: border-box;
-  height: 46px;
+  min-height: 46px;
 }
 
 .btn:hover,
