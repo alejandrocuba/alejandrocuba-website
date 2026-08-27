@@ -31,7 +31,7 @@
 
 .footer-metrics-summary {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
@@ -44,7 +44,15 @@
   padding: 0.25rem 0;
   background: transparent;
   border: none;
+  text-align: left;
+  line-height: 1.5;
+  max-width: 100%;
   transition: color var(--transition-fast);
+}
+
+.disclosure-text {
+  line-height: 1.5;
+  text-wrap: pretty;
 }
 
 .footer-metrics-summary::-webkit-details-marker,
@@ -69,10 +77,11 @@
   flex-shrink: 0;
   display: inline-block;
   color: var(--accent-cyan);
+  margin-top: 0.38rem;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
   transition:
-    transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
     color var(--transition-fast);
 }
 
