@@ -19,7 +19,7 @@ This is the personal website and portfolio of Alejandro Cuba Ruiz.
 - [X / Twitter](https://twitter.com/zorphdark)
 - [Google Developer Profile](https://developers.google.com/profile/u/alejandrocubaruiz)
 - [Sessionize (Technical Talks)](https://sessionize.com/alejandrocubaruiz)
-- [ADPList (Mentorship)](https://adplist.org/mentors/alejandro-cuba)
+- [ADPList (Mentorship)](https://adplist.org/mentors/alejandro-cuba-ruiz)
 - [Medium Blog](https://medium.com/@alejandrocuba)
 - [Angularidades Podcast (YouTube)](https://www.youtube.com/@angularidades)
 - [Spotify (Angularidades Podcast)](https://open.spotify.com/show/0jrfxcnCrD7N9tlA0BGJp5)
