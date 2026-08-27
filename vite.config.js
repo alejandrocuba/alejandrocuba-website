@@ -27,7 +27,8 @@ function htmlOptimizerPlugin() {
           minifyCSS: true,
           minifyJS: true,
           processScripts: ['application/ld+json'],
-          collapseWhitespace: false
+          collapseWhitespace: true,
+          conservativeCollapse: true
         });
       }
     }
