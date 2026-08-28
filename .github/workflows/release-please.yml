@@ -18,3 +18,12 @@ jobs:
         id: release
         with:
           release-type: node
+
+      - name: Auto-merge Release PR
+        if: ${{ steps.release.outputs.pr }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER="${{ fromJson(steps.release.outputs.pr).number }}"
+          echo "Automatically merging Release PR #$PR_NUMBER..."
+          gh pr merge "$PR_NUMBER" --squash --admin || gh pr merge "$PR_NUMBER" --squash || gh pr merge "$PR_NUMBER" --auto --squash
