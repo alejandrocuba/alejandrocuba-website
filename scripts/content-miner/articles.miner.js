@@ -11,30 +11,26 @@ export function extractDescriptionExcerpt(contentEncoded, descriptionFallback) {
   }
 
   const h4Match = contentEncoded.match(/<h4[^>]*>([\s\S]*?)<\/h4>/i);
-  const pMatch = contentEncoded.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
-
-  const subtitle = h4Match ? cleanHtmlEntities(stripHtml(h4Match[1])) : '';
-  const firstP = pMatch ? cleanHtmlEntities(stripHtml(pMatch[1])) : '';
-
-  if (subtitle && firstP) {
-    if (subtitle.length >= 60) {
+  if (h4Match) {
+    const subtitle = cleanHtmlEntities(stripHtml(h4Match[1]));
+    if (subtitle) {
       return subtitle.endsWith('.') ? subtitle : `${subtitle}.`;
     }
-    const pSentence = (firstP.match(/[^.!?]+[.!?]+/g) || [firstP])[0].trim();
-    let combined = `${subtitle.replace(/[.:]+$/, '')}: ${pSentence}`;
-    if (combined.length > 200) {
-      combined = combined.slice(0, 197).replace(/\s+\S*$/, '') + '...';
+  }
+
+  const pMatch = contentEncoded.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+  if (pMatch) {
+    const firstP = cleanHtmlEntities(stripHtml(pMatch[1]));
+    if (firstP) {
+      const pSentence = (firstP.match(/[^.!?]+[.!?]+/g) || [firstP])[0].trim();
+      return pSentence.length > 180
+        ? pSentence.slice(0, 177).replace(/\s+\S*$/, '') + '...'
+        : (pSentence.endsWith('.') ? pSentence : `${pSentence}.`);
     }
-    return combined;
   }
 
-  if (subtitle) return subtitle;
-  if (firstP) {
-    const pSentence = (firstP.match(/[^.!?]+[.!?]+/g) || [firstP])[0].trim();
-    return pSentence.length > 180 ? pSentence.slice(0, 177).replace(/\s+\S*$/, '') + '...' : pSentence;
-  }
-
-  return cleanHtmlEntities(stripHtml(descriptionFallback || ''));
+  const fallback = cleanHtmlEntities(stripHtml(descriptionFallback || ''));
+  return fallback ? (fallback.endsWith('.') ? fallback : `${fallback}.`) : '';
 }
 
 function readExistingArticles(filePath) {
