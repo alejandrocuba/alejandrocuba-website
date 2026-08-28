@@ -5,13 +5,13 @@ export const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Au
 export function cleanHtmlEntities(text) {
   if (!text) return '';
   return text
-    .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/&apos;/g, "'")
     .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
     .replace(/\s+/g, ' ')
     .trim();
 }
