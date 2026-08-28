@@ -324,7 +324,9 @@ if (countriesStat && globeFollower) {
   };
 
   if ('PerformanceObserver' in window) {
+    const supportedTypes = PerformanceObserver.supportedEntryTypes || [];
     const observePerf = (type, opts, cb) => {
+      if (!supportedTypes.includes(type)) return;
       try {
         new PerformanceObserver((list) => cb(list.getEntries())).observe({ type, buffered: true, ...opts });
       } catch {}
@@ -343,24 +345,26 @@ if (countriesStat && globeFollower) {
       }
     });
 
-    try {
-      new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          if (entry.duration > maxInp) {
-            maxInp = entry.duration;
-            updateINP(maxInp);
+    if (supportedTypes.includes('event')) {
+      try {
+        new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            if (entry.duration > maxInp) {
+              maxInp = entry.duration;
+              updateINP(maxInp);
+            }
           }
-        }
-      }).observe({ type: 'event', durationThreshold: 0, buffered: true });
-    } catch {
-      observePerf('event', { durationThreshold: 16 }, (entries) => {
-        for (const entry of entries) {
-          if (entry.duration > maxInp) {
-            maxInp = entry.duration;
-            updateINP(maxInp);
+        }).observe({ type: 'event', durationThreshold: 0, buffered: true });
+      } catch {
+        observePerf('event', { durationThreshold: 16 }, (entries) => {
+          for (const entry of entries) {
+            if (entry.duration > maxInp) {
+              maxInp = entry.duration;
+              updateINP(maxInp);
+            }
           }
-        }
-      });
+        });
+      }
     }
   }
 
