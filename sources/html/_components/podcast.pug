@@ -33,6 +33,7 @@ section#podcast.site-section.podcast-section(
           meta(itemprop="url" content=`https://www.youtube.com/watch?v=${featuredEpisode.videoId}`)
           .ambient-glow(aria-hidden="true")
           .video-preview-wrapper
+            - var imageFilenameBase = featuredEpisode.image.replace(/\.webp$/, '')
             button.video-facade-btn(
               type="button"
               aria-label=`Play episode preview: ${featuredEpisode.title}`
@@ -40,7 +41,7 @@ section#podcast.site-section.podcast-section(
             )
               img.video-thumbnail(
                 src=path.images + featuredEpisode.image
-                srcset=`${path.images}podcast/ep84-480w.webp 480w, ${path.images}podcast/ep84-720w.webp 720w, ${path.images}${featuredEpisode.image} 1280w`
+                srcset=`${path.images}${imageFilenameBase}-480w.webp 480w, ${path.images}${imageFilenameBase}-720w.webp 720w, ${path.images}${featuredEpisode.image} 1280w`
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
                 alt=`YouTube preview for ${featuredEpisode.title}`
                 width="1280"

@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "preview:prod": "vite build && npx --yes firebase-tools emulators:start --only hosting",
     "serve": "vite preview",
+    "update:content": "node scripts/content-miner/index.js",
     "prepare": "husky"
   },
   "commitlint": {
@@ -21,8 +22,10 @@
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
     "@vituum/vite-plugin-pug": "^2.0.1",
+    "fast-xml-parser": "^5.11.0",
     "html-minifier-terser": "^7.2.0",
     "husky": "^9.1.7",
+    "sharp": "^0.35.3",
     "terser": "^5.50.0",
     "vite": "^8.2.2",
     "vituum": "^2.0.2"
