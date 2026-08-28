@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "preview:prod": "vite build && npx --yes firebase-tools emulators:start --only hosting",
     "serve": "vite preview",
+    "branch": "node scripts/create-branch.js",
     "prepare": "husky"
   },
   "devDependencies": {
