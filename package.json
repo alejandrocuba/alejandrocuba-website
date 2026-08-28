@@ -10,8 +10,12 @@
     "preview": "vite preview",
     "preview:prod": "vite build && npx --yes firebase-tools emulators:start --only hosting",
     "serve": "vite preview",
-    "branch": "node scripts/create-branch.js",
     "prepare": "husky"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.2",
