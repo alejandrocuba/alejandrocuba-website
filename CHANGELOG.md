@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.2](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.1...v5.1.2) (2026-08-28)
+
+
+### Bug Fixes
+
+* **security:** allow youtube embeds in CSP ([#84](https://github.com/alejandrocuba/alejandrocuba-website/issues/84)) ([14ecf29](https://github.com/alejandrocuba/alejandrocuba-website/commit/14ecf291188f1af2da111d1c3ec5058a7ff1f3ea))
+
 ## [5.1.1](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.0...v5.1.1) (2026-08-28)
 
 
