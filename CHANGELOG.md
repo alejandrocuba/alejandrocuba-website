@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.1](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.0...v5.1.1) (2026-08-28)
+
+
+### Bug Fixes
+
+* **miner:** extract strictly author subtitles for articles ([#81](https://github.com/alejandrocuba/alejandrocuba-website/issues/81)) ([602d286](https://github.com/alejandrocuba/alejandrocuba-website/commit/602d2869f96bcc81fca7416c6378eac5bc29dfb8))
+
 ## [5.1.0](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.0.1...v5.1.0) (2026-08-28)
 
 
