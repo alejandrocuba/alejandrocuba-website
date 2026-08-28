@@ -86,13 +86,13 @@ article.card(itemscope itemtype="http://schema.org/TechArticle")
         span.arrow-indicator(aria-hidden="true") ↗
 ```
 
-#### Compact Timeline/Event Card
+#### Compact Timeline Card
 ```pug
-li.card.card--compact(id=event.id itemscope itemtype="https://schema.org/Event")
+li.card.card--compact(id=event.id)
   .card-header
-    h3.card-title(itemprop="name")
+    h3.card-title
       a.card-title-link(href=event.url target="_blank" rel="noopener noreferrer")= event.title
-    time.card-date(datetime=event.dateIso itemprop="startDate")= event.dateFormatted
+    time.card-date(datetime=event.dateIso)= event.dateFormatted
 
   .card-meta
     .card-meta-left

@@ -47,27 +47,22 @@ section#speaking.site-section(aria-labelledby="speaking-title")
 
             ul.speaking-grid(role="list")
               each event in group.events
-                li.card.card--compact(id=event.id itemscope itemtype="https://schema.org/Event")
-                  meta(
-                    itemprop="eventAttendanceMode"
-                    content=event.format === 'online' ? 'https://schema.org/OnlineEventAttendanceMode' : 'https://schema.org/OfflineEventAttendanceMode'
-                  )
-                  meta(itemprop="performer" content=profile.name)
+                li.card.card--compact(id=event.id)
                   .card-header
                     .card-heading-group
                       if event.event
                         span.card-event= event.event
-                      h4.card-title(itemprop="name")
+                      h4.card-title
                         if event.url
                           a.card-title-link(href=event.url target="_blank" rel="noopener noreferrer")
                             = event.title
                         else
                           = event.title
-                    time.card-date(datetime=event.dateIso itemprop="startDate")= event.dateFormatted
+                    time.card-date(datetime=event.dateIso)= event.dateFormatted
 
                   footer.card-meta
                     .card-meta-left
-                      .card-location(itemprop="location" itemscope itemtype=event.format === 'online' ? "https://schema.org/VirtualLocation" : "https://schema.org/Place")
+                      .card-location
                         if event.format === 'online'
                           svg.card-location-icon.card-location-icon--online(width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
                             circle(cx="12" cy="12" r="10")
@@ -77,7 +72,7 @@ section#speaking.site-section(aria-labelledby="speaking-title")
                           svg.card-location-icon(width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
                             path(d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z")
                             circle(cx="12" cy="10" r="3")
-                        span(itemprop=event.format === 'online' ? "name" : "address")= event.location
+                        span= event.location
 
                       span.card-format-badge(
                         class=`format-${event.format || 'in-person'}`
