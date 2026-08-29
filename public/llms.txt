@@ -1,11 +1,11 @@
 # Alejandro Cuba Ruiz
 
-> Principal Front-End Engineer, Google Developer Expert in Angular, International Speaker, Host of Angularidades, and Top ADPList Mentor based in Miami Beach, FL.
+> Principal Frontend Engineer, Google Developer Expert in Angular, International Speaker, Host of Angularidades, and Top ADPList Mentor based in Miami Beach, FL.
 
 ## About
 This is the personal website and portfolio of Alejandro Cuba Ruiz.
 
-- **Role**: Principal Front-End Engineer & Google Developer Expert (GDE) in Angular.
+- **Role**: Principal Frontend Engineer & Google Developer Expert (GDE) in Angular.
 - **Location**: Miami Beach, FL, USA
 - **Bio**: Connecting global developer communities through conference speaking, meetups, podcasts, technical writing, and active mentorship.
 - **Specialties**: Modern Web Architecture, Angular, Web Performance, Design Systems, JavaScript & TypeScript, Community Leadership.
