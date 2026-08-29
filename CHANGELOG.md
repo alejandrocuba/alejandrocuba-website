@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.3](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.2...v5.1.3) (2026-08-29)
+
+
+### Bug Fixes
+
+* **ci:** setup pnpm and fix commitlint hook execution in workflows ([#88](https://github.com/alejandrocuba/alejandrocuba-website/issues/88)) ([0575205](https://github.com/alejandrocuba/alejandrocuba-website/commit/057520512204989aba8d98e403ea41936f58f5df))
+
 ## [5.1.2](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.1...v5.1.2) (2026-08-28)
 
 
