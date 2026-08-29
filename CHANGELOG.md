@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.4](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.3...v5.1.4) (2026-08-29)
+
+
+### Bug Fixes
+
+* **metadata:** standardize frontend nomenclature ([#91](https://github.com/alejandrocuba/alejandrocuba-website/issues/91)) ([635813e](https://github.com/alejandrocuba/alejandrocuba-website/commit/635813ec1f0b444fd261eb7634a961272ecdaf41))
+
 ## [5.1.3](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.2...v5.1.3) (2026-08-29)
 
 
