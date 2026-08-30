@@ -38,15 +38,86 @@ export function formatDate(dateObj) {
   return { date: dateStr, dateFormatted };
 }
 
-export async function fetchXml(url) {
-  const response = await fetch(url, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (compatible; AlejandroCubaContentMiner/1.0)'
+const DEFAULT_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
+  'Accept': 'application/xml, text/xml, application/rss+xml, application/atom+xml, text/html;q=0.9, */*;q=0.8',
+  'Accept-Language': 'en-US,en;q=0.9,es;q=0.8'
+};
+
+const RETRYABLE_STATUS_CODES = new Set([408, 429, 500, 502, 503, 504]);
+
+export async function fetchWithRetry(url, options = {}) {
+  const {
+    retries = 3,
+    initialDelayMs = 1500,
+    backoffFactor = 2,
+    maxDelayMs = 10000,
+    jitterMs = 500,
+    timeoutMs = 15000,
+    headers = {},
+    ...fetchOpts
+  } = options;
+
+  const mergedHeaders = {
+    ...DEFAULT_HEADERS,
+    ...headers
+  };
+
+  let lastError;
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+      const response = await fetch(url, {
+        ...fetchOpts,
+        headers: mergedHeaders,
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+
+      if (response.ok) {
+        return response;
+      }
+
+      const isRetryable = RETRYABLE_STATUS_CODES.has(response.status) || response.status >= 500;
+      const statusText = response.statusText || 'Error';
+      const statusMsg = `HTTP ${response.status} ${statusText}`;
+
+      if (!isRetryable || attempt === retries) {
+        throw new Error(statusMsg);
+      }
+
+      lastError = new Error(statusMsg);
+    } catch (err) {
+      lastError = err;
+      const isAbort = err.name === 'AbortError';
+      const isNetwork = err.name === 'TypeError' || isAbort;
+
+      if (attempt === retries || (!isNetwork && !lastError.message?.startsWith('HTTP '))) {
+        throw new Error(`Failed to fetch ${url}: ${err.message}`);
+      }
     }
-  });
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+
+    const delay = Math.min(
+      initialDelayMs * Math.pow(backoffFactor, attempt) + Math.random() * jitterMs,
+      maxDelayMs
+    );
+
+    console.warn(
+      `[ContentMiner] Attempt ${attempt + 1}/${retries + 1} to fetch ${url} failed (${lastError.message}). Retrying in ${Math.round(delay)}ms...`
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, delay));
   }
+
+  throw new Error(`Failed to fetch ${url}: ${lastError.message}`);
+}
+
+export async function fetchXml(url, options = {}) {
+  const response = await fetchWithRetry(url, options);
   const xml = await response.text();
   const parser = new XMLParser({
     ignoreAttributes: false,

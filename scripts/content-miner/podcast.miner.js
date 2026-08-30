@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
-import { fetchXml, extractText, cleanHtmlEntities } from './utils.js';
+import { fetchXml, fetchWithRetry, extractText, cleanHtmlEntities } from './utils.js';
 
 const YOUTUBE_CHANNEL_ID = 'UCt-RapUjjh1cfbZJRrUgtEA';
 
@@ -62,14 +62,14 @@ export async function processPodcastEpisode({ rootDir, channelId = YOUTUBE_CHANN
     const maxResUrl = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
     const hqResUrl = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
-    let thumbRes = await fetch(maxResUrl);
-    if (!thumbRes.ok) {
-      thumbRes = await fetch(hqResUrl);
+    let thumbBuffer = null;
+    try {
+      const thumbRes = await fetchWithRetry(maxResUrl, { retries: 2 });
+      thumbBuffer = Buffer.from(await thumbRes.arrayBuffer());
+    } catch {
+      const thumbRes = await fetchWithRetry(hqResUrl, { retries: 3 });
+      thumbBuffer = Buffer.from(await thumbRes.arrayBuffer());
     }
-    if (!thumbRes.ok) {
-      throw new Error(`Failed to download YouTube thumbnail for ${videoId}`);
-    }
-    const thumbBuffer = Buffer.from(await thumbRes.arrayBuffer());
 
     await sharp(thumbBuffer)
       .resize(1280, 720, { fit: 'cover' })
