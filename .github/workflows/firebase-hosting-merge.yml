@@ -9,6 +9,7 @@ name: Deploy to Firebase Hosting on merge
   schedule:
     - cron: '0 0 1 1 *'
 permissions:
+  checks: write
   contents: read
   pull-requests: write
 
