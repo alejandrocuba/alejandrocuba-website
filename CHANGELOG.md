@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.5](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.4...v5.1.5) (2026-09-04)
+
+
+### Bug Fixes
+
+* update sitemap lastmod date and remove changefreq element ([#97](https://github.com/alejandrocuba/alejandrocuba-website/issues/97)) ([0240bd6](https://github.com/alejandrocuba/alejandrocuba-website/commit/0240bd6cac1ded115a03abc9cf85254dbf5078df))
+
 ## [5.1.4](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.3...v5.1.4) (2026-08-29)
 
 
