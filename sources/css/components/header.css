@@ -58,7 +58,7 @@
   height: 72px;
 }
 
-/* Hexagon Brand Logo */
+/* Brand Logo */
 .nav-logo {
   display: inline-flex;
   align-items: center;
@@ -74,8 +74,8 @@
 }
 
 .nav-logo-svg {
-  width: 32px;
-  height: 32px;
+  width: 27px;
+  height: 27px;
   display: block;
 }
 
