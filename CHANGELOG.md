@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.6](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.5...v5.1.6) (2026-09-13)
+
+
+### Bug Fixes
+
+* **ci:** restore default GITHUB_TOKEN authentication in release-please ([#102](https://github.com/alejandrocuba/alejandrocuba-website/issues/102)) ([3813190](https://github.com/alejandrocuba/alejandrocuba-website/commit/38131906298fd327100989e68bbc343a38c1df1c))
+
 ## [5.1.5](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.4...v5.1.5) (2026-09-04)
 
 
