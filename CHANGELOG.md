@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.7](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.6...v5.1.7) (2026-09-27)
+
+
+### Bug Fixes
+
+* **podcast:** update spotify and apple podcasts links ([#105](https://github.com/alejandrocuba/alejandrocuba-website/issues/105)) ([4073401](https://github.com/alejandrocuba/alejandrocuba-website/commit/4073401ba90917c47875b3a17b90880921b6ba47))
+
 ## [5.1.6](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.5...v5.1.6) (2026-09-13)
 
 
