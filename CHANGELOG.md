@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.0](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.7...v5.2.0) (2026-10-28)
+
+
+### Features
+
+* add DevFest Panamá 2026 speaking engagement to data source ([#109](https://github.com/alejandrocuba/alejandrocuba-website/issues/109)) ([8213d92](https://github.com/alejandrocuba/alejandrocuba-website/commit/8213d923919c3e493468efae829ea5ac06755a21))
+
 ## [5.1.7](https://github.com/alejandrocuba/alejandrocuba-website/compare/v5.1.6...v5.1.7) (2026-09-27)
 
 
